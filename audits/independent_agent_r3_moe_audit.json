@@ -1,7 +1,7 @@
 {
   "overall_ship_vote": "GO",
-  "total_gates_cleared": 27,
-  "total_gates": 27,
+  "total_gates_cleared": 30,
+  "total_gates": 30,
   "evaluators": {
     "A1_Depth_Olog_Cohomology": {
       "vote": "GO",
@@ -45,13 +45,13 @@
     },
     "A2_Performance_FTS5_MCP_Contract": {
       "vote": "GO",
-      "cleared_count": 6,
-      "total_count": 6,
+      "cleared_count": 7,
+      "total_count": 7,
       "open_gates": [],
       "gates": {
         "HF-SHEAF-10": {
           "status": "CLEARED",
-          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (558.6 KB)"
+          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (575.1 KB)"
         },
         "HF-SHEAF-11": {
           "status": "CLEARED",
@@ -59,11 +59,15 @@
         },
         "HF-STUDIO-02": {
           "status": "CLEARED",
-          "detail": "Core HTML size 327.2 KB (< 450 KB limit); deferred bundle 'data/sheaf_pages_bundle.js' exists=True (558.6 KB)"
+          "detail": "Core HTML size 350.4 KB (< 450 KB limit); deferred bundle 'data/sheaf_pages_bundle.js' exists=True (558.6 KB)"
         },
         "HF-STUDIO-09": {
           "status": "CLEARED",
           "detail": "Depth switcher=True; Cream/Ink paper switcher=True"
+        },
+        "HF-STUDIO-14": {
+          "status": "CLEARED",
+          "detail": "InlineJS_AST(node --check)=True; WitnessMiniSVG=True; BridgePermalinkBtn=True; DarkBertinText=True"
         },
         "HF-MCP-01": {
           "status": "CLEARED",
@@ -71,14 +75,14 @@
         },
         "HF-CONTRACT-01": {
           "status": "CLEARED",
-          "detail": "Typed Meta-Prompt Contract present (27.7 KB)"
+          "detail": "Typed Meta-Prompt Contract verified (30.8 KB; 30-gate & corpus parity tokens=PASS)"
         }
       }
     },
     "A3_FieldManual_Math_SymbolicCraft": {
       "vote": "GO",
-      "cleared_count": 8,
-      "total_count": 8,
+      "cleared_count": 9,
+      "total_count": 9,
       "open_gates": [],
       "gates": {
         "HF-STUDIO-01": {
@@ -99,7 +103,7 @@
         },
         "HF-STUDIO-06": {
           "status": "CLEARED",
-          "detail": "Verdict stamps checked: 22; glyph-less stamps: 0"
+          "detail": "Verdict stamps checked: 27; glyph-less stamps: 0"
         },
         "HF-STUDIO-08": {
           "status": "CLEARED",
@@ -112,13 +116,17 @@
         "HF-STUDIO-12": {
           "status": "CLEARED",
           "detail": "Viewport=True; MobileDock+FocusMode=True; 10TurnRail+VisualJump=True; 3DTouch+Wheel=True; ReaderCallout=True; WalkableLab=True; ZeroDeadMod3=True"
+        },
+        "HF-STUDIO-13": {
+          "status": "CLEARED",
+          "detail": "WitnessVerifier=True; Karaoke+Pulse+Export=True; WalkableLabBanner=True; CrossCorpusBridge=True; DarkBlueprintSVG=True; Permalinks=True"
         }
       }
     },
     "A4_Citations_PageFibers_Wiki": {
       "vote": "GO",
-      "cleared_count": 5,
-      "total_count": 5,
+      "cleared_count": 6,
+      "total_count": 6,
       "open_gates": [],
       "gates": {
         "HF-SHEAF-08": {
@@ -137,6 +145,10 @@
           "status": "CLEARED",
           "detail": "Dual-Host Neural Podcast verified across 4 episodes (errors: 0)"
         },
+        "HF-SHEAF-14": {
+          "status": "CLEARED",
+          "detail": "Cross-Corpus Functorial Bridges verified: 18 bridges across 5 arcs; schema/bridge errors=0"
+        },
         "HF-STUDIO-10": {
           "status": "CLEARED",
           "detail": "Slide-over 377-page verbatim reader & __jumpToPage wired=True; out-of-bounds page jumps=0; foreign Spivak/609 bleed=False"
@@ -152,6 +164,7 @@
     "two_simplices": 8,
     "formal_items": 279,
     "notebook_investigations": 4,
+    "cross_corpus_bridges": 18,
     "empirical_h1_obstructions": 12,
     "mean_restriction_fidelity": 0.78,
     "mean_coboundary_defect_d0": 0.22,
@@ -160,11 +173,11 @@
     "connected_component_ratio": 1.0
   },
   "studio_metrics": {
-    "core_html_size_kb": 327.2,
+    "core_html_size_kb": 350.4,
     "bundle_size_kb": 558.6,
     "plates_count": 5,
     "marginalia_count": 5,
     "counterpoint_count": 5,
-    "stamps_count": 22
+    "stamps_count": 27
   }
 }

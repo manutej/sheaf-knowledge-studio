@@ -77,10 +77,13 @@ def main():
     html_res = aud_mod.audit_html(args.html, args.kb)
     mcp_ok, mcp_detail = test_mcp_server(args.query_script)
 
-    contract_ok = args.contract_doc.exists() and args.contract_doc.stat().st_size > 8000
+    contract_txt = args.contract_doc.read_text(encoding="utf-8") if args.contract_doc.exists() else ""
+    req_contract_tokens = ["HF-SHEAF-14", "HF-STUDIO-13", "HF-STUDIO-14", "cross_corpus_bridges", "877", "291"]
+    missing_ctok = [t for t in req_contract_tokens if t not in contract_txt]
+    contract_ok = args.contract_doc.exists() and args.contract_doc.stat().st_size > 12000 and len(missing_ctok) == 0 and ("427 declarations" not in contract_txt)
     contract_detail = (
-        f"Typed Meta-Prompt Contract present ({args.contract_doc.stat().st_size / 1024:.1f} KB)"
-        if contract_ok else f"Missing or thin contract doc at {args.contract_doc}"
+        f"Typed Meta-Prompt Contract verified ({args.contract_doc.stat().st_size / 1024:.1f} KB; 30-gate & corpus parity tokens=PASS)"
+        if contract_ok else f"Contract parity failure at {args.contract_doc}: missing={missing_ctok}"
     )
 
     all_gates = {}
@@ -90,9 +93,9 @@ def main():
     all_gates["HF-CONTRACT-01"] = {"status": "CLEARED" if contract_ok else "OPEN", "detail": contract_detail}
 
     a1_ids = ["HF-SHEAF-01", "HF-SHEAF-02", "HF-SHEAF-03", "HF-SHEAF-04", "HF-SHEAF-05", "HF-SHEAF-06", "HF-SHEAF-07", "HF-STUDIO-07"]
-    a2_ids = ["HF-SHEAF-10", "HF-SHEAF-11", "HF-STUDIO-02", "HF-STUDIO-09", "HF-MCP-01", "HF-CONTRACT-01"]
-    a3_ids = ["HF-STUDIO-01", "HF-STUDIO-03", "HF-STUDIO-04", "HF-STUDIO-05", "HF-STUDIO-06", "HF-STUDIO-08", "HF-STUDIO-11", "HF-STUDIO-12"]
-    a4_ids = ["HF-SHEAF-08", "HF-SHEAF-09", "HF-SHEAF-12", "HF-SHEAF-13", "HF-STUDIO-10"]
+    a2_ids = ["HF-SHEAF-10", "HF-SHEAF-11", "HF-STUDIO-02", "HF-STUDIO-09", "HF-STUDIO-14", "HF-MCP-01", "HF-CONTRACT-01"]
+    a3_ids = ["HF-STUDIO-01", "HF-STUDIO-03", "HF-STUDIO-04", "HF-STUDIO-05", "HF-STUDIO-06", "HF-STUDIO-08", "HF-STUDIO-11", "HF-STUDIO-12", "HF-STUDIO-13"]
+    a4_ids = ["HF-SHEAF-08", "HF-SHEAF-09", "HF-SHEAF-12", "HF-SHEAF-13", "HF-SHEAF-14", "HF-STUDIO-10"]
 
     def lens_summary(ids):
         open_g = [i for i in ids if all_gates.get(i, {}).get("status") != "CLEARED"]

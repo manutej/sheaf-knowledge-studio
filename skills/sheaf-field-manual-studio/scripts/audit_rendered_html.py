@@ -3,7 +3,7 @@ r"""
 audit_rendered_html.py
 ======================
 Deterministic Adversarial Auditor for the CETI Field-Manual & Sheaf Notebook Studio HTML.
-Enforces binary HARD FAIL gates (HF-STUDIO-01 .. HF-STUDIO-10) covering:
+Enforces binary HARD FAIL gates (HF-STUDIO-01 .. HF-STUDIO-14) covering:
   - HF-STUDIO-01: CETI Field-Manual Palette & Typography Tokens (`#F5EFE3`, `#1A1612`, `#A67756`, Fraunces/DM Sans/JetBrains Mono)
   - HF-STUDIO-02: Fast-Load Split-Bundle Architecture (`< 450 KB` core HTML + `<script defer>` bundle)
   - HF-STUDIO-03: Zero Raw LaTeX Backslash Leakage across all rendered syntheses, stalk cores, and symbolic primitives
@@ -229,6 +229,53 @@ def audit_html(html_path: Path, kb_path: Path) -> dict:
         f"Viewport={has_viewport}; MobileDock+FocusMode={has_mobile_dock}; 10TurnRail+VisualJump={has_turn_rail}; 3DTouch+Wheel={has_3d_touch}; ReaderCallout={has_reader_callout}; WalkableLab={has_walkable_lab}; ZeroDeadMod3={has_no_dead_mod3}"
     )
 
+    # HF-STUDIO-13: Explorable Witness Verifier, Sub-Turn Karaoke, Walkable Lab Checklist, Cross-Corpus Bridge, Dark SVG & Permalinks
+    has_witness = 'id="commutativityWitnessTester"' in html and "window.__toggleWitnessBrokenArrow" in html and "window.__setWitnessInput" in html
+    has_karaoke = (
+        "renderKaraokeSubtitleHtml" in html
+        and "karaoke-word" in html
+        and "olog-pulse-active" in html
+        and 'id="podcastPrevTurnBtn"' in html
+        and 'id="podcastNextTurnBtn"' in html
+        and 'id="exportGluedNoteBtn"' in html
+    )
+    has_lab_banner = 'id="walkableLabActiveBanner"' in html and "walkable-lab-checkbox" in html and "window.__updateWalkableLabProgress" in html
+    has_bridge_widget = 'id="crossCorpusBridgeWidget"' in html and "window.__selectBridgeArc" in html
+    has_dark_svg = 'html[data-theme="dark"] .derived' in html and ("fill: #F4EFE6 !important" in html or "fill: #F3ECDF !important" in html)
+    has_permalinks = 'id="shareStateBtn"' in html and "window.__syncUrlState" in html and "window.__hydrateFromUrlParams" in html
+    gate(
+        "HF-STUDIO-13",
+        has_witness and has_karaoke and has_lab_banner and has_bridge_widget and has_dark_svg and has_permalinks,
+        f"WitnessVerifier={has_witness}; Karaoke+Pulse+Export={has_karaoke}; WalkableLabBanner={has_lab_banner}; CrossCorpusBridge={has_bridge_widget}; DarkBlueprintSVG={has_dark_svg}; Permalinks={has_permalinks}"
+    )
+
+
+    # HF-STUDIO-14: Inline JS AST Syntax (node --check), Live Witness Mini-SVG & Dark-Mode Blueprint SVG Contrast Gate
+    import subprocess
+    import tempfile
+    inline_scripts = re.findall(r"<script(?![^>]*type=[\x22\x27]application/json)(?![^>]*src=)[^>]*>([\s\S]*?)</script>", html)
+    js_syntax_ok = len(inline_scripts) > 0
+    js_err_msg = ""
+    for sc in inline_scripts:
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
+            tf.write(sc)
+            tf_name = tf.name
+        try:
+            proc = subprocess.run(["node", "--check", tf_name], capture_output=True, text=True, timeout=6)
+            if proc.returncode != 0:
+                js_syntax_ok = False
+                js_err_msg = (proc.stderr or "").strip().splitlines()[0] if proc.stderr else "SyntaxError"
+        finally:
+            Path(tf_name).unlink(missing_ok=True)
+    has_witness_svg = 'id="witnessMiniSvg"' in html and "renderWitnessMiniSvg" in html
+    has_bridge_permalink = 'id="copyBridgePermalinkBtn"' in html and "window.__copyBridgePermalink" in html
+    has_bertin_dark_text = 'html[data-theme="dark"] svg text[fill=' in html
+    gate(
+        "HF-STUDIO-14",
+        js_syntax_ok and has_witness_svg and has_bridge_permalink and has_bertin_dark_text,
+        f"InlineJS_AST(node --check)={js_syntax_ok}{(' ['+js_err_msg+']') if js_err_msg else ''}; WitnessMiniSVG={has_witness_svg}; BridgePermalinkBtn={has_bridge_permalink}; DarkBertinText={has_bertin_dark_text}"
+    )
+
     report["metrics"] = {
         "core_html_size_kb": round(size_kb, 1),
         "bundle_size_kb": round(bundle_kb, 1),
@@ -240,12 +287,74 @@ def audit_html(html_path: Path, kb_path: Path) -> dict:
     return report
 
 
+def run_html_negative_selftest(html_path: Path, kb_path: Path) -> bool:
+    import tempfile
+    orig_html = html_path.read_text(encoding="utf-8")
+    all_ok = True
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_html = Path(tmpdir) / "mutated.html"
+        # Copy bundle if needed
+        bundle_src = html_path.parent / "data" / "sheaf_pages_bundle.js"
+        if bundle_src.exists():
+            (Path(tmpdir) / "data").mkdir(parents=True, exist_ok=True)
+            (Path(tmpdir) / "data" / "sheaf_pages_bundle.js").write_text(bundle_src.read_text(encoding="utf-8"), encoding="utf-8")
+
+        # Test 1: Raw LaTeX leak in static HTML -> HF-STUDIO-03 OPEN
+        h1 = orig_html.replace("<h1", "<p>\\mathcal{O}(U)</p><h1", 1)
+        tmp_html.write_text(h1, encoding="utf-8")
+        c1 = audit_html(tmp_html, kb_path)["hard_fails"]["HF-STUDIO-03"]["status"] == "OPEN"
+
+        # Test 2: Oversized HTML > 450 KB -> HF-STUDIO-02 OPEN
+        h2 = orig_html + ("<!-- " + ("X" * 150000) + " -->")
+        tmp_html.write_text(h2, encoding="utf-8")
+        c2 = audit_html(tmp_html, kb_path)["hard_fails"]["HF-STUDIO-02"]["status"] == "OPEN"
+
+        # Test 3: Color-only stamp without glyph -> HF-STUDIO-06 OPEN
+        h3 = orig_html.replace('<span class="stamp ratified">', '<span class="stamp ratified">PlainColorOnly</span><span class="stamp ratified">', 1)
+        tmp_html.write_text(h3, encoding="utf-8")
+        c3 = audit_html(tmp_html, kb_path)["hard_fails"]["HF-STUDIO-06"]["status"] == "OPEN"
+
+        # Test 4: Out-of-bounds page jump -> HF-STUDIO-10 OPEN
+        h4 = orig_html.replace("window.__jumpToPage(", "window.__jumpToPage(99999, '') || window.__jumpToPage(", 1)
+        tmp_html.write_text(h4, encoding="utf-8")
+        c4 = audit_html(tmp_html, kb_path)["hard_fails"]["HF-STUDIO-10"]["status"] == "OPEN"
+
+        # Test 5: Missing Witness Verifier / Karaoke -> HF-STUDIO-13 OPEN
+        h5 = orig_html.replace('id="commutativityWitnessTester"', 'id="removedWitnessTester"')
+        tmp_html.write_text(h5, encoding="utf-8")
+        c5 = audit_html(tmp_html, kb_path)["hard_fails"]["HF-STUDIO-13"]["status"] == "OPEN"
+
+        # Test 6: Inline JS SyntaxError injection -> HF-STUDIO-14 OPEN
+        h6 = orig_html.replace("const KB = JSON.parse(", "const brokenQuote = 'unclosed'quote'; const KB = JSON.parse(", 1)
+        tmp_html.write_text(h6, encoding="utf-8")
+        c6 = audit_html(tmp_html, kb_path)["hard_fails"]["HF-STUDIO-14"]["status"] == "OPEN"
+
+        print("=== STUDIO HTML ADVERSARIAL NEGATIVE SELFTEST (6/6) ===")
+        for label, ok in [
+            ("Test 1 (Raw LaTeX leak in static HTML       -> HF-STUDIO-03 OPEN)", c1),
+            ("Test 2 (Oversized core HTML > 450 KB        -> HF-STUDIO-02 OPEN)", c2),
+            ("Test 3 (Glyph-less color-only verdict stamp -> HF-STUDIO-06 OPEN)", c3),
+            ("Test 4 (Out-of-bounds page jump p=99999     -> HF-STUDIO-10 OPEN)", c4),
+            ("Test 5 (Missing Witness Verifier / Karaoke  -> HF-STUDIO-13 OPEN)", c5),
+            ("Test 6 (Inline JS SyntaxError (node check)  -> HF-STUDIO-14 OPEN)", c6),
+        ]:
+            print(f"  [{'PASS' if ok else 'FAIL'}] {label}")
+            if not ok:
+                all_ok = False
+    return all_ok
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Audit Field-Manual Sheaf Studio HTML against HF-STUDIO-01..10")
+    parser = argparse.ArgumentParser(description="Audit Field-Manual Sheaf Studio HTML against HF-STUDIO-01..14")
     parser.add_argument("--html", type=Path, required=True, help="Path to compiled studio HTML")
     parser.add_argument("--kb", type=Path, required=True, help="Path to sheaf_kb.json")
     parser.add_argument("--out", type=Path, default=None, help="Optional JSON output path")
+    parser.add_argument("--selftest", action="store_true", help="Run 6 adversarial negative HTML self-tests")
     args = parser.parse_args()
+
+    if args.selftest:
+        if not run_html_negative_selftest(args.html, args.kb):
+            sys.exit(1)
 
     rep = audit_html(args.html, args.kb)
     if args.out:

@@ -1,7 +1,7 @@
 # CETI Alexandrov Sheaf Knowledge Base, 4-Act Neural Audio Notebook & Field-Manual Studio
 
-**Contract Version:** `CETI-SHEAF-PIPELINE-V6.0` ([`SPECIFICATION.md`](./SPECIFICATION.md) · [`contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md`](./contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md))  
-**Audit Status:** **GO (`◆ 27/27 Binary Gates Cleared Across All 3 Builds + 12/12 Negative Mutation Self-Tests PASS + 19-State VBM Desktop/Mobile Audit PASS`)**
+**Contract Version:** `CETI-SHEAF-PIPELINE-V9.0` ([`SPECIFICATION.md`](./SPECIFICATION.md) · [`contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md`](./contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md))  
+**Audit Status:** **GO (`◆ 30/30 Binary Gates Cleared Across All 3 Builds + 33/33 Negative Mutation Self-Tests PASS + 23-State High-DPI VBM Desktop/Mobile Audit PASS`)**
 
 This repository contains the complete, end-to-end **Alexandrov Sheaf Knowledge Pipeline**:
 - **Master Specification & Typed Contract:** [`SPECIFICATION.md`](./SPECIFICATION.md) and [`contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md`](./contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md) (`sheaf-schema-contract.json`).
@@ -20,11 +20,11 @@ This repository contains the complete, end-to-end **Alexandrov Sheaf Knowledge P
 ```text
 sheaf-knowledge-studio/
 ├── README.md                                  # Architecture, quickstart, CLI reference & directory map
-├── SPECIFICATION.md                           # Master V6.0 specification, 27 gates, 14 visual instruments
+├── SPECIFICATION.md                           # Master V9.0 specification, 30 gates, 14 visual instruments
 ├── HANDOFF.md                                 # Cold-resume guide & Round 7 engineering roadmap
 ├── STATUS.md                                  # 27/27 Binary Gate Ship Board & R1–R6 Lock-In Status
-├── Makefile                                   # One-command build, audio synthesis & 27-gate verification
-├── verify_all.sh                              # Automated 27-gate + 12/12 negative-mutation selftest suite
+├── Makefile                                   # One-command build, audio synthesis & 30-gate verification
+├── verify_all.sh                              # Automated 30-gate + 33/33 negative-mutation selftest suite
 ├── .gitignore                                 # Clean Python / OS ignore rules
 │
 ├── contracts/                                 # Formal Typed Specifications
@@ -64,7 +64,7 @@ sheaf-knowledge-studio/
 ├── skills/                                    # 3 Composable Antigravity Skills (Source + Packaged Archives)
 │   ├── sheaf-corpus-indexer/                  # Skill 1: Auto-Induced PDF Extraction, Cohomology, FTS5, Wiki & MCP
 │   ├── sheaf-field-manual-studio/             # Skill 2: CETI Field-Manual HTML Compiler, LaTeX & Neural Podcast TTS
-│   ├── sheaf-knowledge-pipeline/              # Skill 3: End-to-End Orchestrator & 26-Gate MOE Adversarial Auditor
+│   ├── sheaf-knowledge-pipeline/              # Skill 3: End-to-End Orchestrator & 30-Gate MOE Adversarial Auditor
 │   └── packages/                              # Installable .skill and .zip bundles
 │
 ├── portable-toolkit/                          # Drop-In 3-Tool Corpus Engineering Kit
@@ -91,7 +91,7 @@ Each folder under `studios/` is 100% self-contained (`< 440 KB` core HTML + defe
 - **Marinov Curated (377 pp.):** `open studios/marinov-category-theory-illustrated/index.html`
 - **Independent Zero-Shot Agent (377 pp.):** `open studios/independent-agent-zero-shot/index.html`
 
-### B. Run the Full 26-Gate Verification + Negative Mutation Self-Tests
+### B. Run the Full 30-Gate Verification + Negative Mutation Self-Tests
 ```bash
 ./verify_all.sh
 # or:
@@ -130,7 +130,7 @@ python3 skills/sheaf-field-manual-studio/scripts/compile_field_manual_studio.py 
   --out studios/my-new-book/index.html \
   --bundle corpora/my-new-book/data/sheaf_pages_bundle.js
 
-# 4. Run the 26-Gate MOE Audit & Contract Self-Test
+# 4. Run the 30-Gate MOE Audit & Contract Self-Test
 python3 skills/sheaf-knowledge-pipeline/scripts/run_sheaf_pipeline_audit.py \
   --kb corpora/my-new-book/data/sheaf_kb.json \
   --html studios/my-new-book/index.html \

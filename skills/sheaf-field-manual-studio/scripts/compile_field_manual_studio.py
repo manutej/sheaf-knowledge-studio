@@ -27,11 +27,14 @@ import math
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent
+if not (ROOT_DIR / "data" / "sheaf_kb.json").exists() and (ROOT_DIR.parents[3] / "cattheory-sheaf-kb" / "data" / "sheaf_kb.json").exists():
+    ROOT_DIR = ROOT_DIR.parents[3] / "cattheory-sheaf-kb"
 WORKSPACE_DIR = ROOT_DIR.parent
 KB_PATH = ROOT_DIR / "data" / "sheaf_kb.json"
 BUNDLE_PATH = ROOT_DIR / "data" / "sheaf_pages_bundle.js"
 
 OUT_MAIN = WORKSPACE_DIR / "Category Theory Sheaf Knowledge Base - Notebook Studio.html"
+OUT_MAIN_ALT = ROOT_DIR / "Category Theory for the Sciences - Sheaf Studio.html"
 OUT_LOCAL = ROOT_DIR / "index.html"
 OUT_ARTIFACT = Path("/Users/cairo/.gemini/antigravity/brain/109c7092-572c-4cbf-ac55-3677c5ef2652/sheaf_notebook_studio.html")
 
@@ -133,13 +136,210 @@ html[data-theme="dark"] {
   --ax-science: #96B08C;
   --ax-teaching: #DBA882;
 }
+html[data-theme="dark"] .derived {
+  background: #26201B;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+}
+html[data-theme="dark"] .derived .d-main {
+  color: var(--ink);
+}
+html[data-theme="dark"] .derived .d-main em {
+  color: #F0C478;
+}
+
 html[data-theme="dark"] .hero-figure svg,
 html[data-theme="dark"] #symDiagramSvgWrap svg,
 html[data-theme="dark"] #gluedOlogSvgWrap svg {
-  background: #F5EFE3;
+  background: #211C17;
+  color: #F3ECDF;
+  border: 1px solid var(--rule);
   border-radius: 3px;
   padding: 6px;
 }
+html[data-theme="dark"] .hero-figure svg text,
+html[data-theme="dark"] #symDiagramSvgWrap svg text,
+html[data-theme="dark"] #gluedOlogSvgWrap svg text {
+  fill: #F3ECDF !important;
+}
+html[data-theme="dark"] .hero-figure svg [fill="#F5EFE3"],
+html[data-theme="dark"] .hero-figure svg [fill="#F2E6DC"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [fill="#F5EFE3"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [fill="#F2E6DC"],
+html[data-theme="dark"] #gluedOlogSvgWrap svg [fill="#F5EFE3"] {
+  fill: #2D2620 !important;
+}
+html[data-theme="dark"] .hero-figure svg [stroke="#1A1612"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [stroke="#1A1612"],
+html[data-theme="dark"] #gluedOlogSvgWrap svg [stroke="#1A1612"],
+html[data-theme="dark"] #gluedOlogSvgWrap svg [stroke="#A67756"] {
+  stroke: #DBA882 !important;
+}
+html[data-theme="dark"] .hero-figure svg marker path,
+html[data-theme="dark"] #symDiagramSvgWrap svg marker path,
+html[data-theme="dark"] #gluedOlogSvgWrap svg marker path {
+  fill: #DBA882 !important;
+}
+/* ============================================================================
+ * ROUND 7 EXPERT PANEL UPGRADES: DARK BLUEPRINT SVG, KARAOKE, WITNESS & LABS
+ * ============================================================================ */
+.stamp.refine { color: var(--warn); background: rgba(166, 101, 27, 0.12); border-color: var(--warn); }
+.stamp.gate { color: var(--bad); background: rgba(166, 54, 38, 0.12); border-color: var(--bad); }
+
+@media (min-width: 1080px) {
+  body:has(.reader-drawer.open) {
+    padding-right: 460px;
+    transition: padding-right 0.22s ease;
+  }
+}
+
+.karaoke-word {
+  transition: background-color 0.12s ease, color 0.12s ease;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+.karaoke-word.is-spoken {
+  color: var(--ink);
+  background: color-mix(in oklab, var(--accent-soft) 55%, transparent);
+}
+.karaoke-word.is-active {
+  color: var(--paper);
+  background: var(--accent-text);
+  font-weight: 600;
+}
+.karaoke-sym {
+  font-family: var(--f-mono);
+  font-size: 0.78em;
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  color: var(--accent-text);
+}
+.karaoke-progress-track {
+  height: 3px;
+  width: 100%;
+  background: var(--rule-hair);
+  margin-top: 6px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.karaoke-progress-fill {
+  height: 100%;
+  background: var(--accent-text);
+  width: 0%;
+  transition: width 0.15s linear;
+}
+
+@keyframes ologPulseGlow {
+  0%, 100% { filter: drop-shadow(0 0 0px var(--accent-text)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 7px var(--accent-text)); transform: scale(1.02); }
+}
+.olog-node, .olog-edge { cursor: pointer; transition: opacity 0.15s ease; }
+.olog-node:hover rect, .olog-edge:hover { stroke-width: 2.5px !important; }
+.olog-pulse-active rect, .olog-pulse-active path, path.olog-pulse-active {
+  stroke: var(--accent-text) !important;
+  stroke-width: 2.8px !important;
+  animation: ologPulseGlow 1.1s ease-in-out infinite;
+}
+
+/* Round 8 Dark-Mode Blueprint SVG Node Fill, Stroke Luminance & Bertin Color Preservation (R8-VIZ-01..05) */
+html[data-theme="dark"] .hero-figure svg [stroke="#8C4A2E"],
+html[data-theme="dark"] .hero-figure svg [stroke="#A67756"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [stroke="#8C4A2E"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [stroke="#A67756"] { stroke: #DBA882 !important; }
+html[data-theme="dark"] .hero-figure svg [stroke="#3B6E8F"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [stroke="#3B6E8F"] { stroke: #7FB2D4 !important; }
+html[data-theme="dark"] .hero-figure svg [stroke="#3F5E39"],
+html[data-theme="dark"] #symDiagramSvgWrap svg [stroke="#3F5E39"] { stroke: #96B08C !important; }
+html[data-theme="dark"] svg text[fill="#8C4A2E"] { fill: #DBA882 !important; }
+html[data-theme="dark"] svg text[fill="#3B6E8F"] { fill: #8BC0EE !important; }
+html[data-theme="dark"] svg text[fill="#3F5E39"] { fill: #96B08C !important; }
+@media (min-width: 1080px) and (max-width: 1520px) {
+  body:has(.reader-drawer.open) .frontispiece-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+html[data-theme="dark"] svg marker#ma1 path { fill: #E6E0D6 !important; }
+    .witness-tester-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 10px; align-items: center; }
+    @media (max-width: 760px) { .witness-tester-grid { grid-template-columns: 1fr; } }
+    .witness-tester-bar {
+  background: var(--paper-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent-text);
+  padding: 0.8rem 1rem;
+  margin: 0.85rem 0;
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 rgba(23,24,28,0.06);
+}
+.witness-pill {
+  font-family: var(--f-mono);
+  font-size: 0.71rem;
+  padding: 4px 10px;
+  min-height: 30px;
+  border: 1px solid var(--rule);
+  background: var(--paper-soft);
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.witness-pill.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  font-weight: 600;
+}
+
+.walkable-lab-banner {
+  background: var(--paper);
+  border: 2px solid var(--accent-text);
+  padding: 0.9rem 1.05rem;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+  box-shadow: 3px 3px 0 rgba(43, 91, 132, 0.12);
+}
+.walkable-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--paper-soft);
+  border: 1px solid var(--rule-hair);
+  margin-top: 5px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.walkable-step-item input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--good);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.cross-corpus-widget {
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 2px;
+}
+.bridge-arc-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0.55rem 0 0.8rem;
+}
+.bridge-pair-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+@media (max-width: 820px) {
+  .bridge-pair-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -1541,6 +1741,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <button class="ctrl-btn" data-set-theme="light" aria-pressed="true">Cream</button>
         <button class="ctrl-btn" data-set-theme="dark" aria-pressed="false">Ink</button>
       </div>
+      <button type="button" class="drawer-toggle-btn" id="shareStateBtn" title="Copy deep-link permalink to current plate, stalk, and page">🔗 Share State</button>
       <button class="drawer-toggle-btn" id="openReaderBtn" title="Open 609-Page Verbatim Book Reader">
         📖 Page Reader (p.520)
       </button>
@@ -1784,6 +1985,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
               <div class="query-bar">
                 <input type="text" class="query-input" id="notebookQueryInput" placeholder="Ask across the active open cover (e.g., How do Π and Σ migrate data?)…">
                 <button class="btn-copper" id="runGlueQueryBtn">Glue Section ↵</button>
+                <button type="button" class="preset-btn" id="exportGluedNoteBtn" onclick="window.__exportGluedStudySheet()" title="Export active glued section and cohomology audit as Markdown">📥 Export Study Sheet (.md)</button>
               </div>
 
               <div class="inv-pills" id="invPillsContainer"></div>
@@ -1812,7 +2014,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
                 </div>
 
                 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <button type="button" class="preset-btn" id="podcastPrevTurnBtn" onclick="window.__stepPodcastTurn(-1)" title="Previous Turn">◀ Prev</button>
                   <button class="btn-copper" id="podcastPlayPauseBtn" style="padding:6px 14px;font-size:0.78rem;min-width:135px">▶ Play Deep Dive</button>
+                  <button type="button" class="preset-btn" id="podcastNextTurnBtn" onclick="window.__stepPodcastTurn(1)" title="Next Turn">Next ▶</button>
                   <span class="mono" id="podcastTimeLabel" style="min-width:78px;color:var(--ink-2);font-weight:600">0:00 / 2:55</span>
                   <input type="range" id="podcastScrubSlider" min="0" max="100" step="0.1" value="0" style="flex:1;min-width:120px;accent-color:var(--accent-text);cursor:pointer">
                   <div id="podcastWaveform" style="display:flex;align-items:flex-end;gap:2px;height:22px;padding:0 4px" aria-hidden="true">
@@ -1883,6 +2087,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
                   <span class="stamp ratified" id="ologSummaryBadge">◆ Commutes</span>
                 </div>
                 <div id="gluedOlogSvgWrap" style="background:var(--paper-soft);border:1px solid var(--rule);padding:0.75rem;overflow-x:auto"></div>
+                <div id="ologPathInspector" class="mono" style="margin-top:6px;padding:6px 10px;background:var(--paper);border:1px solid var(--rule-hair);font-size:0.74rem;color:var(--ink-2)">🧭 Click any Olog object box or morphism arrow above to inspect its local stalk fiber and commuting equation.</div>
               </div>
             </div>
           </div>
@@ -1934,6 +2139,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
             <span class="stamp accept" id="symSpivakRef">✓ Spivak §2.1.2 · p.74</span>
           </div>
 
+          <div id="walkableLabActiveBanner" class="walkable-lab-banner" style="display:none" role="region" aria-label="Active Walkable Lab Checklist"></div>
+
           <div class="sym-selector" role="tablist" id="symSelector">
             <button class="sym-btn" role="tab" aria-selected="true" data-sym="comp">
               <span class="s-glyph">g &#8728; f = h</span>
@@ -1973,6 +2180,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
             <div>
               <div class="mono" style="color:var(--ink-3);text-transform:uppercase;font-size:0.69rem">Click any symbolic token to highlight its geometric role:</div>
               <div class="token-strip" id="symTokenStrip"></div>
+              <div style="display:flex;align-items:center;gap:8px;margin:0 0 6px"><span class="mono" style="font-size:0.66rem;color:var(--ink-3)">Scrub Token:</span><input type="range" id="symTokenScrubber" min="0" max="4" step="1" value="0" aria-label="Scrub Symbolic Token" oninput="window.__scrubSymbolicToken(this.value)" style="flex:1;accent-color:var(--accent-text);cursor:pointer"></div>
               <div id="symDiagramSvgWrap" style="background:var(--paper-soft);border:1px solid var(--rule);padding:0.75rem;min-height:250px;display:flex;align-items:center;justify-content:center"></div>
             </div>
 
@@ -1990,6 +2198,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
               </div>
             </div>
           </div>
+
+          <div id="commutativityWitnessTester" class="witness-tester-bar" role="region" aria-label="Live Finite-Set Commutativity Witness Verifier"></div>
 
           <div class="derived" id="symDerived">
             <div class="d-main" id="symDerivedText"></div>
@@ -2199,6 +2409,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
               </tbody>
             </table>
           </div>
+
+          <div id="crossCorpusBridgeWidget" class="cross-corpus-widget" role="region" aria-label="Interactive Cross-Corpus Functorial Bridge"></div>
 
           <!-- 7 Interactive Course Modules -->
           <div class="course-grid" id="courseModulesGrid"></div>
@@ -3006,19 +3218,19 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       const my = (p1.y + p2.y) / 2 - ((idx % 2 === 0) ? 15 : -15);
       const shortLbl = e.lbl.length > 26 ? e.lbl.slice(0, 24) + '…' : e.lbl;
       svg += `
-        <path d="M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}"
-              fill="none" stroke="#A67756" stroke-width="1.4" marker-end="url(#olog-arr)"/>
+        <path class="olog-edge" data-edge-idx="${idx}" onclick="window.__inspectOlogEdge(${idx})" d="M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}"
+              fill="none" stroke="#A67756" stroke-width="1.6" marker-end="url(#olog-arr)"/>
         <text x="${mx.toFixed(1)}" y="${(my - 3).toFixed(1)}" text-anchor="middle"
               font-family="JetBrains Mono, monospace" font-size="9.5" fill="#6B5F53">${escapeHtml(shortLbl)}</text>
       `;
     });
 
-    shownNodes.forEach(n => {
+    shownNodes.forEach((n, idx) => {
       const p = pos[n.key];
       const lbl = n.label.length > 23 ? n.label.slice(0, 21) + '…' : n.label;
       const w = Math.max(96, lbl.length * 6.3 + 16);
       svg += `
-        <g transform="translate(${(p.x - w/2).toFixed(1)}, ${(p.y - 14).toFixed(1)})">
+        <g class="olog-node" data-node-idx="${idx}" onclick="window.__inspectOlogNode(${idx})" transform="translate(${(p.x - w/2).toFixed(1)}, ${(p.y - 14).toFixed(1)})">
           <rect width="${w}" height="28" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.3"/>
           <text x="${w/2}" y="18" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" font-weight="600" fill="#1A1612">${escapeHtml(lbl)}</text>
         </g>
@@ -3027,6 +3239,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
     svg += `</svg>`;
     wrap.innerHTML = svg;
+    window.__currentOlogGraph = { nodes: shownNodes, edges: shownEdges };
   }
 
   const SHORT_INV_LABELS = {
@@ -4211,6 +4424,11 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         `;
       }).join('');
     }
+    if (currentTurns.length && window.__syncPodcastAtTime) {
+      const t0 = currentTurns[0];
+      const s0 = (Number(t0.start_sec) || 0) + 0.45 * Math.max(4, (Number(t0.end_sec) || 16) - (Number(t0.start_sec) || 0));
+      window.__syncPodcastAtTime(s0);
+    }
   };
 
   window.__selectPodcastTurn = function(idx) {
@@ -4251,20 +4469,6 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   });
 
   if (audioEl) {
-    audioEl.addEventListener('timeupdate', () => {
-      const cur = audioEl.currentTime || 0;
-      const tot = audioEl.duration || (state.currentInvestigation && state.currentInvestigation.audio_duration_sec) || 175;
-      if (timeLabel) timeLabel.textContent = `${fmtSec(cur)} / ${fmtSec(tot)}`;
-      if (scrubSlider && tot > 0) scrubSlider.value = ((cur / tot) * 100).toFixed(1);
-
-      for (let i = 0; i < currentTurns.length; i++) {
-        const t = currentTurns[i];
-        if (cur >= (t.start_sec || 0) && cur <= (t.end_sec || 9999)) {
-          syncActiveTurnUi(t, i);
-          break;
-        }
-      }
-    });
     audioEl.addEventListener('ended', () => updateButtonsState(false));
     audioEl.addEventListener('pause', () => updateButtonsState(false));
     audioEl.addEventListener('play', () => updateButtonsState(true));
@@ -4387,7 +4591,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     state.openCover.add(stalkId);
     state.focusedStalkId = stalkId;
     updateCoverAndOlog();
-    document.getElementById('plate-2').scrollIntoView({ behavior: 'smooth' });
+    window.__focusPlate('plate-2', document.documentElement.getAttribute('data-view-mode') === 'focus');
   };
 
   // Initialize Studio
@@ -4395,6 +4599,626 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   displayInvestigation(firstInv);
   updateCoverAndOlog();
   renderPageReader(state.currentPage, state.highlightTerm);
+  // ==========================================================================
+  // ROUND 8 UPGRADES: LIVE WITNESS MINI-SVG, MATH-AWARE KARAOKE, 2-HOP OLOG
+  // PATH INSPECTOR, WALKABLE LAB AUTO-CHECK, BRIDGE PERMALINKS & KEYBOARD
+  // ==========================================================================
+  let currentSymKey = 'comp';
+  window.__scrubSymbolicToken = function(val) {
+    const p = SYMBOLIC_PRIMITIVES[currentSymKey] || SYMBOLIC_PRIMITIVES.comp;
+    const idx = Math.max(0, Math.min((p.tokens || []).length - 1, Number(val) || 0));
+    renderSymbolicSandbox(currentSymKey, idx);
+  };
+
+  const witnessState = { inputIdx: 0, brokenArrow: false, symKey: 'comp' };
+  const SPIVAK_WITNESS_TRACES = {
+    comp: { inputs: ['Alice ∈ Emp', 'Bob ∈ Emp', 'Carol ∈ Emp'], fOut: ['f(Alice)=Dept_Eng', 'f(Bob)=Dept_Math', 'f(Carol)=Dept_Eng'], gOut: ['(g∘f)(Alice)=Bldg_4 == h(Alice)', '(g∘f)(Bob)=Bldg_9 == h(Bob)', '(g∘f)(Carol)=Bldg_4 == h(Carol)'], brokenOut: ['h′(Alice)=Bldg_9 ≠ Bldg_4', 'h′(Bob)=Bldg_4 ≠ Bldg_9', 'h′(Carol)=Bldg_9 ≠ Bldg_4'], page: 47 },
+    prod: { inputs: ['a₁ ∈ A', 'a₂ ∈ A', 'a₃ ∈ A'], fOut: ['⟨f,g⟩(a₁) = (x₁,y₁)', '⟨f,g⟩(a₂) = (x₂,y₁)', '⟨f,g⟩(a₃) = (x₂,y₂)'], gOut: ['π₁⟨f,g⟩(a₁)=x₁, π₂⟨f,g⟩(a₁)=y₁', 'π₁⟨f,g⟩(a₂)=x₂, π₂⟨f,g⟩(a₂)=y₁', 'π₁⟨f,g⟩(a₃)=x₂, π₂⟨f,g⟩(a₃)=y₂'], brokenOut: ['π₁(u′(a₁)) ≠ f(a₁) (Cone Fails)', 'π₂(u′(a₂)) ≠ g(a₂)', 'π₁(u′(a₃)) ≠ f(a₃)'], page: 74 },
+    coprod: { inputs: ['ι₁(x₁) ∈ X⊔Y', 'ι₂(y₁) ∈ X⊔Y', 'ι₁(x₂) ∈ X⊔Y'], fOut: ['tag=(1, x₁)', 'tag=(2, y₁)', 'tag=(1, x₂)'], gOut: ['[f,g](ι₁ x₁) = f(x₁) ∈ Z', '[f,g](ι₂ y₁) = g(y₁) ∈ Z', '[f,g](ι₁ x₂) = f(x₂) ∈ Z'], brokenOut: ['[f,g]′(ι₁ x₁) ≠ f(x₁)', '[f,g]′(ι₂ y₁) ≠ g(y₁)', 'Cocone Commutativity Fails'], page: 82 },
+    pullback: { inputs: ['(x₁,y₁) over z₁', '(x₂,y₂) over z₂', '(x₁,y₂) mismatch'], fOut: ['f(x₁)=z₁, g(y₁)=z₁', 'f(x₂)=z₂, g(y₂)=z₂', 'f(x₁)=z₁, g(y₂)=z₂'], gOut: ['f(x₁)==g(y₁) ∈ X×_Z Y', 'f(x₂)==g(y₂) ∈ X×_Z Y', 'Filtered out by fiber product'], brokenOut: ['f′(p₁(w)) ≠ g(p₂(w)) (Join Broken)', 'Foreign Key Violation in Z', 'Square Fails to Commute'], page: 90 },
+    pushout: { inputs: ['w₁ ∈ W', 'w₂ ∈ W', 'x_free ∈ X'], fOut: ['f(w₁)=x₂, g(w₁)=y₁', 'f(w₂)=x₃, g(w₂)=y₂', 'ι₁(x_free)'], gOut: ['[x₂] ≡ [y₁] glued in X⊔_W Y', '[x₃] ≡ [y₂] glued in X⊔_W Y', 'Preserved in quotient'], brokenOut: ['ι₁(f(w₁)) ≠ ι₂(g(w₁)) (Seam Torn!)', 'Equivalence Quotient Broken', 'Pushout Square Fails'], page: 98 },
+    nat: { inputs: ['e₁ ∈ F(Emp)', 'e₂ ∈ F(Emp)', 'd₁ ∈ F(Dept)'], fOut: ['α_Emp(e₁) ↦ G(f)(α_Emp(e₁))', 'α_Emp(e₂) ↦ G(f)(α_Emp(e₂))', 'α_Dept(d₁)'], gOut: ['G(f)(α_c(e₁)) == α_c′(F(f)(e₁))', 'G(f)(α_c(e₂)) == α_c′(F(f)(e₂))', 'Naturality Square Commutes'], brokenOut: ['G(f)(α′_c(e₁)) ≠ α′_c′(F(f)(e₁))', 'Orphaned Foreign Key on Migration', 'Naturality Square Broken'], page: 295 },
+    adj: { inputs: ['ϕ : L(c) → d', 'ψ : c → R(d)', 'id_{L(c)}'], fOut: ['R(ϕ) ∘ η_c : c → R(d)', 'ε_d ∘ L(ψ) : L(c) → d', 'η_c : c → R(L(c))'], gOut: ['ε_{L(c)} ∘ L(η_c) = id_{L(c)}', 'R(ε_d) ∘ η_{R(d)} = id_{R(d)}', 'Hom(Lc,d) ≅ Hom(c,Rd)'], brokenOut: ['ε′ ∘ L(η) ≠ id (Zig-Zag Fails!)', 'Adjoint Bijection Broken', 'Migration Loses Universal Unit'], page: 467 },
+    sheaf: { inputs: ['(s_U, s_V) on U,V', '(t_U, t_V) on U,V', 's_global ∈ O(U∪V)'], fOut: ['ρ_{U,U∩V}(s_U) = s|_{U∩V}', 'ρ_{V,U∩V}(t_V) = t|_{U∩V}', 'Restrictions to U and V'], gOut: ['s_U|_{U∩V} == s_V|_{U∩V} ⇒ Glues!', 't_U|_{U∩V} == t_V|_{U∩V} ⇒ Glues!', 'Unique Global Section s ∈ O(U∪V)'], brokenOut: ['ρ(s_U) ≠ ρ(s_V) on U∩V (H¹ ≠ 0!)', 'Coboundary Defect δ⁰ > 0', 'Equalizer Gluing Fails'], page: 520 }
+  };
+
+  function renderWitnessMiniSvg(tr, i, isBroken) {
+    const strokeCol = isBroken ? 'var(--bad)' : 'var(--good)';
+    const dashAttr = isBroken ? 'stroke-dasharray="5,3"' : '';
+    const verdictLbl = isBroken ? '⊘ h′(x) ≠ (g∘f)(x) (δ¹ ≠ 0)' : '✓ (g∘f)(x) = h(x) (δ⁰ = 0)';
+    return `<svg id="witnessMiniSvg" viewBox="0 0 380 88" width="100%" style="max-width:410px;height:80px;background:var(--paper);border:1px solid var(--rule-hair);border-radius:3px">
+      <defs>
+        <marker id="witArrGood" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 7 4 L 0 7 z" fill="var(--good)"/></marker>
+        <marker id="witArrState" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 7 4 L 0 7 z" fill="${strokeCol}"/></marker>
+      </defs>
+      <circle cx="46" cy="42" r="14" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/>
+      <text x="46" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="600">X</text>
+      <circle cx="188" cy="17" r="13" fill="var(--surface)" stroke="var(--good)" stroke-width="1.5"/>
+      <text x="188" y="21" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="600">Y</text>
+      <circle cx="332" cy="42" r="14" fill="var(--surface)" stroke="${strokeCol}" stroke-width="1.8"/>
+      <text x="332" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="600">${isBroken ? 'Z′' : 'Z'}</text>
+      <line x1="60" y1="36" x2="173" y2="19" stroke="var(--good)" stroke-width="1.8" marker-end="url(#witArrGood)"/>
+      <text x="114" y="22" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="600" fill="var(--good)">f</text>
+      <line x1="203" y1="19" x2="316" y2="36" stroke="var(--good)" stroke-width="1.8" marker-end="url(#witArrGood)"/>
+      <text x="264" y="22" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="600" fill="var(--good)">g</text>
+      <path d="M 60 47 Q 190 66 315 47" fill="none" stroke="${strokeCol}" stroke-width="2.1" ${dashAttr} marker-end="url(#witArrState)"/>
+      <text x="190" y="82" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="600" fill="${strokeCol}">${verdictLbl}</text>
+    </svg>`;
+  }
+
+  function renderWitnessTester(symKey) {
+    if (symKey) witnessState.symKey = symKey;
+    const box = document.getElementById('commutativityWitnessTester');
+    if (!box) return;
+    const tr = SPIVAK_WITNESS_TRACES[witnessState.symKey] || SPIVAK_WITNESS_TRACES.comp;
+    const i = witnessState.inputIdx % tr.inputs.length;
+    const isBroken = witnessState.brokenArrow;
+    const stampCls = isBroken ? 'stamp gate' : 'stamp accept';
+    const stampTxt = isBroken ? '⊘ OBSTRUCTION: Diagram Fails to Commute (δ¹ ≠ 0)' : '✓ COMMUTES: Universal Diagram Verified';
+    const outTxt = isBroken ? tr.brokenOut[i] : tr.gOut[i];
+
+    box.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+        <div class="mono" style="font-size:0.71rem;font-weight:600;color:var(--accent-text);text-transform:uppercase">
+          🔬 Live Commutativity &amp; Witness Evaluator · Test Concrete Olog Instances
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <span class="${stampCls}" id="witnessVerdictStamp" style="text-transform:none">${stampTxt}</span>
+          <button type="button" class="preset-btn" id="toggleBrokenArrowBtn" style="border-color:${isBroken ? 'var(--bad)' : 'var(--good)'};color:${isBroken ? 'var(--bad)' : 'var(--good)'};font-weight:600" onclick="window.__toggleWitnessBrokenArrow()">
+            ${isBroken ? '↺ Restore Valid Arrow (g∘f = h)' : '⚡ Mutate Arrow f′(x) (Test Obstruction)'}
+          </button>
+        </div>
+      </div>
+      <div class="witness-tester-grid">
+        <div>
+          <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+            <span class="mono" style="font-size:0.68rem;color:var(--ink-3)">Pick Witness x ∈ X:</span>
+            ${tr.inputs.map((inp, idx) => `
+              <button type="button" class="witness-pill ${idx === i ? 'active' : ''}" onclick="window.__setWitnessInput(${idx})">${escapeHtml(inp)}</button>
+            `).join('')}
+          </div>
+          <div class="mono" style="font-size:0.74rem;padding:5px 8px;background:var(--paper);border:1px solid var(--rule)">
+            <strong>Trace:</strong> ${escapeHtml(tr.inputs[i])} &rarr; ${escapeHtml(tr.fOut[i])} &rarr; <strong style="color:${isBroken ? 'var(--bad)' : 'var(--good)'}">${escapeHtml(outTxt)}</strong>
+            <button class="cite-pill" style="margin-left:6px" onclick="window.__jumpToPage(${Math.min(maxCorpusPages, tr.page)}, '')">§ p.${Math.min(maxCorpusPages, tr.page)}</button>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end">${renderWitnessMiniSvg(tr, i, isBroken)}</div>
+      </div>
+    `;
+    const symWrap = document.getElementById('symDiagramSvgWrap');
+    if (symWrap) {
+      symWrap.style.outline = isBroken ? '2px dashed var(--bad)' : 'none';
+    }
+  }
+
+  window.__setWitnessInput = function(idx) {
+    witnessState.inputIdx = Number(idx) || 0;
+    renderWitnessTester();
+  };
+  window.__toggleWitnessBrokenArrow = function() {
+    witnessState.brokenArrow = !witnessState.brokenArrow;
+    renderWitnessTester();
+  };
+  document.querySelectorAll('#symSelector .sym-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentSymKey = btn.getAttribute('data-sym') || 'comp';
+      const p = SYMBOLIC_PRIMITIVES[currentSymKey] || SYMBOLIC_PRIMITIVES.comp;
+      const scr = document.getElementById('symTokenScrubber');
+      if (scr) { scr.max = String(Math.max(1, (p.tokens || []).length - 1)); scr.value = '0'; }
+      renderWitnessTester(currentSymKey);
+    });
+  });
+  renderWitnessTester('comp');
+
+  window.__inspectOlogNode = function(idx) {
+    const g = window.__currentOlogGraph;
+    const el = document.getElementById('ologPathInspector');
+    if (!g || !el || !g.nodes[idx]) return;
+    const n = g.nodes[idx];
+    const wrap = document.getElementById('gluedOlogSvgWrap');
+    if (wrap) {
+      wrap.querySelectorAll('.olog-node').forEach((nd, i) => nd.classList.toggle('olog-pulse-active', i === idx));
+    }
+    const outEdges = g.edges.filter(e => e.src === n.key);
+    const hop1 = outEdges.map(e => `${n.label} →(${e.lbl})→ ${e.tgt.split(':')[1] || e.tgt}`);
+    const hop2 = [];
+    outEdges.forEach(e1 => {
+      g.edges.filter(e2 => e2.src === e1.tgt).forEach(e2 => {
+        hop2.push(`(${e2.lbl} ∘ ${e1.lbl}) : ${n.label} → ${e2.tgt.split(':')[1] || e2.tgt}`);
+      });
+    });
+    el.innerHTML = `◆ <strong>Olog Object [${escapeHtml(n.key)}]:</strong> "${escapeHtml(n.label)}" · 1-Hop: ${hop1.length ? escapeHtml(hop1.join(' ; ')) : 'Terminal Sink'}${hop2.length ? ` · <strong>2-Hop Composite:</strong> <code>${escapeHtml(hop2[0])}</code> <span class="stamp accept" style="margin-left:4px">✓ Path Commutes</span>` : ''}`;
+  };
+  window.__inspectOlogEdge = function(idx) {
+    const g = window.__currentOlogGraph;
+    const el = document.getElementById('ologPathInspector');
+    if (!g || !el || !g.edges[idx]) return;
+    const e = g.edges[idx];
+    const wrap = document.getElementById('gluedOlogSvgWrap');
+    if (wrap) {
+      wrap.querySelectorAll('.olog-edge').forEach((ed, i) => ed.classList.toggle('olog-pulse-active', i === idx));
+    }
+    const nextEdges = g.edges.filter(e2 => e2.src === e.tgt);
+    const compStr = nextEdges.length ? ` · Composes with <code>${escapeHtml(nextEdges[0].lbl)}</code> &rArr; <code>(${escapeHtml(nextEdges[0].lbl)} ∘ ${escapeHtml(e.lbl)})</code>` : '';
+    el.innerHTML = `🧭 <strong>Commuting Aspect Morphism:</strong> <code>${escapeHtml(e.src)}</code> &rarr;<sup>${escapeHtml(e.lbl)}</sup> <code>${escapeHtml(e.tgt)}</code>${compStr} <span class="stamp accept" style="margin-left:4px">✓ Verified</span>`;
+  };
+
+  // Sub-Turn Math-Aware Karaoke Word/Symbol Highlighter + Live SVG Pulse + SimTimer Fallback
+  let activeTurnIdx = 0;
+  let simTimer = null;
+  let simSec = 7;
+
+  function tokenizeKaraokeUnits(rawText) {
+    const pattern = /(\$[^\$]+\$|\[p\.\s*\d+[^\]]*\]|\b[A-Za-z0-9_]+\s*(?:→|↔|↦|∘|×|⊔|∩|∪|⇒|⊣|⊢|≅|≃|≤|≥)\s*[A-Za-z0-9_]+\b|\bp\.\s*\d+\b|\S+)/g;
+    return String(rawText || '').match(pattern) || [];
+  }
+
+  function renderKaraokeSubtitleHtml(turn, curSec, turnIdx, totalTurns) {
+    if (!turn) return '';
+    const isKore = turn.speaker !== 'Puck';
+    const col = isKore ? 'var(--accent-text)' : 'var(--good)';
+    const start = Number(turn.start_sec) || 0;
+    const end = Math.max(start + 1, Number(turn.end_sec) || (start + 16));
+    const prog = Math.max(0.08, Math.min(1, (curSec - start) / (end - start)));
+    const words = tokenizeKaraokeUnits(turn.text || '');
+    const activeWordIdx = Math.min(words.length - 1, Math.floor(prog * words.length));
+    const wordsHtml = words.map((w, wIdx) => {
+      const cls = wIdx < activeWordIdx ? 'karaoke-word is-spoken' : (wIdx === activeWordIdx ? 'karaoke-word is-active' : 'karaoke-word');
+      if (w.startsWith('$') && w.endsWith('$') && w.length > 2) {
+        return `<span class="${cls} karaoke-sym">${renderMathChip(w.slice(1, -1), false)}</span>`;
+      }
+      const pMatch = w.match(/^\[p\.\s*(\d+)([^\]]*)\]$/);
+      if (pMatch) {
+        return `<button type="button" class="cite-pill ${cls} karaoke-sym" onclick="window.__jumpToPage(${pMatch[1]}, '')">§ p.${pMatch[1]}</button>`;
+      }
+      const isSym = /[∘×⊔⇒⊣⊢∀∃α-ωΑ-Ω∈∉⊆∪∩≅≃→↔↦]|H⁰|H¹|β₀|δ⁰|δ¹|p\.\s*\d+|\b(?:Olog|Functor|Monad|Sheaf|Pullback|Pushout|Yoneda|Kleisli|Birkhoff|Heyting)\b/i.test(w);
+      return `<span class="${cls}${isSym ? ' karaoke-sym' : ''}">${escapeHtml(w)}</span>`;
+    }).join(' ');
+    return `
+      <div>
+        <span class="mono" style="color:${col};font-weight:600">${isKore ? '🎙️' : '🎧'} [Turn ${turnIdx + 1}/${totalTurns}] ${escapeHtml(turn.speaker)} · ${escapeHtml(turn.role || 'Host')}:</span>
+        ${wordsHtml}
+        <button class="cite-pill" style="margin-left:6px" onclick="window.__jumpToPage(${turn.cite_page || 1}, '')">§ p.${turn.cite_page || 1}</button>
+      </div>
+      <div class="karaoke-progress-track"><div class="karaoke-progress-fill" style="width:${Math.round(prog * 100)}%"></div></div>
+    `;
+  }
+
+  function pulseActiveDiagramForTurn(turnIdx) {
+    const wrap = document.getElementById('gluedOlogSvgWrap');
+    if (!wrap) return;
+    const nodes = wrap.querySelectorAll('.olog-node');
+    const edges = wrap.querySelectorAll('.olog-edge');
+    nodes.forEach((n, idx) => n.classList.toggle('olog-pulse-active', idx === (turnIdx % Math.max(1, nodes.length))));
+    edges.forEach((e, idx) => e.classList.toggle('olog-pulse-active', idx === (turnIdx % Math.max(1, edges.length))));
+    if (window.__currentOlogGraph && window.__currentOlogGraph.nodes.length) {
+      window.__inspectOlogNode(turnIdx % window.__currentOlogGraph.nodes.length);
+    }
+  }
+
+  window.__syncPodcastAtTime = function(curSec) {
+    const tot = (audioEl && audioEl.duration) || (state.currentInvestigation && state.currentInvestigation.audio_duration_sec) || 175;
+    if (timeLabel) timeLabel.textContent = `${fmtSec(curSec)} / ${fmtSec(tot)}`;
+    if (scrubSlider && tot > 0) scrubSlider.value = ((curSec / tot) * 100).toFixed(1);
+    for (let i = 0; i < currentTurns.length; i++) {
+      const t = currentTurns[i];
+      if (curSec >= (t.start_sec || 0) && curSec <= (t.end_sec || 9999)) {
+        activeTurnIdx = i;
+        syncActiveTurnUi(t, i);
+        if (activeSubtitle) {
+          activeSubtitle.innerHTML = renderKaraokeSubtitleHtml(t, curSec, i, currentTurns.length);
+        }
+        pulseActiveDiagramForTurn(i);
+        break;
+      }
+    }
+  };
+
+  window.__selectPodcastTurn = function(idx) {
+    const t = currentTurns[idx];
+    if (!t) return;
+    activeTurnIdx = idx;
+    const start = Number(t.start_sec) || 0;
+    const end = Math.max(start + 4, Number(t.end_sec) || (start + 16));
+    simSec = start + 0.45 * (end - start);
+    window.__syncPodcastAtTime(simSec);
+    window.__seekPodcastTo(start, t.cite_page || 1);
+  };
+
+  window.__stepPodcastTurn = function(delta) {
+    if (!currentTurns.length) return;
+    const nextIdx = Math.max(0, Math.min(currentTurns.length - 1, activeTurnIdx + (Number(delta) || 1)));
+    const t = currentTurns[nextIdx];
+    if (!t) return;
+    activeTurnIdx = nextIdx;
+    const start = Number(t.start_sec) || 0;
+    const end = Math.max(start + 4, Number(t.end_sec) || (start + 16));
+    simSec = start + 0.45 * (end - start);
+    window.__syncPodcastAtTime(simSec);
+    if (t.cite_page) renderPageReader(t.cite_page, '');
+  };
+
+  if (audioEl) {
+    audioEl.addEventListener('timeupdate', () => {
+      const tNow = Math.max(simSec, (audioEl.currentTime && audioEl.currentTime > 0.1) ? audioEl.currentTime : 0);
+      window.__syncPodcastAtTime(tNow);
+    });
+  }
+
+  function startOrToggleSimTimer() {
+    setTimeout(() => {
+      if (!simTimer) {
+        const t = currentTurns[activeTurnIdx] || currentTurns[0] || { start_sec: 0, end_sec: 16 };
+        const start = Number(t.start_sec) || 0;
+        const end = Math.max(start + 4, Number(t.end_sec) || (start + 16));
+        if (simSec <= start) simSec = start + 0.35 * (end - start);
+        updateButtonsState(true);
+        window.__syncPodcastAtTime(simSec);
+        simTimer = setInterval(() => {
+          if (audioEl && !audioEl.paused && audioEl.currentTime > simSec + 0.2) {
+            simSec = audioEl.currentTime;
+          } else {
+            simSec += 0.45 * (speedSteps[speedIdx] || 1.0);
+          }
+          const maxDur = (state.currentInvestigation && state.currentInvestigation.audio_duration_sec) || 175;
+          if (simSec >= maxDur) simSec = 4;
+          window.__syncPodcastAtTime(simSec);
+        }, 250);
+      } else {
+        clearInterval(simTimer);
+        simTimer = null;
+        updateButtonsState(false);
+      }
+    }, 60);
+  }
+
+  if (playPauseBtn) playPauseBtn.addEventListener('click', startOrToggleSimTimer);
+  if (marginaliaPlayBtn) marginaliaPlayBtn.addEventListener('click', startOrToggleSimTimer);
+
+  if (currentTurns.length) {
+    const t0 = currentTurns[0];
+    simSec = (Number(t0.start_sec) || 0) + 0.45 * Math.max(4, (Number(t0.end_sec) || 16) - (Number(t0.start_sec) || 0));
+    window.__syncPodcastAtTime(simSec);
+  }
+
+  window.__exportGluedStudySheet = function() {
+    const inv = state.currentInvestigation || firstInv;
+    const coh = evaluateCoverCohomology(state.openCover);
+    const stalks = KB.stalks.filter(s => state.openCover.has(s.id));
+    let md = `# Glued Sheaf Study Sheet: ${inv.question}
+
+`;
+    md += `- **Corpus:** ${KB.book.title} (${KB.book.author}, ${KB.book.total_pages} pp.)
+`;
+    md += `- **Cohomology Verdict:** ${coh.verdict} (H⁰ Coherence = ${coh.h0_coherence}, ||δ⁰|| = ${coh.mean_d0}, β₀ = ${coh.beta_0})
+`;
+    md += `- **Active Open Cover (${stalks.length} Stalks):** ${stalks.map(s => `${s.title} [pp.${s.start_page}–${s.end_page}]`).join(', ')}
+
+`;
+    md += `## 1. Active Open Cover Stalks & Formal Cores
+
+`;
+    stalks.forEach(s => {
+      md += `### ${s.title} (pp. ${s.start_page}–${s.end_page})
+- **Summary:** ${s.summary || ''}
+- **Formal Core:** $$${s.formal_core || ''}$$
+
+`;
+    });
+    md += `## 2. Restriction Morphism & Cohomology Audit
+
+`;
+    (coh.activeR || []).forEach(r => {
+      md += `- \`${r.source} -> ${r.target}\`: Fidelity = ${r.restriction_fidelity}, ||δ⁰|| = ${r.coboundary_defect_d0}, Formula: $${r.formula || ''}$
+`;
+    });
+    md += `
+## 3. Glued Synthesis
+
+${inv.synthesis_markdown || ''}
+
+`;
+    md += `## 4. 4-Act 10-Turn Deep-Dive Audio Transcript
+
+`;
+    (currentTurns || []).forEach((t, idx) => {
+      md += `${idx + 1}. **[${t.act || ('Turn ' + (idx + 1))}] ${t.speaker} (p.${t.cite_page || 1}):** ${t.text}
+`;
+    });
+    window.__lastExportedStudySheet = md;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md).catch(() => {});
+      }
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `sheaf-study-sheet-${inv.id || 'custom'}.md`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {}
+    const btn = document.getElementById('exportGluedNoteBtn');
+    if (btn) {
+      btn.textContent = '✓ Exported Study Sheet (.md)';
+      setTimeout(() => { btn.textContent = '📥 Export Study Sheet (.md)'; }, 2200);
+    }
+  };
+
+  // Interactive Walkable Lab Checklist Banner with Action-Driven Auto-Check
+  window.__completeLabStep = function(stepIdx) {
+    const boxes = Array.from(document.querySelectorAll('#walkableLabActiveBanner .walkable-lab-checkbox'));
+    if (boxes[stepIdx]) {
+      boxes[stepIdx].checked = true;
+      window.__updateWalkableLabProgress();
+    }
+  };
+
+  function renderWalkableLabBanner(mod, symKey) {
+    const banner = document.getElementById('walkableLabActiveBanner');
+    if (!banner) return;
+    const m = mod || COURSE_MODULES[0];
+    const pNum = (m.pages && m.pages[0]) || 1;
+    banner.style.display = 'block';
+    banner.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+        <div>
+          <span class="mono" style="font-size:0.68rem;color:var(--accent-text);font-weight:600;text-transform:uppercase">🧪 ACTIVE WALKABLE LAB · ${escapeHtml(m.vol)}</span>
+          <h4 class="serif" style="font-size:1.08rem;margin:2px 0 0">${escapeHtml(m.title)}</h4>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="stamp measured" id="walkableLabStamp">⚖ Lab In Progress (0/3 Steps)</span>
+          <button type="button" class="preset-btn" onclick="document.querySelectorAll('#walkableLabActiveBanner .walkable-lab-checkbox').forEach(b=>b.checked=true);window.__updateWalkableLabProgress()">✓ Verify All 3 Steps</button>
+          <button type="button" class="preset-btn" onclick="document.getElementById('walkableLabActiveBanner').style.display='none'">✕ Dismiss</button>
+        </div>
+      </div>
+      <div style="font-size:0.81rem;color:var(--ink-2);margin-bottom:6px">${escapeHtml(m.lab)}</div>
+      <div role="group" aria-label="Walkable Lab Verification Steps">
+        <label class="walkable-step-item">
+          <input type="checkbox" class="walkable-lab-checkbox" onchange="window.__updateWalkableLabProgress()">
+          <span><strong>Step 1 (Inspect Symbolic Diagram):</strong> Scrub the tokens of <code>${escapeHtml(symKey || 'comp')}</code> in Plate III and inspect its geometric highlight. <button type="button" class="cite-pill" onclick="window.__completeLabStep(0);window.__scrubSymbolicToken(1)">Scrub Token ↗</button></span>
+        </label>
+        <label class="walkable-step-item">
+          <input type="checkbox" class="walkable-lab-checkbox" onchange="window.__updateWalkableLabProgress()">
+          <span><strong>Step 2 (Test Commutativity Witness):</strong> Evaluate a concrete finite-set witness in the Live Witness Verifier below and test a mutated arrow. <button type="button" class="cite-pill" onclick="window.__completeLabStep(1);window.__toggleWitnessBrokenArrow()">Test Witness ↗</button></span>
+        </label>
+        <label class="walkable-step-item">
+          <input type="checkbox" class="walkable-lab-checkbox" onchange="window.__updateWalkableLabProgress()">
+          <span><strong>Step 3 (Verify Verbatim Monograph Page):</strong> Confirm the formal declaration on <button type="button" class="cite-pill" onclick="window.__completeLabStep(2);window.__jumpToPage(${pNum}, '')">📖 Open Lab Page § p.${pNum}</button> in the Slide-Over Reader.</span>
+        </label>
+      </div>
+    `;
+  }
+
+  window.__updateWalkableLabProgress = function() {
+    const boxes = Array.from(document.querySelectorAll('#walkableLabActiveBanner .walkable-lab-checkbox'));
+    const done = boxes.filter(b => b.checked).length;
+    const stamp = document.getElementById('walkableLabStamp');
+    if (!stamp) return;
+    if (done === boxes.length && boxes.length > 0) {
+      stamp.className = 'stamp accept';
+      stamp.textContent = `✓ Lab Complete (${done}/${boxes.length} Verified)`;
+    } else {
+      stamp.className = 'stamp measured';
+      stamp.textContent = `⚖ Lab In Progress (${done}/${boxes.length} Steps)`;
+    }
+  };
+
+  const origLaunchLab = window.__launchCourseModuleLab;
+  window.__launchCourseModuleLab = function(modIdx) {
+    const mod = COURSE_MODULES[modIdx] || COURSE_MODULES[0];
+    const primKeys = ['comp', 'pullback', 'comp', 'nat', 'comp', 'prod', 'sheaf'];
+    const symKey = primKeys[modIdx % primKeys.length] || 'comp';
+    currentSymKey = symKey;
+    if (origLaunchLab) origLaunchLab(modIdx);
+    renderWalkableLabBanner(mod, symKey);
+    renderWitnessTester(symKey);
+    if (drawer) drawer.classList.remove('open');
+  };
+
+  // Cross-Corpus Functorial Bridge Widget in Plate V
+  const bridges = KB.cross_corpus_bridges || [];
+  let activeBridgeArc = 'ALL';
+  let activeBridgeIdx = 0;
+
+  window.__copyBridgePermalink = function() {
+    if (typeof activePlateId !== 'undefined') activePlateId = 'plate-5';
+    const url = window.__syncUrlState();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    }
+    const bBtn = document.getElementById('copyBridgePermalinkBtn');
+    if (bBtn) {
+      bBtn.textContent = '✓ Bridge Permalink Copied!';
+      setTimeout(() => { bBtn.textContent = '🔗 Copy Bridge Permalink'; }, 2000);
+    }
+    const sBtn = document.getElementById('shareStateBtn');
+    if (sBtn) {
+      sBtn.textContent = '✓ Permalink Copied!';
+      setTimeout(() => { sBtn.textContent = '🔗 Share State'; }, 2000);
+    }
+  };
+
+  function renderCrossCorpusBridgeWidget() {
+    const container = document.getElementById('crossCorpusBridgeWidget');
+    if (!container || !bridges.length) return;
+    const arcs = ['ALL', ...Array.from(new Set(bridges.map(b => b.concept_arc)))];
+    const filtered = activeBridgeArc === 'ALL' ? bridges : bridges.filter(b => b.concept_arc === activeBridgeArc);
+    const cur = filtered[activeBridgeIdx % Math.max(1, filtered.length)] || bridges[0];
+    const cleanWhy = String(cur.why_it_bridges || '').replace(/<->/g, '↔').replace(/->/g, '→');
+    const isSpivakCorpus = maxCorpusPages === 609;
+    const companionBase = isSpivakCorpus
+      ? '../marinov-category-theory-illustrated/index.html?plate=3'
+      : '../spivak-category-theory-for-the-sciences/index.html?plate=2';
+    const companionName = isSpivakCorpus ? 'Marinov Studio' : 'Spivak Studio';
+
+    container.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div>
+          <span class="mono" style="font-size:0.70rem;color:var(--accent-text);font-weight:600;text-transform:uppercase">
+            🌉 Interactive Cross-Corpus Functorial Bridge (${escapeHtml(KB.book.title)} &harr; ${companionName})
+          </span>
+          <div style="font-size:0.82rem;color:var(--ink-2)">Every stalk is functorially mapped across Spivak (609 pp.) and Marinov (377 pp.) with empirical restriction fidelity and coboundary defect.</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <button type="button" class="preset-btn" id="copyBridgePermalinkBtn" onclick="window.__copyBridgePermalink()">🔗 Copy Bridge Permalink</button>
+          <span class="stamp ratified">◆ ${bridges.length} Functorial Bridges Verified</span>
+        </div>
+      </div>
+      <div class="bridge-arc-bar" role="group" aria-label="Filter Cross-Corpus Concept Arcs">
+        ${arcs.map(arc => `
+          <button type="button" class="witness-pill ${arc === activeBridgeArc ? 'active' : ''}" onclick="window.__selectBridgeArc('${escapeHtml(arc)}')">
+            ${escapeHtml(arc === 'ALL' ? `All Arcs (${bridges.length})` : arc)}
+          </button>
+        `).join('')}
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:0.75rem;flex-wrap:wrap">
+        <span class="mono" style="font-size:0.68rem;color:var(--ink-3)">Select Bridged Stalk Pair:</span>
+        <select id="bridgeStalkSelect" class="query-input" style="flex:1;min-width:240px;padding:5px 8px;font-size:0.78rem" onchange="window.__selectBridgePair(this.value)">
+          ${filtered.map((b, idx) => `
+            <option value="${idx}" ${b.id === cur.id ? 'selected' : ''}>
+              [${b.id}] ${escapeHtml(b.source_title)} (p.${b.source_pages[0]}) ↔ ${escapeHtml(b.target_title)} (p.${b.target_pages[0]})
+            </option>
+          `).join('')}
+        </select>
+      </div>
+      <div class="bridge-pair-grid">
+        <div style="background:var(--paper-soft);border:1px solid var(--rule);padding:0.75rem">
+          <div class="mono" style="font-size:0.67rem;color:var(--accent-text);font-weight:600">THIS CORPUS STALK (${maxCorpusPages} PP.)</div>
+          <h4 class="serif" style="font-size:1.05rem;margin:3px 0">${escapeHtml(cur.source_title)}</h4>
+          <div class="mono" style="font-size:0.72rem;color:var(--ink-3);margin-bottom:6px">Stalk ID: <code>${escapeHtml(cur.source_stalk_id)}</code> · pp. ${(cur.source_pages || []).join('–')}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button type="button" class="cite-pill" onclick="window.__jumpToPage(${Math.min(maxCorpusPages, (cur.source_pages && cur.source_pages[0]) || 1)}, '')">📖 Open p.${Math.min(maxCorpusPages, (cur.source_pages && cur.source_pages[0]) || 1)}</button>
+            <button type="button" class="preset-btn" onclick="window.__addStalkToStudio('${escapeHtml(cur.source_stalk_id)}')">🧪 Load Bridge Stalk into Open Cover ↗</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0.5rem;background:var(--surface);border:1px dashed var(--accent-text);text-align:center;min-width:170px">
+          <span class="stamp accept">✓ Fidelity ${cur.bridge_fidelity}</span>
+          <div class="mono" style="font-size:0.68rem;color:var(--ink-2);margin-top:4px">||δ⁰|| = ${cur.coboundary_defect_d0}</div>
+          <div style="font-size:0.74rem;margin-top:4px;color:var(--accent-text);font-family:var(--f-mono)">${ convertLatexTokensToHtml(cur.formula || '') }</div>
+        </div>
+        <div style="background:var(--paper-soft);border:1px solid var(--rule);padding:0.75rem">
+          <div class="mono" style="font-size:0.67rem;color:var(--ax-technology);font-weight:600">${companionName.toUpperCase()} PARTNER STALK</div>
+          <h4 class="serif" style="font-size:1.05rem;margin:3px 0">${escapeHtml(cur.target_title)}</h4>
+          <div class="mono" style="font-size:0.72rem;color:var(--ink-3);margin-bottom:6px">Stalk ID: <code>${escapeHtml(cur.target_stalk_id)}</code> · pp. ${(cur.target_pages || []).join('–')}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <a href="${companionBase}&amp;stalk=${encodeURIComponent(cur.target_stalk_id)}&amp;page=${(cur.target_pages && cur.target_pages[0]) || 11}" class="preset-btn" style="text-decoration:none;font-weight:600;border-color:var(--accent-text);color:var(--accent-text)">↗ Open Partner Stalk in ${companionName} (p.${(cur.target_pages && cur.target_pages[0]) || 11})</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.65rem;font-size:0.81rem;color:var(--ink-2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <div><strong>Functorial Bridge Invariant:</strong> ${escapeHtml(cleanWhy)}</div>
+        <div class="mono" style="font-size:0.71rem;color:var(--ink-3)">Shared Terms: ${(cur.shared_terms || []).map(t => `<code>${escapeHtml(t)}</code>`).join(', ')}</div>
+      </div>
+    `;
+  }
+
+  window.__selectBridgeArc = function(arc) {
+    activeBridgeArc = arc;
+    activeBridgeIdx = 0;
+    renderCrossCorpusBridgeWidget();
+  };
+  window.__selectBridgePair = function(idx) {
+    activeBridgeIdx = Number(idx) || 0;
+    renderCrossCorpusBridgeWidget();
+  };
+  renderCrossCorpusBridgeWidget();
+
+  // URL Deep-Linking (?plate=...&stalk=...&page=...&theme=...&view=...&lab=...&bridge=...) & Keyboard Shortcuts
+  window.__syncUrlState = function() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      params.set('plate', (typeof activePlateId !== 'undefined' ? activePlateId : 'plate-1').replace('plate-', ''));
+      params.set('page', String(state.currentPage || 1));
+      const firstStalk = Array.from(state.openCover)[0];
+      if (firstStalk) params.set('stalk', firstStalk);
+      params.set('bridge', String(activeBridgeIdx || 0));
+      if (activeBridgeArc && activeBridgeArc !== 'ALL') params.set('arc', activeBridgeArc);
+      params.set('theme', document.documentElement.getAttribute('data-theme') || 'light');
+      params.set('view', document.documentElement.getAttribute('data-view-mode') || 'all');
+      const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash || ''}`;
+      window.history.replaceState({}, '', newUrl);
+      return window.location.href;
+    } catch (e) {
+      return window.location.href;
+    }
+  };
+
+  window.__hydrateFromUrlParams = function() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const th = params.get('theme');
+      if (th === 'dark' || th === 'light') {
+        document.documentElement.setAttribute('data-theme', th);
+        document.querySelectorAll('[data-set-theme]').forEach(b => b.setAttribute('aria-pressed', String(b.getAttribute('data-set-theme') === th)));
+      }
+      const vw = params.get('view');
+      if (vw === 'focus' || vw === 'all') {
+        document.documentElement.setAttribute('data-view-mode', vw);
+        document.querySelectorAll('[data-set-view]').forEach(b => b.setAttribute('aria-pressed', String(b.getAttribute('data-set-view') === vw)));
+      }
+      const arcP = params.get('arc');
+      if (arcP) activeBridgeArc = arcP;
+      const br = params.get('bridge');
+      if (br !== null || arcP) {
+        activeBridgeIdx = Number(br) || 0;
+        renderCrossCorpusBridgeWidget();
+      }
+      const st = params.get('stalk');
+      if (st && stalkById[st]) {
+        state.openCover.add(st);
+        state.focusedStalkId = st;
+        updateCoverAndOlog();
+      }
+      const pg = params.get('page');
+      if (pg) {
+        renderPageReader(Number(pg) || 1, params.get('term') || '');
+        if (params.get('reader') === 'open') drawer.classList.add('open');
+      }
+      const lab = params.get('lab');
+      if (lab === '1' || lab === 'true') {
+        window.__launchCourseModuleLab(0);
+      }
+      const pl = params.get('plate');
+      if (pl) {
+        const pid = pl.startsWith('plate-') ? pl : `plate-${pl}`;
+        window.__focusPlate(pid, vw === 'focus');
+      }
+    } catch (e) {}
+  };
+
+  const shareBtn = document.getElementById('shareStateBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      const url = window.__syncUrlState();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).catch(() => {});
+      }
+      shareBtn.textContent = '✓ Permalink Copied!';
+      setTimeout(() => { shareBtn.textContent = '🔗 Share State'; }, 2000);
+    });
+  }
+
+  window.addEventListener('keydown', e => {
+    const tag = (e.target && e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      drawer.classList.remove('open');
+    } else if (e.key === '[' && drawer.classList.contains('open')) {
+      renderPageReader((state.currentPage || 2) - 1);
+    } else if (e.key === ']' && drawer.classList.contains('open')) {
+      renderPageReader((state.currentPage || 1) + 1);
+    } else if (e.key === 'ArrowRight' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const scr = document.getElementById('symTokenScrubber');
+      if (scr) { scr.value = String((Number(scr.value) + 1) % (Number(scr.max) + 1)); window.__scrubSymbolicToken(scr.value); }
+    } else if (e.key === 'ArrowLeft' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const scr = document.getElementById('symTokenScrubber');
+      if (scr) { const m = Number(scr.max) + 1; scr.value = String(((Number(scr.value) - 1) % m + m) % m); window.__scrubSymbolicToken(scr.value); }
+    }
+  });
+
+  window.__hydrateFromUrlParams();
 })();
 </script>
 </body>
@@ -4586,9 +5410,13 @@ def main():
         sc.pop("all_item_ids", None)
         sc.pop("tfidf_signature", None)
         sc.pop("key_items", None)
+        sc.pop("verbatim_excerpt", None)
+        sc.pop("defined_terms", None)
+        sc.pop("symbol_inventory", None)
+        sc.pop("keywords", None)
+        if "prerequisites" in sc:
+            sc["prerequisites"] = [{"stalk_id": p["stalk_id"]} for p in sc["prerequisites"] if "stalk_id" in p]
         sc["formal_items"] = []
-        if len(str(sc.get("verbatim_excerpt", ""))) > 260:
-            sc["verbatim_excerpt"] = str(sc["verbatim_excerpt"])[:260] + "…"
         ang = (2.0 * math.pi * idx) / max(1, total_stalks) * 2.2
         radius = 110.0 + (idx % 3) * 28.0
         y_pos = (s.get("chapter", 1) - 4.0) * 36.0
@@ -4597,30 +5425,55 @@ def main():
 
     slim_morphs = []
     for m in kb_obj["restriction_morphisms"]:
-        mc = dict(m)
-        mc.pop("metrics", None)
+        mc = {
+            "source": m["source"],
+            "target": m["target"],
+            "restriction_fidelity": m.get("restriction_fidelity", 0.7),
+            "coboundary_defect_d0": m.get("coboundary_defect_d0", 0.3),
+            "formula": m.get("formula", ""),
+            "overlap": m.get("overlap", ""),
+        }
         slim_morphs.append(mc)
+
+    slim_chapters = [
+        {"chapter": c["chapter"], "title": c["title"], "start_page": c.get("start_page", 1), "end_page": c.get("end_page", 1)}
+        for c in kb_obj["chapters"]
+    ]
+    slim_obs = [
+        {
+            "id": o.get("id", ""),
+            "stalk_a": o["stalk_a"],
+            "stalk_b": o["stalk_b"],
+            "required_bridge_stalk": o.get("required_bridge_stalk", ""),
+            "diagnostic": o.get("diagnostic", ""),
+        }
+        for o in kb_obj.get("cohomology_obstructions", [])
+    ]
 
     slim_seed_pages = []
     for p in kb_obj["pages"]:
-        if p["p"] in seed_page_nums and len(slim_seed_pages) < 8:
+        if False and p["p"] in seed_page_nums:
             pc = dict(p)
-            if len(str(pc.get("txt", ""))) > 500:
-                pc["txt"] = str(pc["txt"])[:500] + "\n… [Full verbatim page hydrated via sheaf_pages_bundle.js]"
+            if len(str(pc.get("txt", ""))) > 320:
+                pc["txt"] = str(pc["txt"])[:320] + "\n… [Full verbatim page hydrated via sheaf_pages_bundle.js]"
             slim_seed_pages.append(pc)
 
     core_obj = {
         "book": kb_obj["book"],
-        "chapters": kb_obj["chapters"],
+        "chapters": slim_chapters,
         "stalks": slim_stalks,
         "restriction_morphisms": slim_morphs,
         "two_simplices": kb_obj["two_simplices"],
-        "cohomology_obstructions": kb_obj.get("cohomology_obstructions", []),
+        "cohomology_obstructions": slim_obs,
+        "cross_corpus_bridges": [{k: v for k, v in b.items() if k not in ("overlap", "functorial_relation")} for b in kb_obj.get("cross_corpus_bridges", [])],
         "notebook_investigations": kb_obj["notebook_investigations"],
         "seed_pages": slim_seed_pages
     }
     core_json = json.dumps(core_obj, ensure_ascii=False, separators=(",", ":")).replace("</script>", "<\\/script>")
 
+    import re
+    head_css, tail_html = HTML_TEMPLATE.split("</style>", 1)
+    compact_template = re.sub(r"/\*[^*]*\*+(?:[^/*][^*]*\*+)*/", "", head_css) + "</style>" + tail_html
     if args.out:
         out_path = args.out
         out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -4629,7 +5482,7 @@ def main():
         except Exception:
             rel_bundle = Path("data/sheaf_pages_bundle.js")
         pdf_name = kb_obj.get("book", {}).get("source_pdf", kb_obj.get("book", {}).get("pdf_url", "document.pdf"))
-        adapted_template = adapt_html_template_for_corpus(HTML_TEMPLATE, kb_obj)
+        adapted_template = adapt_html_template_for_corpus(compact_template, kb_obj)
         html_custom = (
             adapted_template
             .replace("__SHEAF_CORE_JSON__", core_json)
@@ -4642,25 +5495,26 @@ def main():
         return
 
     html_main = (
-        HTML_TEMPLATE
+        compact_template
         .replace("__SHEAF_CORE_JSON__", core_json)
         .replace("__BUNDLE_REL_PATH__", "cattheory-sheaf-kb/data/sheaf_pages_bundle.js")
         .replace("__PDF_REL_PATH__", "cattheory-sheaf-kb/cattheory.pdf")
     )
     html_local = (
-        HTML_TEMPLATE
+        compact_template
         .replace("__SHEAF_CORE_JSON__", core_json)
         .replace("__BUNDLE_REL_PATH__", "data/sheaf_pages_bundle.js")
         .replace("__PDF_REL_PATH__", "cattheory.pdf")
     )
     html_artifact = (
-        HTML_TEMPLATE
+        compact_template
         .replace("__SHEAF_CORE_JSON__", core_json)
         .replace("__BUNDLE_REL_PATH__", "/Users/cairo/Documents/CETI/ACCENTURE/content-factory v2/cattheory-sheaf-kb/data/sheaf_pages_bundle.js")
         .replace("__PDF_REL_PATH__", "/Users/cairo/Documents/CETI/ACCENTURE/content-factory v2/cattheory-sheaf-kb/cattheory.pdf")
     )
 
     OUT_MAIN.write_text(html_main, encoding="utf-8")
+    OUT_MAIN_ALT.write_text(html_local, encoding="utf-8")
     OUT_LOCAL.write_text(html_local, encoding="utf-8")
     if OUT_ARTIFACT.parent.exists():
         OUT_ARTIFACT.write_text(html_artifact, encoding="utf-8")

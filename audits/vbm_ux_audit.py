@@ -102,8 +102,11 @@ def collect_dom_ux_telemetry(page, label: str, failed_reqs: list) -> dict:
         const allOptText = allOpt ? (allOpt.textContent || '').trim() : '';
         const turnRailDots = document.querySelectorAll('#podcastTurnRail .podcast-turn-dot').length;
         const atlasStateBtns = document.querySelectorAll('.atlas-state-bar .atlas-state-pill').length;
-        const readerCalloutItems = document.querySelectorAll('#readerPageMeta .reader-formal-callout .rf-item').length;
+        const readerCalloutItems = document.querySelectorAll('#readerPageMeta .reader-formal-callout .rf-item, #readerPageMeta .reader-formal-callout strong').length;
         const walkableLabBtns = document.querySelectorAll('button[onclick*="__launchCourseModuleLab"]').length;
+        const witnessMiniSvgs = document.querySelectorAll('#witnessMiniSvg, #commutativityWitnessTester svg').length;
+        const scrubberSliders = document.querySelectorAll('#atlasStateSlider, #symTokenScrubber, #podcastScrubber').length;
+        const ologInspPresent = Boolean(document.getElementById('ologPathInspector'));
 
         return {
             label,
@@ -124,7 +127,10 @@ def collect_dom_ux_telemetry(page, label: str, failed_reqs: list) -> dict:
             turnRailDotCount: turnRailDots,
             atlasStatePillCount: atlasStateBtns,
             readerFormalCalloutCount: readerCalloutItems,
-            walkableLabButtonCount: walkableLabBtns
+            walkableLabButtonCount: walkableLabBtns,
+            witnessMiniSvgCount: witnessMiniSvgs,
+            scrubberSliderCount: scrubberSliders,
+            ologInspectorPresent: ologInspPresent
         };
     }""",
         label,
@@ -283,12 +289,55 @@ def run_vbm_suite(phase_prefix: str = "r6_after"):
         attach_network_monitor(page, failed_spivak_desktop)
         page.goto(spivak_url, wait_until="networkidle")
         page.wait_for_timeout(450)
-        page.locator('#plate-3').scroll_into_view_if_needed()
-        page.wait_for_timeout(300)
         page.locator('#symSelector [data-sym="pullback"]').click()
+        page.wait_for_timeout(250)
+        page.locator('#toggleBrokenArrowBtn').click()
+        page.evaluate("document.getElementById('commutativityWitnessTester').scrollIntoView({ behavior: 'instant', block: 'center' })")
         page.wait_for_timeout(300)
         telemetry.append(collect_dom_ux_telemetry(page, f"{phase_prefix}_spivak_desktop_plate3_sandbox", failed_spivak_desktop))
         screenshots.append(save_shot(page, phase_prefix, "15_desktop_spivak_plate3_symbolic_sandbox"))
+
+        # State 20: Marinov Dark Mode Native Blueprint SVG across Plate I-B
+        page.goto(f"{marinov_url}?plate=1&theme=dark", wait_until="networkidle")
+        page.wait_for_timeout(400)
+        page.locator('#visualAtlasInstrument').scroll_into_view_if_needed()
+        page.wait_for_timeout(300)
+        telemetry.append(collect_dom_ux_telemetry(page, f"{phase_prefix}_marinov_desktop_dark_blueprint_svg", failed_desktop))
+        screenshots.append(save_shot(page, phase_prefix, "20_desktop_dark_mode_blueprint_svg"))
+
+        # State 21: Walkable Lab Active Checklist Banner (with 2 steps verified)
+        page.goto(f"{marinov_url}?plate=3&lab=1", wait_until="networkidle")
+        page.wait_for_timeout(400)
+        page.locator('#walkableLabActiveBanner').scroll_into_view_if_needed()
+        page.evaluate("""() => {
+          const boxes = document.querySelectorAll('#walkableLabActiveBanner .walkable-lab-checkbox');
+          if (boxes[0]) { boxes[0].checked = true; }
+          if (boxes[1]) { boxes[1].checked = true; }
+          if (window.__updateWalkableLabProgress) window.__updateWalkableLabProgress();
+        }""")
+        page.wait_for_timeout(300)
+        telemetry.append(collect_dom_ux_telemetry(page, f"{phase_prefix}_marinov_desktop_walkable_lab_banner", failed_desktop))
+        screenshots.append(save_shot(page, phase_prefix, "21_desktop_walkable_lab_active_banner"))
+
+        # State 22: Live Commutativity Witness Verifier (with Mutated Arrow Obstruction + Mini SVG centered)
+        page.goto(f"{marinov_url}?plate=2", wait_until="networkidle")
+        page.wait_for_timeout(350)
+        page.locator('#rosettaTabs [data-ros="comp_id"]').click()
+        page.wait_for_timeout(200)
+        page.locator('#toggleBrokenArrowBtn').click()
+        page.evaluate("document.getElementById('commutativityWitnessTester').scrollIntoView({ behavior: 'instant', block: 'center' })")
+        page.wait_for_timeout(300)
+        telemetry.append(collect_dom_ux_telemetry(page, f"{phase_prefix}_marinov_desktop_witness_tester", failed_desktop))
+        screenshots.append(save_shot(page, phase_prefix, "22_desktop_commutativity_witness_tester"))
+
+        # State 23: Interactive 24-Stalk Cross-Corpus Functorial Bridge Widget & In-Widget Permalink Copy
+        page.evaluate("document.getElementById('crossCorpusBridgeWidget').scrollIntoView({ behavior: 'instant', block: 'center' })")
+        page.wait_for_timeout(250)
+        page.locator('#copyBridgePermalinkBtn').click()
+        page.evaluate("document.getElementById('crossCorpusBridgeWidget').scrollIntoView({ behavior: 'instant', block: 'center' })")
+        page.wait_for_timeout(250)
+        telemetry.append(collect_dom_ux_telemetry(page, f"{phase_prefix}_marinov_desktop_cross_corpus_bridge", failed_desktop))
+        screenshots.append(save_shot(page, phase_prefix, "23_desktop_cross_corpus_bridge_and_permalink"))
 
         ctx_desktop.close()
         for vf in video_dir_desktop.glob("*.webm"):

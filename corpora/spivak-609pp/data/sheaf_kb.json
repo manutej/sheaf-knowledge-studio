@@ -9,7 +9,10 @@
     "total_formal_items": 877,
     "total_stalks": 30,
     "total_restriction_morphisms": 55,
-    "total_2_simplices": 8
+    "total_2_simplices": 8,
+    "year": 2014,
+    "source_pdf": "https://dn760000.eu.archive.org/0/items/cattheory/cattheory.pdf",
+    "sheaf_definition": "O : Open(Alx(X^op))^op -> Sch ~ Cat"
   },
   "chapters": [
     {
@@ -38996,7 +38999,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'property' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Pullbacks (Fiber Products) & Constraint Solving (Ch 3, p.88) with contextual divergence JSD=0.37. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'property' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Pullbacks (Fiber Products) & Constraint Solving (Ch 3, p.88) with contextual divergence JSD=0.37. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-1",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-02",
@@ -39014,7 +39019,9 @@
       "unbridged_defect_d0": 0.488,
       "required_bridge_stalk": "kleisli-categories-scientific-method",
       "required_bridge_title": "Kleisli Categories C_T & Reconciling the Scientific Method Olog",
-      "diagnostic": "Term 'function' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Currying, Exponentials, Subobject Classifier & Relative Sets (Ch 3, p.128) with contextual divergence JSD=0.49. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'function' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Currying, Exponentials, Subobject Classifier & Relative Sets (Ch 3, p.128) with contextual divergence JSD=0.49. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-2",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-03",
@@ -39033,7 +39040,9 @@
       "unbridged_defect_d0": 0.496,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'action' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Monoids, Agent Actions & Finite State Machines (Ch 4, p.160) with contextual divergence JSD=0.50. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'action' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Monoids, Agent Actions & Finite State Machines (Ch 4, p.160) with contextual divergence JSD=0.50. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-3",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-04",
@@ -39052,7 +39061,9 @@
       "unbridged_defect_d0": 0.507,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'arrow' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Graphs, Path Categories & Homomorphisms (Ch 4, p.201) with contextual divergence JSD=0.51. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'arrow' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Graphs, Path Categories & Homomorphisms (Ch 4, p.201) with contextual divergence JSD=0.51. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-4",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-05",
@@ -39071,7 +39082,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'action' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Categorical Databases: Schemas (G, ≃) & Table Instances (Ch 4, p.245) with contextual divergence JSD=0.43. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'action' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Categorical Databases: Schemas (G, ≃) & Table Instances (Ch 4, p.245) with contextual divergence JSD=0.43. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-5",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-06",
@@ -39090,7 +39103,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'categorical' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Functors: Structure-Preserving Maps Between Worldviews (Ch 5, p.285) with contextual divergence JSD=0.22. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'categorical' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Functors: Structure-Preserving Maps Between Worldviews (Ch 5, p.285) with contextual divergence JSD=0.22. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-6",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-07",
@@ -39109,7 +39124,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "kleisli-categories-scientific-method",
       "required_bridge_title": "Kleisli Categories C_T & Reconciling the Scientific Method Olog",
-      "diagnostic": "Term 'categorical' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Natural Transformations & The Category of Database Instances (Ch 5, p.338) with contextual divergence JSD=0.28. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'categorical' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Natural Transformations & The Category of Database Instances (Ch 5, p.338) with contextual divergence JSD=0.28. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-7",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-08",
@@ -39128,7 +39145,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "kleisli-categories-scientific-method",
       "required_bridge_title": "Kleisli Categories C_T & Reconciling the Scientific Method Olog",
-      "diagnostic": "Term 'bridge' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Adjoint Functors (L ⊣ R) & Universal Dictionary Bridges (Ch 7, p.461) with contextual divergence JSD=0.24. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'bridge' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Adjoint Functors (L ⊣ R) & Universal Dictionary Bridges (Ch 7, p.461) with contextual divergence JSD=0.24. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-8",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-09",
@@ -39146,7 +39165,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "kleisli-categories-scientific-method",
       "required_bridge_title": "Kleisli Categories C_T & Reconciling the Scientific Method Olog",
-      "diagnostic": "Term 'categorical' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Categorical Data Migration: Δ_F, Σ_F (Left Kan) & Π_F (Right Kan) (Ch 7, p.481) with contextual divergence JSD=0.35. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'categorical' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Categorical Data Migration: Δ_F, Σ_F (Left Kan) & Π_F (Right Kan) (Ch 7, p.481) with contextual divergence JSD=0.35. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-9",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-10",
@@ -39165,7 +39186,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'condition' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Sheaves: Open Covers, Restriction Maps & The Local-to-Global Gluing Axiom (Ch 7, p.518) with contextual divergence JSD=0.43. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'condition' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Sheaves: Open Covers, Restriction Maps & The Local-to-Global Gluing Axiom (Ch 7, p.518) with contextual divergence JSD=0.43. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-10",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-11",
@@ -39184,7 +39207,9 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "ologs-ontology-logs",
       "required_bridge_title": "Ologs (Ontology Logs): Functional Worldviews",
-      "diagnostic": "Term 'concept' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Sheaf of Ologged Concepts, Alexandrov Sites & Descent Data (Ch 7, p.521) with contextual divergence JSD=0.30. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'concept' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Sheaf of Ologged Concepts, Alexandrov Sites & Descent Data (Ch 7, p.521) with contextual divergence JSD=0.30. Without mediating stalk 'Ologs (Ontology Logs): Functional Worldviews' (ologs-ontology-logs, p.47), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-11",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
     },
     {
       "id": "obs-12",
@@ -39203,7 +39228,751 @@
       "unbridged_defect_d0": 0.48,
       "required_bridge_stalk": "kleisli-categories-scientific-method",
       "required_bridge_title": "Kleisli Categories C_T & Reconciling the Scientific Method Olog",
-      "diagnostic": "Term 'context' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Monads (T, η, μ): Formalizing Experimental & Computational Context (Ch 7, p.527) with contextual divergence JSD=0.36. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0)."
+      "diagnostic": "Term 'context' is used in Science as Agreement & Categorical Worldviews (Ch 1, p.11) and Monads (T, η, μ): Formalizing Experimental & Computational Context (Ch 7, p.527) with contextual divergence JSD=0.36. Without mediating stalk 'Kleisli Categories C_T & Reconciling the Scientific Method Olog' (kleisli-categories-scientific-method, p.540), their local Olog sections fail to glue (H¹ ≠ 0).",
+      "title": "H^1 Polysemy / Gluing Obstruction on obs-12",
+      "obstruction_class": "H^1 Non-Trivial Cocycle"
+    }
+  ],
+  "cross_corpus_bridges": [
+    {
+      "id": "bridge-01",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "scientific-agreement-worldviews",
+      "source_title": "Science as Agreement & Categorical Worldviews",
+      "source_pages": [
+        11,
+        25
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "visual-abstraction-modes-of-knowledge",
+      "target_title": "Visual Abstraction & Lawvere's Perspective",
+      "target_pages": [
+        3,
+        12
+      ],
+      "functorial_relation": "epistemological-isomorphism",
+      "formula": "\\mathcal{O}_{\\text{Vis}}(U_1) \\simeq \\mathcal{O}_{\\text{Olog}}(V_1)",
+      "overlap": "Lawvere's visual abstraction & erasing internal set structure <-> Spivak's Olog worldview communication protocol",
+      "shared_terms": [
+        "category",
+        "diagram",
+        "morphism"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc I · Sets & Ologs",
+      "why_it_bridges": "Lawvere's visual abstraction & erasing internal set structure <-> Spivak's Olog worldview communication protocol"
+    },
+    {
+      "id": "bridge-02",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "sets-and-functions",
+      "source_title": "The Category Set: Sets, Functions & Isomorphisms",
+      "source_pages": [
+        26,
+        43
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "sets-subsets-empty-singleton",
+      "target_title": "Sets, Subsets, Empty Set (∅) & Singleton (1)",
+      "target_pages": [
+        13,
+        27
+      ],
+      "functorial_relation": "object-classifier-bridge",
+      "formula": "\\text{Hom}_{\\mathbf{Set}}(1, A) \\cong A",
+      "overlap": "Colored balls in sets, singleton 1 & empty set 0 <-> Spivak's Set category, singleton terminal & empty initial",
+      "shared_terms": [
+        "collections",
+        "distinct",
+        "elements",
+        "function",
+        "functions",
+        "set",
+        "sets",
+        "unique"
+      ],
+      "bridge_fidelity": 0.717,
+      "coboundary_defect_d0": 0.283,
+      "concept_arc": "Arc I · Sets & Ologs",
+      "why_it_bridges": "Colored balls in sets, singleton 1 & empty set 0 <-> Spivak's Set category, singleton terminal & empty initial"
+    },
+    {
+      "id": "bridge-03",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "commutative-diagrams",
+      "source_title": "Commutative Diagrams & Path Equations",
+      "source_pages": [
+        44,
+        46
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "functions-bijections-isomorphisms",
+      "target_title": "Injections, Surjections, Isomorphisms & Currying in Set",
+      "target_pages": [
+        28,
+        51
+      ],
+      "functorial_relation": "morphism-factorization",
+      "formula": "f = m \\circ e : A \\twoheadrightarrow \\text{Im}(f) \\hookrightarrow B",
+      "overlap": "Injections, surjections, bijections & commutative path equations across Set",
+      "shared_terms": [
+        "category",
+        "diagram",
+        "morphism"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc I · Sets & Ologs",
+      "why_it_bridges": "Injections, surjections, bijections & commutative path equations across Set"
+    },
+    {
+      "id": "bridge-04",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "products-and-projections",
+      "source_title": "Products & Universal Pairing in Set",
+      "source_pages": [
+        68,
+        79
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "external-products-and-projections",
+      "target_title": "From Internal Pairs to External Categorical Products (A × B)",
+      "target_pages": [
+        52,
+        68
+      ],
+      "functorial_relation": "universal-cone-isomorphism",
+      "formula": "\\text{Hom}(C, A \\times B) \\cong \\text{Hom}(C, A) \\times \\text{Hom}(C, B)",
+      "overlap": "Internal coordinate grid vs. external universal product projections (\\pi_1, \\pi_2) & pairing \\langle f,g \\rangle",
+      "shared_terms": [
+        "cartesian",
+        "cartesian product",
+        "product",
+        "products",
+        "projection",
+        "universal"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc I · Sets & Ologs",
+      "why_it_bridges": "Internal coordinate grid vs. external universal product projections (\\pi_1, \\pi_2) & pairing \\langle f,g \\rangle"
+    },
+    {
+      "id": "bridge-05",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "coproducts-and-injections",
+      "source_title": "Coproducts & Disjoint Unions in Set",
+      "source_pages": [
+        80,
+        87
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "categorical-duality-and-coproducts",
+      "target_title": "Categorical Duality, Coproducts (A + B) & Initial/Terminal Objects",
+      "target_pages": [
+        69,
+        81
+      ],
+      "functorial_relation": "opposite-category-duality",
+      "formula": "\\text{Product in } \\mathcal{C}^{\\text{op}} \\iff \\text{Coproduct } A \\sqcup B \\text{ in } \\mathcal{C}",
+      "overlap": "Arrow-reversal duality: Coproduct injections (\\iota_1, \\iota_2) and universal case analysis [f,g]",
+      "shared_terms": [
+        "coproduct",
+        "coproducts",
+        "disjoint",
+        "disjoint union",
+        "product",
+        "set",
+        "union"
+      ],
+      "bridge_fidelity": 0.682,
+      "coboundary_defect_d0": 0.318,
+      "concept_arc": "Arc II · Products & Pullbacks",
+      "why_it_bridges": "Arrow-reversal duality: Coproduct injections (\\iota_1, \\iota_2) and universal case analysis [f,g]"
+    },
+    {
+      "id": "bridge-06",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "categories-objects-morphisms",
+      "source_title": "Categories: Objects, Morphisms, Identities & Composition",
+      "source_pages": [
+        267,
+        284
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "categories-objects-morphisms-laws",
+      "target_title": "The Formal Definition of a Category & Point-Free Epistemology",
+      "target_pages": [
+        82,
+        94
+      ],
+      "functorial_relation": "axiomatic-foundation",
+      "formula": "h \\circ (g \\circ f) = (h \\circ g) \\circ f, \\; \\text{id}_B \\circ f = f = f \\circ \\text{id}_A",
+      "overlap": "Marinov's point-free category definition & Espresso Machine composition <-> Spivak's category axioms & commutative paths",
+      "shared_terms": [
+        "category",
+        "composition",
+        "identity",
+        "identity law",
+        "morphism",
+        "morphisms",
+        "object",
+        "objects"
+      ],
+      "bridge_fidelity": 0.741,
+      "coboundary_defect_d0": 0.259,
+      "concept_arc": "Arc II · Products & Pullbacks",
+      "why_it_bridges": "Marinov's point-free category definition & Espresso Machine composition <-> Spivak's category axioms & commutative paths"
+    },
+    {
+      "id": "bridge-07",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "monoids-and-actions",
+      "source_title": "Monoids, Agent Actions & Finite State Machines",
+      "source_pages": [
+        160,
+        191
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "monoids-semigroups-magmas",
+      "target_title": "Magmas, Semigroups & Monoids as Composable Actions",
+      "target_pages": [
+        95,
+        103
+      ],
+      "functorial_relation": "delooping-equivalence",
+      "formula": "\\mathbf{B}M : \\text{Ob}(\\mathbf{B}M)=\\{\\bullet\\}, \\; \\text{Hom}(\\bullet,\\bullet)=M",
+      "overlap": "CMYK pigment mixing & algebraic monoids <-> Monoid actions M \\times S \\to S as state machines",
+      "shared_terms": [
+        "action",
+        "actions",
+        "binary",
+        "element",
+        "monoid",
+        "monoids",
+        "operation"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc II · Products & Pullbacks",
+      "why_it_bridges": "CMYK pigment mixing & algebraic monoids <-> Monoid actions M \\times S \\to S as state machines"
+    },
+    {
+      "id": "bridge-08",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "groups-and-symmetries",
+      "source_title": "Groups, Invertible Symmetries & Orbit Quotients",
+      "source_pages": [
+        192,
+        200
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "groups-rotations-and-symmetries",
+      "target_title": "Groups, Geometric Rotations (C₃, D₃) & Invertible Symmetries",
+      "target_pages": [
+        104,
+        114
+      ],
+      "functorial_relation": "groupoid-invertibility",
+      "formula": "\\forall g \\in G, \\; \\exists! g^{-1} : g \\circ g^{-1} = e = g^{-1} \\circ g",
+      "overlap": "Equilateral triangle symmetries D_3 & cyclic rotations C_3 <-> Invertible groupoid symmetries",
+      "shared_terms": [
+        "geometric",
+        "group",
+        "groups",
+        "inverse",
+        "invertible",
+        "monoid",
+        "symmetries",
+        "symmetry"
+      ],
+      "bridge_fidelity": 0.736,
+      "coboundary_defect_d0": 0.264,
+      "concept_arc": "Arc III · Monoids & Categories",
+      "why_it_bridges": "Equilateral triangle symmetries D_3 & cyclic rotations C_3 <-> Invertible groupoid symmetries"
+    },
+    {
+      "id": "bridge-09",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "graphs-and-paths",
+      "source_title": "Graphs, Path Categories & Homomorphisms",
+      "source_pages": [
+        201,
+        220
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "monoids-as-single-object-categories-free-monoids",
+      "target_title": "Delooping Monoids as One-Object Categories & Free Monoids",
+      "target_pages": [
+        115,
+        130
+      ],
+      "functorial_relation": "free-forgetful-adjunction",
+      "formula": "\\text{Free} \\dashv U : \\mathbf{Mon} \\leftrightarrows \\mathbf{Set}, \\; \\text{Free}(\\Sigma) = \\Sigma^*",
+      "overlap": "1-object looping category BM & free string concatenation <-> Free path categories Path(G) on directed graphs",
+      "shared_terms": [
+        "arrows",
+        "categories",
+        "category",
+        "free"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc III · Monoids & Categories",
+      "why_it_bridges": "1-object looping category BM & free string concatenation <-> Free path categories Path(G) on directed graphs"
+    },
+    {
+      "id": "bridge-10",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "orders-lattices-hierarchies",
+      "source_title": "Preorders, Partial Orders, Meets/Joins & Alexandrov Spaces",
+      "source_pages": [
+        221,
+        244
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "orders-hasse-diagrams-and-lattices",
+      "target_title": "Partial Orders, Hasse Diagrams, Divisibility & Color Lattices",
+      "target_pages": [
+        131,
+        147
+      ],
+      "functorial_relation": "thin-category-embedding",
+      "formula": "(P, \\le) \\hookrightarrow \\mathbf{Cat}, \\; |\\text{Hom}_P(a,b)| \\le 1",
+      "overlap": "Partial orders, Hasse diagrams & meets/joins as thin categories with products/coproducts",
+      "shared_terms": [
+        "bounds",
+        "greatest",
+        "join",
+        "joins",
+        "lattices",
+        "least",
+        "lower",
+        "meet"
+      ],
+      "bridge_fidelity": 0.743,
+      "coboundary_defect_d0": 0.257,
+      "concept_arc": "Arc III · Monoids & Categories",
+      "why_it_bridges": "Partial orders, Hasse diagrams & meets/joins as thin categories with products/coproducts"
+    },
+    {
+      "id": "bridge-11",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "orders-lattices-hierarchies",
+      "source_title": "Preorders, Partial Orders, Meets/Joins & Alexandrov Spaces",
+      "source_pages": [
+        221,
+        244
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "birkhoff-representation-and-boolean-lattices",
+      "target_title": "Birkhoff's Representation Theorem & Power-Set Lattices",
+      "target_pages": [
+        148,
+        152
+      ],
+      "functorial_relation": "stone-birkhoff-duality",
+      "formula": "L \\cong \\mathcal{O}(\\text{Irr}(L)) \\hookrightarrow \\mathcal{P}(X)",
+      "overlap": "3D Birkhoff Hasse Cube (Div(30) \\cong CMYK \\cong P(3)) <-> Distributive lattice order-ideals & Alexandrov open sets",
+      "shared_terms": [
+        "lattices",
+        "partial"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc IV · Orders & Lattices",
+      "why_it_bridges": "3D Birkhoff Hasse Cube (Div(30) \\cong CMYK \\cong P(3)) <-> Distributive lattice order-ideals & Alexandrov open sets"
+    },
+    {
+      "id": "bridge-12",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "adjoint-functors-hom-iso",
+      "source_title": "Adjoint Functors (L ⊣ R) & Universal Dictionary Bridges",
+      "source_pages": [
+        461,
+        480
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "preorders-equivalence-and-thin-categories",
+      "target_title": "Preorders, Equivalence Relations & Thin Categories",
+      "target_pages": [
+        153,
+        161
+      ],
+      "functorial_relation": "thin-adjunction-specialization",
+      "formula": "L(a) \\le b \\iff a \\le R(b) \\quad (\\text{Galois Connection})",
+      "overlap": "Preorders, equivalence closures & Galois connections as 0-1 thin-category adjunctions L \\dashv R",
+      "shared_terms": [
+        "categories",
+        "preorders"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc IV · Orders & Lattices",
+      "why_it_bridges": "Preorders, equivalence closures & Galois connections as 0-1 thin-category adjunctions L \\dashv R"
+    },
+    {
+      "id": "bridge-13",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "ologs-ontology-logs",
+      "source_title": "Ologs (Ontology Logs): Functional Worldviews",
+      "source_pages": [
+        47,
+        67
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "propositional-logic-as-category",
+      "target_title": "Categorifying Logic: Propositions as Objects & Proofs as Arrows",
+      "target_pages": [
+        162,
+        179
+      ],
+      "functorial_relation": "deductive-entailment-category",
+      "formula": "\\phi \\vdash \\psi \\iff \\exists (\\phi \\to \\psi) \\in \\mathcal{L}",
+      "overlap": "Coloring-book propositional tautologies & deductive inference arrows <-> Logical constraints and facts in Ologs",
+      "shared_terms": [
+        "arrows",
+        "category"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc IV · Orders & Lattices",
+      "why_it_bridges": "Coloring-book propositional tautologies & deductive inference arrows <-> Logical constraints and facts in Ologs"
+    },
+    {
+      "id": "bridge-14",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "currying-exponentials-subobjects",
+      "source_title": "Currying, Exponentials, Subobject Classifier & Relative Sets",
+      "source_pages": [
+        128,
+        159
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "implication-currying-and-intuitionistic-bhk",
+      "target_title": "Implication (P ⇒ Q), Exponential Currying & Intuitionistic BHK Logic",
+      "target_pages": [
+        180,
+        196
+      ],
+      "functorial_relation": "cartesian-closed-adjunction",
+      "formula": "\\text{Hom}(C \\wedge A, B) \\cong \\text{Hom}(C, A \\Rightarrow B)",
+      "overlap": "Marinov's two-pan Heyting implication lever & BHK constructive proofs <-> Spivak's currying exponential B^A & subobject classifier \\Omega",
+      "shared_terms": [
+        "currying",
+        "exponential",
+        "function",
+        "internalizing",
+        "set"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc V · Logic & Cartesian Closed",
+      "why_it_bridges": "Marinov's two-pan Heyting implication lever & BHK constructive proofs <-> Spivak's currying exponential B^A & subobject classifier \\Omega"
+    },
+    {
+      "id": "bridge-15",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "universal-limits-and-cones",
+      "source_title": "Universal Limits, Cones & Terminal Objects in Cat",
+      "source_pages": [
+        392,
+        428
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "heyting-and-boolean-algebras-bicartesian-closed",
+      "target_title": "Heyting Algebras, Boolean Algebras & Bicartesian Closed Categories",
+      "target_pages": [
+        197,
+        211
+      ],
+      "functorial_relation": "heyting-internal-logic",
+      "formula": "\\neg A := (A \\Rightarrow \\bot), \\quad A \\wedge B \\simeq \\lim, \\; A \\vee B \\simeq \\text{colim}",
+      "overlap": "Bicartesian closed categories (BCCC) & Heyting vs. Boolean negation <-> Universal cones, cocones & internal logic",
+      "shared_terms": [
+        "category",
+        "category",
+        "diagram",
+        "morphism"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc V · Logic & Cartesian Closed",
+      "why_it_bridges": "Bicartesian closed categories (BCCC) & Heyting vs. Boolean negation <-> Universal cones, cocones & internal logic"
+    },
+    {
+      "id": "bridge-16",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "pullbacks-and-fiber-products",
+      "source_title": "Pullbacks (Fiber Products) & Constraint Solving",
+      "source_pages": [
+        88,
+        101
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "type-theory-russell-and-formation-intro-elim",
+      "target_title": "Type Theory, Russell's Paradox & Formation / Intro / Elim Rules",
+      "target_pages": [
+        212,
+        239
+      ],
+      "functorial_relation": "universal-mapping-polarity",
+      "formula": "\\text{Intro (Colimit / Entry } \\iota_i\\text{)} \\leftrightarrow \\text{Elim (Limit / Exit } \\pi_i\\text{)}",
+      "overlap": "Russell's self-swallowing paradox vs. type formation, introduction & elimination rules and fiber-product constraints",
+      "shared_terms": [
+        "category",
+        "diagram",
+        "morphism",
+        "theory"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc V · Logic & Cartesian Closed",
+      "why_it_bridges": "Russell's self-swallowing paradox vs. type formation, introduction & elimination rules and fiber-product constraints"
+    },
+    {
+      "id": "bridge-17",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "universal-colimits-and-cocones",
+      "source_title": "Universal Colimits, Cocones & Interconnected Gluing",
+      "source_pages": [
+        429,
+        438
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "inductive-types-nat-list-and-church-encodings",
+      "target_title": "Inductive Types (Nat, List), Algebraic Data Types & Church Encodings",
+      "target_pages": [
+        240,
+        259
+      ],
+      "functorial_relation": "initial-algebra-stratification",
+      "formula": "\\mu F \\cong F(\\mu F), \\quad \\text{Nat} \\cong 1 \\sqcup \\text{Nat}",
+      "overlap": "Stratified inductive sprouting trees [0, S] : 1 + Nat \\to Nat & Church numeral loops <-> Initial algebras & colimits",
+      "shared_terms": [
+        "category",
+        "diagram",
+        "morphism",
+        "universal"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc V · Logic & Cartesian Closed",
+      "why_it_bridges": "Stratified inductive sprouting trees [0, S] : 1 + Nat \\to Nat & Church numeral loops <-> Initial algebras & colimits"
+    },
+    {
+      "id": "bridge-18",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "currying-exponentials-subobjects",
+      "source_title": "Currying, Exponentials, Subobject Classifier & Relative Sets",
+      "source_pages": [
+        128,
+        159
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "simply-typed-lambda-calculus-curry-howard-lambek",
+      "target_title": "Simply Typed Lambda Calculus (STLC) & Curry-Howard-Lambek Rosetta Stone",
+      "target_pages": [
+        260,
+        277
+      ],
+      "functorial_relation": "curry-howard-lambek-trinity",
+      "formula": "\\text{Propositions} \\simeq \\text{Types} \\simeq \\text{Objects in CCC}",
+      "overlap": "Simply Typed Lambda Calculus (\\lambda x.t, eval) & Curry-Howard-Lambek <-> Cartesian Closed Categories",
+      "shared_terms": [
+        "category",
+        "currying",
+        "diagram",
+        "morphism"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc V · Logic & Cartesian Closed",
+      "why_it_bridges": "Simply Typed Lambda Calculus (\\lambda x.t, eval) & Curry-Howard-Lambek <-> Cartesian Closed Categories"
+    },
+    {
+      "id": "bridge-19",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "functors-structure-maps",
+      "source_title": "Functors: Structure-Preserving Maps Between Worldviews",
+      "source_pages": [
+        285,
+        337
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "functors-structure-preserving-maps",
+      "target_title": "Functors F : C → D — Structure-Preserving Maps Between Categories",
+      "target_pages": [
+        278,
+        295
+      ],
+      "functorial_relation": "functorial-homomorphism",
+      "formula": "F(g \\circ f) = F(g) \\circ F(f), \\quad F(\\text{id}_A) = \\text{id}_{F(A)}",
+      "overlap": "Cartographic Island Map metaphor F : C \\to D <-> Functorial structure preservation across categories",
+      "shared_terms": [
+        "cat",
+        "category",
+        "composition",
+        "functor",
+        "functors",
+        "maps",
+        "morphisms",
+        "preserving"
+      ],
+      "bridge_fidelity": 0.725,
+      "coboundary_defect_d0": 0.275,
+      "concept_arc": "Arc V · Logic & Cartesian Closed",
+      "why_it_bridges": "Cartographic Island Map metaphor F : C \\to D <-> Functorial structure preservation across categories"
+    },
+    {
+      "id": "bridge-20",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "database-schemas-instances",
+      "source_title": "Categorical Databases: Schemas (G, ≃) & Table Instances",
+      "source_pages": [
+        245,
+        266
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "functors-across-monoids-orders-logic",
+      "target_title": "Functors Across Worlds: Monoid Homomorphisms & Monotone Maps",
+      "target_pages": [
+        296,
+        305
+      ],
+      "functorial_relation": "rosetta-functor-instantiation",
+      "formula": "I : \\mathcal{S} \\to \\mathbf{Set} \\in \\mathcal{S}\\text{-}\\mathbf{Inst}",
+      "overlap": "Functors as homomorphisms, monotone maps & deductive translations <-> Database instances as Set-valued functors",
+      "shared_terms": [
+        "categorical",
+        "monoid"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc VI · Functors & Migration",
+      "why_it_bridges": "Functors as homomorphisms, monotone maps & deductive translations <-> Database instances as Set-valued functors"
+    },
+    {
+      "id": "bridge-21",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "monads-and-contextual-computation",
+      "source_title": "Monads (T, η, μ): Formalizing Experimental & Computational Context",
+      "source_pages": [
+        527,
+        539
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "programming-endofunctors-pointed-contravariant",
+      "target_title": "Programming Endofunctors (List, Maybe, .map), Pointed & Contravariant Functors",
+      "target_pages": [
+        306,
+        318
+      ],
+      "functorial_relation": "endofunctor-monad-lifting",
+      "formula": "(T : \\mathcal{C} \\to \\mathcal{C}, \\eta : \\text{Id} \\Rightarrow T, \\mu : T^2 \\Rightarrow T)",
+      "overlap": "Programming container endofunctors (List, Maybe, .map) & variance <-> Monads, pointed endofunctors & Kleisli composition",
+      "shared_terms": [
+        "functions",
+        "pure",
+        "unit"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc VI · Functors & Migration",
+      "why_it_bridges": "Programming container endofunctors (List, Maybe, .map) & variance <-> Monads, pointed endofunctors & Kleisli composition"
+    },
+    {
+      "id": "bridge-22",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "natural-transformations-functor-cat",
+      "source_title": "Natural Transformations & The Category of Database Instances",
+      "source_pages": [
+        338,
+        370
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "natural-transformations-and-naturality-squares",
+      "target_title": "Natural Transformations α : F ⇒ G & Naturality Squares",
+      "target_pages": [
+        319,
+        341
+      ],
+      "functorial_relation": "naturality-square-commutativity",
+      "formula": "G(f) \\circ \\alpha_A = \\alpha_B \\circ F(f) \\quad (\\alpha : F \\Rightarrow G)",
+      "overlap": "3D Naturality Prism C \\times 2 \\to D & naturality squares <-> Database instance homomorphisms & functor categories",
+      "shared_terms": [
+        "category",
+        "component",
+        "family",
+        "isomorphism",
+        "morphism",
+        "morphisms",
+        "natural",
+        "natural transformation"
+      ],
+      "bridge_fidelity": 0.767,
+      "coboundary_defect_d0": 0.233,
+      "concept_arc": "Arc VI · Functors & Migration",
+      "why_it_bridges": "3D Naturality Prism C \\times 2 \\to D & naturality squares <-> Database instance homomorphisms & functor categories"
+    },
+    {
+      "id": "bridge-23",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "categorical-equivalence-cat-sch",
+      "source_title": "Equivalence of Categories & Theorem Cat ≃ Sch",
+      "source_pages": [
+        371,
+        391
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "polymorphic-functions-and-categorical-equivalence",
+      "target_title": "Parametric Polymorphism (∀a. F a → G a) & Categorical Equivalence",
+      "target_pages": [
+        342,
+        359
+      ],
+      "functorial_relation": "equivalence-of-categories",
+      "formula": "F : \\mathcal{C} \\rightleftarrows \\mathcal{D} : G, \\quad \\eta : \\text{Id}_{\\mathcal{C}} \\cong G \\circ F, \\; \\epsilon : F \\circ G \\cong \\text{Id}_{\\mathcal{D}}",
+      "overlap": "Parametric polymorphism (reverse : \\forall a. [a] \\to [a]) & equivalence of categories <-> Categorical equivalence Sch \\simeq Cat",
+      "shared_terms": [
+        "equivalence",
+        "functor",
+        "natural isomorphism"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc VII · Naturality & Sheaves",
+      "why_it_bridges": "Parametric polymorphism (reverse : \\forall a. [a] \\to [a]) & equivalence of categories <-> Categorical equivalence Sch \\simeq Cat"
+    },
+    {
+      "id": "bridge-24",
+      "source_corpus": "spivak-609pp",
+      "source_stalk_id": "sheaves-and-local-to-global-gluing",
+      "source_title": "Sheaves: Open Covers, Restriction Maps & The Local-to-Global Gluing Axiom",
+      "source_pages": [
+        518,
+        522
+      ],
+      "target_corpus": "marinov-377pp",
+      "target_stalk_id": "functor-categories-vertical-horizontal-2-categories",
+      "target_title": "Functor Categories [C, D], Vertical/Horizontal Composition & 2-Categories",
+      "target_pages": [
+        360,
+        377
+      ],
+      "functorial_relation": "higher-categorical-sheaf-descent",
+      "formula": "\\mathcal{O}(U) \\xrightarrow{\\text{eq}} \\prod_i \\mathcal{O}(U_i) \\rightrightarrows \\prod_{i,j} \\mathcal{O}(U_i \\cap U_j)",
+      "overlap": "Vertical/horizontal composition in 2-Category Cat <-> Presheaves, Yoneda Lemma & Sheaf local-to-global equalizer gluing",
+      "shared_terms": [
+        "category",
+        "diagram",
+        "morphism"
+      ],
+      "bridge_fidelity": 0.68,
+      "coboundary_defect_d0": 0.32,
+      "concept_arc": "Arc VII · Naturality & Sheaves",
+      "why_it_bridges": "Vertical/horizontal composition in 2-Category Cat <-> Presheaves, Yoneda Lemma & Sheaf local-to-global equalizer gluing"
     }
   ]
 }

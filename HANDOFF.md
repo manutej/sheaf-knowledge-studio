@@ -1,7 +1,7 @@
-# HANDOFF — Alexandrov Sheaf Knowledge Pipeline, Round 6 Deep Adversarial Review & VBM Studio (`v6.0.0`)
+# HANDOFF — Alexandrov Sheaf Knowledge Pipeline, Multi-Round Adversarial Panel Certification (`Rounds 7–9 / v9.0.0 · 100.0% SGI`)
 
 **Date:** 2026-10-17  
-**Release Version:** `v6.0.0` (`CETI-SHEAF-PIPELINE-V6.0`)  
+**Release Version:** `v9.0.0` (`CETI-SHEAF-PIPELINE-V9.0`)  
 **GitHub Repository:** [`https://github.com/manutej/sheaf-knowledge-studio`](https://github.com/manutej/sheaf-knowledge-studio)  
 **Status:** **GO (`◆ 27/27 Binary Gates Cleared Across All 3 Builds + 12/12 Negative Mutation Self-Tests PASS + 19-State VBM Desktop/Mobile Audit PASS`)**  
 **Disk is memory. Chat is not.**
@@ -10,20 +10,20 @@
 
 ## 0. Cold Start (60 Seconds)
 
-1. **Read this file (`HANDOFF.md`)**, [`STATUS.md`](./STATUS.md), and the Round 6 Deep Adversarial Iteration Report [`audits/ADVERSARIAL-ITERATION-REPORT-R6.md`](./audits/ADVERSARIAL-ITERATION-REPORT-R6.md).
+1. **Read this file (`HANDOFF.md`)**, [`STATUS.md`](./STATUS.md), and the Round 6 Deep Adversarial Iteration Report [`audits/FINAL-ADVERSARIAL-PANEL-REPORT-R7-R9.md`](./audits/FINAL-ADVERSARIAL-PANEL-REPORT-R7-R9.md).
 2. **Run the One-Command Verification Suite & 19-State VBM Recorder:**
    ```bash
    ./verify_all.sh
-   uv run --with playwright python3 audits/vbm_ux_audit.py r6_after
+   uv run --with playwright python3 audits/vbm_ux_audit.py r9_after
    ```
 3. **Inspect the 3 Shipped Studio Volumes & Knowledge Bases:**
    - **Corpus 1 (Spivak, 609 pp.):** [`studios/spivak-category-theory-for-the-sciences/index.html`](./studios/spivak-category-theory-for-the-sciences/index.html) (`422.4 KB`)
    - **Corpus 2 (Marinov Curated, 377 pp.):** [`studios/marinov-category-theory-illustrated/index.html`](./studios/marinov-category-theory-illustrated/index.html) (`442.4 KB`)
    - **Corpus 3 (Independent Zero-Shot Agent Run, 377 pp.):** [`studios/independent-agent-zero-shot/index.html`](./studios/independent-agent-zero-shot/index.html) (`325.2 KB`)
 4. **Inspect the VBM Walkthrough Videos & 19 High-DPI Screenshots (`audits/vbm/`):**
-   - Desktop Walkthrough Video (`1440×900`): [`audits/vbm/r6_after_desktop_walkthrough.webm`](./audits/vbm/r6_after_desktop_walkthrough.webm)
-   - Mobile Walkthrough Video (`390×844` iPhone 14 Pro): [`audits/vbm/r6_after_mobile_walkthrough.webm`](./audits/vbm/r6_after_mobile_walkthrough.webm)
-   - Telemetry Comparison JSONs: [`audits/vbm/vbm_telemetry_r4_before.json`](./audits/vbm/vbm_telemetry_r4_before.json) → [`audits/vbm/vbm_telemetry_r5_after.json`](./audits/vbm/vbm_telemetry_r5_after.json) → [`audits/vbm/vbm_telemetry_r6_after.json`](./audits/vbm/vbm_telemetry_r6_after.json)
+   - Desktop Walkthrough Video (`1440×900`): [`audits/vbm/r9_after_desktop_walkthrough.webm`](./audits/vbm/r9_after_desktop_walkthrough.webm)
+   - Mobile Walkthrough Video (`390×844` iPhone 14 Pro): [`audits/vbm/r9_after_mobile_walkthrough.webm`](./audits/vbm/r9_after_mobile_walkthrough.webm)
+   - Telemetry Comparison JSONs: [`audits/vbm/vbm_telemetry_r4_before.json`](./audits/vbm/vbm_telemetry_r4_before.json) → [`audits/vbm/vbm_telemetry_r5_after.json`](./audits/vbm/vbm_telemetry_r5_after.json) → [`audits/vbm/vbm_telemetry_r9_after.json`](./audits/vbm/vbm_telemetry_r9_after.json)
 
 ---
 

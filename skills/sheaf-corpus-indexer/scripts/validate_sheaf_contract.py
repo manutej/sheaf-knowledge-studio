@@ -3,7 +3,7 @@ r"""
 validate_sheaf_contract.py
 ==========================
 Deterministic Typed Contract & Čech Cohomology Validator for any Sheaf Knowledge Base.
-Enforces binary HARD FAIL gates (HF-SHEAF-01 .. HF-SHEAF-12) across:
+Enforces binary HARD FAIL gates (HF-SHEAF-01 .. HF-SHEAF-14) across:
   1. `sheaf_kb.json` (schema, 100% body page coverage, Olog internal referential integrity,
      restriction morphism connectivity, 2-simplex cocycle closure, citation page bounds)
   2. `sheaf_pages_bundle.js` (deferred bundle existence & page parity)
@@ -328,6 +328,46 @@ def check_sheaf_contract(kb_path: Path, db_path: Path = None, wiki_dir: Path = N
         + (f" — {podcast_errors[:4]}" if podcast_errors else "")
     )
 
+    # HF-SHEAF-14: Cross-Corpus Functorial Bridge Completeness & Strict JSON Schema Conformance
+    bridges = kb.get("cross_corpus_bridges", [])
+    bridge_errors = []
+    min_bridges = min(18, len(stalks))
+    if len(bridges) < min_bridges:
+        bridge_errors.append(f"len(cross_corpus_bridges)={len(bridges)} (<{min_bridges} required)")
+    for b_idx, b in enumerate(bridges):
+        bfid = b.get("bridge_fidelity")
+        bd0 = b.get("coboundary_defect_d0")
+        if bfid is None or not (0.5 <= float(bfid) <= 1.0):
+            bridge_errors.append(f"bridge[{b_idx}] invalid bridge_fidelity={bfid}")
+        elif bd0 is None or abs(float(bd0) - (1.0 - float(bfid))) > 0.02:
+            bridge_errors.append(f"bridge[{b_idx}] coboundary_defect_d0={bd0} != 1 - {bfid}")
+        if not b.get("source_stalk_id") or not b.get("target_stalk_id") or not b.get("concept_arc") or not b.get("shared_terms"):
+            bridge_errors.append(f"bridge[{b_idx}] missing required functorial bridge fields")
+
+    schema_candidates = [
+        kb_path.parent.parent / "contracts" / "sheaf-schema-contract.json",
+        Path(__file__).resolve().parents[1] / "resources" / "sheaf_kb.schema.json",
+        Path(__file__).resolve().parents[4] / "sheaf-knowledge-studio" / "contracts" / "sheaf-schema-contract.json",
+    ]
+    schema_path = next((p for p in schema_candidates if p.exists()), None)
+    if schema_path is not None:
+        try:
+            import jsonschema
+            schema_obj = json.loads(schema_path.read_text(encoding="utf-8"))
+            v = jsonschema.Draft202012Validator(schema_obj)
+            s_errs = list(v.iter_errors(kb))
+            if s_errs:
+                bridge_errors.append(f"jsonschema errors={len(s_errs)} (first: {s_errs[0].message[:80]})")
+        except ImportError:
+            pass
+
+    record_gate(
+        "HF-SHEAF-14",
+        len(bridges) >= min_bridges and len(bridge_errors) == 0,
+        f"Cross-Corpus Functorial Bridges verified: {len(bridges)} bridges across {len({b.get('concept_arc') for b in bridges})} arcs; schema/bridge errors={len(bridge_errors)}"
+        + (f" — {bridge_errors[:3]}" if bridge_errors else "")
+    )
+
     results["metrics"] = {
         "total_pages": total_pages,
         "chapters": len(chapters),
@@ -336,6 +376,7 @@ def check_sheaf_contract(kb_path: Path, db_path: Path = None, wiki_dir: Path = N
         "two_simplices": len(simplices),
         "formal_items": len(formal_items),
         "notebook_investigations": len(investigations),
+        "cross_corpus_bridges": len(bridges),
         "empirical_h1_obstructions": len(obstructions),
         "mean_restriction_fidelity": mean_fid,
         "mean_coboundary_defect_d0": mean_d0,
@@ -348,11 +389,12 @@ def check_sheaf_contract(kb_path: Path, db_path: Path = None, wiki_dir: Path = N
 
 def run_negative_selftest(kb_path: Path) -> bool:
     """
-    Runs 4 adversarial negative tests proving the contract linter catches:
+    Runs 5 adversarial negative tests proving the contract linter catches:
       1. Bogus links with zero empirical term overlap (HF-SHEAF-06 must FAIL)
       2. Non-commuting 2-simplices with high holonomy defect ||δ¹|| > 0.50 (HF-SHEAF-07 must FAIL)
       3. Hallucinated out-of-bounds page citations p=99999 (HF-SHEAF-08/09 must FAIL)
       4. Decorative / missing content-computed cohomology metrics (HF-SHEAF-09 must FAIL)
+      5. Missing or invalid Cross-Corpus Functorial Bridges (HF-SHEAF-14 must FAIL)
     """
     import tempfile
     orig_kb = json.loads(kb_path.read_text(encoding="utf-8"))
@@ -390,12 +432,20 @@ def run_negative_selftest(kb_path: Path) -> bool:
         r4 = check_sheaf_contract(tmp_path)
         c4_caught = r4["hard_fails"]["HF-SHEAF-09"]["status"] == "OPEN"
 
+        # Case 5: Broken cross-corpus functorial bridges
+        kb5 = json.loads(json.dumps(orig_kb))
+        kb5["cross_corpus_bridges"] = [{"id": "bad", "source_stalk_id": "x", "target_stalk_id": "y", "bridge_fidelity": 0.12}]
+        tmp_path.write_text(json.dumps(kb5), encoding="utf-8")
+        r5 = check_sheaf_contract(tmp_path)
+        c5_caught = r5["hard_fails"]["HF-SHEAF-14"]["status"] == "OPEN"
+
         print("=== ADVERSARIAL NEGATIVE SELFTEST (PROVING LINTER FAILS ON DECORATIVE/BAD DATA) ===")
         for label, ok in [
             ("Test 1 (Bogus link with zero empirical overlap -> HF-SHEAF-06 OPEN)", c1_caught),
             ("Test 2 (Non-commuting 2-simplex ||δ¹||=0.88   -> HF-SHEAF-07 OPEN)", c2_caught),
             ("Test 3 (Hallucinated page citation p=99999    -> HF-SHEAF-08 OPEN)", c3_caught),
             ("Test 4 (Decorative non-computed H⁰ score      -> HF-SHEAF-09 OPEN)", c4_caught),
+            ("Test 5 (Broken cross-corpus functorial bridge -> HF-SHEAF-14 OPEN)", c5_caught),
         ]:
             print(f"  [{'PASS' if ok else 'FAIL'}] {label}")
             if not ok:
