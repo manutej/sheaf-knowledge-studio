@@ -1,0 +1,70 @@
+{
+  "kb_path": "/Users/cairo/Documents/CETI/ACCENTURE/content-factory v2/independent-agent-run/data/sheaf_kb.json",
+  "hard_fails": {
+    "HF-SHEAF-01": {
+      "status": "CLEARED",
+      "detail": "Top-level keys present (8/8); pages count 377 == book.total_pages 377"
+    },
+    "HF-SHEAF-02": {
+      "status": "CLEARED",
+      "detail": "Body page coverage p.1..377: 377/377 (100.0%)"
+    },
+    "HF-SHEAF-03": {
+      "status": "CLEARED",
+      "detail": "18 unique stalks across 9 chapters; bad intervals: 0; tautological formal_cores: 0"
+    },
+    "HF-SHEAF-04": {
+      "status": "CLEARED",
+      "detail": "All 18 local Ologs valid with 16 distinct aspect verbs & zero kerning pollution (errors: 0)"
+    },
+    "HF-SHEAF-05": {
+      "status": "CLEARED",
+      "detail": "33 restriction morphisms; connected stalks: 18/18; bad endpoints: 0"
+    },
+    "HF-SHEAF-06": {
+      "status": "CLEARED",
+      "detail": "All 33 restriction morphisms carry content-computed TF-IDF/JSD overlap (mean fidelity=0.78, mean ||δ⁰||=0.22, invalid=0)"
+    },
+    "HF-SHEAF-07": {
+      "status": "CLEARED",
+      "detail": "8 commutative 2-simplices verified with content-computed holonomy (mean ||δ¹||=0.088, bad=0)"
+    },
+    "HF-SHEAF-08": {
+      "status": "CLEARED",
+      "detail": "279 formal declarations indexed with 211 distinct contextual titles & valid page bounds (bad: 0)"
+    },
+    "HF-SHEAF-09": {
+      "status": "CLEARED",
+      "detail": "4 investigations & 12 empirical H¹ obstructions verified (errors: 0)"
+    },
+    "HF-SHEAF-10": {
+      "status": "CLEARED",
+      "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (558.5 KB)"
+    },
+    "HF-SHEAF-11": {
+      "status": "CLEARED",
+      "detail": "SQLite FTS5 verified: pages_fts=377/377, formal_items_fts=279/279"
+    },
+    "HF-SHEAF-12": {
+      "status": "CLEARED",
+      "detail": "Wiki files verified: HOME.md=True, chapters=9/9, concepts=18/18"
+    }
+  },
+  "metrics": {
+    "total_pages": 377,
+    "chapters": 9,
+    "stalks": 18,
+    "restriction_morphisms": 33,
+    "two_simplices": 8,
+    "formal_items": 279,
+    "notebook_investigations": 4,
+    "empirical_h1_obstructions": 12,
+    "mean_restriction_fidelity": 0.78,
+    "mean_coboundary_defect_d0": 0.22,
+    "mean_holonomy_defect_d1": 0.088,
+    "body_page_coverage_pct": 100.0,
+    "connected_component_ratio": 1.0
+  },
+  "violations": [],
+  "status": "PASS"
+}

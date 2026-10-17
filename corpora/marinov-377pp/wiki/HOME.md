@@ -1,0 +1,41 @@
+# Category Theory Illustrated — Alexandrov Sheaf Wiki (`HOME.md`)
+
+**Author:** Boris Marinov (Jencel Panic) · **Pages:** 377 · **Stalks:** 24 · **Restrictions:** 50 · **2-Simplices:** 10 · **Declarations:** 291
+
+## Chapter Hubs
+
+- [Chapter 1: Prologue & Sets — Collections, Functions & Isomorphisms](chapters/ch01-sets-and-functions.md) (`pp. 3–51`)
+- [Chapter 2: Categories — External Definitions, Products, Coproducts & Duality](chapters/ch02-from-sets-to-categories.md) (`pp. 52–94`)
+- [Chapter 3: Monoids & Groups — Single-Object Categories & Symmetries](chapters/ch03-monoids-and-groups.md) (`pp. 95–130`)
+- [Chapter 4: Orders & Lattices — Thin Categories, Posets & Birkhoff Duality](chapters/ch04-orders-and-lattices.md) (`pp. 131–161`)
+- [Chapter 5: Logic — Propositions as Objects, Proofs as Morphisms & Heyting Algebras](chapters/ch05-logic-and-proofs.md) (`pp. 162–211`)
+- [Chapter 6: Types — Curry-Howard-Lambek, ADTs & Simply Typed Lambda Calculus](chapters/ch06-types-and-lambda-calculus.md) (`pp. 212–277`)
+- [Chapter 7: Functors — Structure-Preserving Maps Across Mathematical Worlds](chapters/ch07-functors.md) (`pp. 278–318`)
+- [Chapter 8: Natural Transformations, Categorical Equivalence & 2-Categories](chapters/ch08-natural-transformations-and-2-categories.md) (`pp. 319–377`)
+
+## All 24 Concept Stalks (`0-Simplices`)
+
+- [Visual Abstraction & Lawvere's Perspective](concepts/visual-abstraction-modes-of-knowledge.md) (`pp. 3–12`)
+- [Sets, Subsets, Empty Set (∅) & Singleton (1)](concepts/sets-subsets-empty-singleton.md) (`pp. 13–27`)
+- [Injections, Surjections, Isomorphisms & Currying in Set](concepts/functions-bijections-isomorphisms.md) (`pp. 28–51`)
+- [From Internal Pairs to External Categorical Products (A × B)](concepts/external-products-and-projections.md) (`pp. 52–68`)
+- [Categorical Duality, Coproducts (A + B) & Initial/Terminal Objects](concepts/categorical-duality-and-coproducts.md) (`pp. 69–81`)
+- [The Formal Definition of a Category & Point-Free Epistemology](concepts/categories-objects-morphisms-laws.md) (`pp. 82–94`)
+- [Magmas, Semigroups & Monoids as Composable Actions](concepts/monoids-semigroups-magmas.md) (`pp. 95–103`)
+- [Groups, Geometric Rotations (C₃, D₃) & Invertible Symmetries](concepts/groups-rotations-and-symmetries.md) (`pp. 104–114`)
+- [Delooping Monoids as One-Object Categories & Free Monoids](concepts/monoids-as-single-object-categories-free-monoids.md) (`pp. 115–130`)
+- [Partial Orders, Hasse Diagrams, Divisibility & Color Lattices](concepts/orders-hasse-diagrams-and-lattices.md) (`pp. 131–147`)
+- [Birkhoff's Representation Theorem & Power-Set Lattices](concepts/birkhoff-representation-and-boolean-lattices.md) (`pp. 148–152`)
+- [Preorders, Equivalence Relations & Thin Categories](concepts/preorders-equivalence-and-thin-categories.md) (`pp. 153–161`)
+- [Categorifying Logic: Propositions as Objects & Proofs as Arrows](concepts/propositional-logic-as-category.md) (`pp. 162–179`)
+- [Implication (P ⇒ Q), Exponential Currying & Intuitionistic BHK Logic](concepts/implication-currying-and-intuitionistic-bhk.md) (`pp. 180–196`)
+- [Heyting Algebras, Boolean Algebras & Bicartesian Closed Categories](concepts/heyting-and-boolean-algebras-bicartesian-closed.md) (`pp. 197–211`)
+- [Type Theory, Russell's Paradox & Formation / Intro / Elim Rules](concepts/type-theory-russell-and-formation-intro-elim.md) (`pp. 212–239`)
+- [Inductive Types (Nat, List), Algebraic Data Types & Church Encodings](concepts/inductive-types-nat-list-and-church-encodings.md) (`pp. 240–259`)
+- [Simply Typed Lambda Calculus (STLC) & Curry-Howard-Lambek Rosetta Stone](concepts/simply-typed-lambda-calculus-curry-howard-lambek.md) (`pp. 260–277`)
+- [Functors F : C → D — Structure-Preserving Maps Between Categories](concepts/functors-structure-preserving-maps.md) (`pp. 278–295`)
+- [Functors Across Worlds: Monoid Homomorphisms & Monotone Maps](concepts/functors-across-monoids-orders-logic.md) (`pp. 296–305`)
+- [Programming Endofunctors (List, Maybe, .map), Pointed & Contravariant Functors](concepts/programming-endofunctors-pointed-contravariant.md) (`pp. 306–318`)
+- [Natural Transformations α : F ⇒ G & Naturality Squares](concepts/natural-transformations-and-naturality-squares.md) (`pp. 319–341`)
+- [Parametric Polymorphism (∀a. F a → G a) & Categorical Equivalence](concepts/polymorphic-functions-and-categorical-equivalence.md) (`pp. 342–359`)
+- [Functor Categories [C, D], Vertical/Horizontal Composition & 2-Categories](concepts/functor-categories-vertical-horizontal-2-categories.md) (`pp. 360–377`)

@@ -1,0 +1,54 @@
+{
+  "html_path": "/Users/cairo/Documents/CETI/ACCENTURE/content-factory v2/independent-agent-run/Independent_Agent_Sheaf_Studio.html",
+  "hard_fails": {
+    "HF-STUDIO-01": {
+      "status": "CLEARED",
+      "detail": "Field-Manual paper/ink & 3-voice typography tokens present (7/7)"
+    },
+    "HF-STUDIO-02": {
+      "status": "CLEARED",
+      "detail": "Core HTML size 282.7 KB (< 450 KB limit); deferred bundle tag present=True"
+    },
+    "HF-STUDIO-03": {
+      "status": "CLEARED",
+      "detail": "Static markup LaTeX leaks: 0; KB rendered LaTeX leaks: 0"
+    },
+    "HF-STUDIO-04": {
+      "status": "CLEARED",
+      "detail": "Plates present: 5 (['plate-1', 'plate-2', 'plate-3', 'plate-4', 'plate-5']); italic accent title nouns: 6"
+    },
+    "HF-STUDIO-05": {
+      "status": "CLEARED",
+      "detail": "Marginalia blocks: 5 (>=5); <cite> attributions: 5 (>=5); Counterpoints: 5 (>=5)"
+    },
+    "HF-STUDIO-06": {
+      "status": "CLEARED",
+      "detail": "Verdict stamps checked: 17; glyph-less stamps: 0"
+    },
+    "HF-STUDIO-07": {
+      "status": "CLEARED",
+      "detail": "Instruments verified: count=5 (>=5), tablists=3 (>=3), notebookStudio=True, onDemand3D=True"
+    },
+    "HF-STUDIO-08": {
+      "status": "CLEARED",
+      "detail": "FORGE compliance: zero 'So What'=True, zero 'Module N' titles=True, zero stacked callout-boxes=True"
+    },
+    "HF-STUDIO-09": {
+      "status": "CLEARED",
+      "detail": "Depth switcher=True; Cream/Ink paper switcher=True"
+    },
+    "HF-STUDIO-10": {
+      "status": "CLEARED",
+      "detail": "Slide-over 377-page verbatim reader & __jumpToPage wired=True; out-of-bounds page jumps=0; foreign Spivak/609 bleed=False"
+    }
+  },
+  "metrics": {
+    "core_html_size_kb": 282.7,
+    "plates_count": 5,
+    "marginalia_count": 5,
+    "counterpoint_count": 5,
+    "stamps_count": 17
+  },
+  "violations": [],
+  "status": "PASS"
+}

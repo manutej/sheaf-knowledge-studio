@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ceti.forge/schemas/sheaf-knowledge-base.v2.schema.json",
+  "title": "SheafKnowledgeBaseContract",
+  "description": "Typed contract for an Alexandrov Sheaf Knowledge Base O : Open(Alx(X^op))^op -> Sch ~ Cat extracted from a long-form book or research monograph.",
+  "type": "object",
+  "required": [
+    "book",
+    "chapters",
+    "stalks",
+    "restriction_morphisms",
+    "two_simplices",
+    "notebook_investigations",
+    "formal_items",
+    "pages"
+  ],
+  "properties": {
+    "book": {
+      "type": "object",
+      "required": ["title", "author", "year", "source_pdf", "total_pages", "total_formal_items", "sheaf_definition"],
+      "properties": {
+        "title": { "type": "string", "minLength": 2 },
+        "author": { "type": "string", "minLength": 2 },
+        "year": { "type": "integer", "minimum": 1500, "maximum": 2100 },
+        "publisher": { "type": "string" },
+        "source_url": { "type": "string" },
+        "source_pdf": { "type": "string" },
+        "total_pages": { "type": "integer", "minimum": 1 },
+        "total_sections": { "type": "integer", "minimum": 1 },
+        "total_formal_items": { "type": "integer", "minimum": 1 },
+        "sheaf_definition": { "type": "string", "minLength": 10 }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["chapter", "id", "title", "start_page", "end_page", "theme", "global_invariants"],
+        "properties": {
+          "chapter": { "type": "integer", "minimum": 1 },
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "title": { "type": "string", "minLength": 3 },
+          "start_page": { "type": "integer", "minimum": 1 },
+          "end_page": { "type": "integer", "minimum": 1 },
+          "theme": { "type": "string", "minLength": 10 },
+          "global_invariants": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "stalks": {
+      "type": "array",
+      "minItems": 10,
+      "description": "0-simplices of the Alexandrov concept poset X. Each stalk U_i carries a local categorical schema (Olog), formal core, and page fiber.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "chapter",
+          "section",
+          "start_page",
+          "end_page",
+          "layer",
+          "symbol",
+          "summary",
+          "formal_core",
+          "olog",
+          "keywords"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "title": { "type": "string", "minLength": 3 },
+          "chapter": { "type": "integer", "minimum": 1 },
+          "section": { "type": "string" },
+          "start_page": { "type": "integer", "minimum": 1 },
+          "end_page": { "type": "integer", "minimum": 1 },
+          "layer": { "type": "string" },
+          "symbol": { "type": "string" },
+          "summary": { "type": "string", "minLength": 20 },
+          "formal_core": { "type": "string", "minLength": 3 },
+          "olog": {
+            "type": "object",
+            "required": ["types", "aspects", "facts"],
+            "properties": {
+              "types": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "required": ["id", "label"],
+                  "properties": {
+                    "id": { "type": "string" },
+                    "label": { "type": "string" }
+                  }
+                }
+              },
+              "aspects": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["src", "dst", "label"],
+                  "properties": {
+                    "src": { "type": "string" },
+                    "dst": { "type": "string" },
+                    "label": { "type": "string" }
+                  }
+                }
+              },
+              "facts": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "keywords": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "restriction_morphisms": {
+      "type": "array",
+      "minItems": 10,
+      "description": "1-simplices rho_{U,V} : O(U) -> O(V) enforcing semantic compatibility across overlapping concept stalks.",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "target", "kind", "overlap", "formula"],
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "kind": { "type": "string" },
+          "overlap": { "type": "string", "minLength": 10 },
+          "formula": { "type": "string", "minLength": 2 }
+        }
+      }
+    },
+    "two_simplices": {
+      "type": "array",
+      "minItems": 1,
+      "description": "2-simplices verifying functoriality rho_{V,W} o rho_{U,V} = rho_{U,W} on triple overlaps.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "vertices", "law", "cohomology_status"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "vertices": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": { "type": "string" }
+          },
+          "law": { "type": "string" },
+          "cohomology_status": { "type": "string" }
+        }
+      }
+    },
+    "notebook_investigations": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "question", "open_cover", "cohomology", "synthesis_markdown", "citations"],
+        "properties": {
+          "id": { "type": "string" },
+          "question": { "type": "string", "minLength": 10 },
+          "open_cover": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string" }
+          },
+          "cohomology": {
+            "type": "object",
+            "required": ["h0_coherence", "h1_obstruction", "gluing_status"],
+            "properties": {
+              "h0_coherence": { "type": "number", "minimum": 0, "maximum": 1 },
+              "h1_obstruction": { "type": "number", "minimum": 0 },
+              "gluing_status": { "type": "string" }
+            }
+          },
+          "synthesis_markdown": { "type": "string", "minLength": 100 },
+          "citations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["page", "item", "label"],
+              "properties": {
+                "page": { "type": "integer", "minimum": 1 },
+                "item": { "type": "string" },
+                "label": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "formal_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "number", "page", "chapter", "section", "stalk_ids", "text"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string" },
+          "number": { "type": "string" },
+          "title": { "type": "string" },
+          "page": { "type": "integer", "minimum": 1 },
+          "chapter": { "type": "integer" },
+          "section": { "type": "string" },
+          "stalk_ids": { "type": "array", "items": { "type": "string" } },
+          "text": { "type": "string" },
+          "references": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["p", "ch", "sec", "wc", "stalks", "items", "txt"],
+        "properties": {
+          "p": { "type": "integer", "minimum": 1 },
+          "ch": { "type": "integer" },
+          "sec": { "type": "string" },
+          "wc": { "type": "integer", "minimum": 0 },
+          "stalks": { "type": "array", "items": { "type": "string" } },
+          "items": { "type": "array", "items": { "type": "string" } },
+          "refs": { "type": "array", "items": { "type": "string" } },
+          "txt": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "overall_ship_vote": "GO",
+  "total_gates_cleared": 24,
+  "total_gates": 24,
+  "evaluators": {
+    "A1_Depth_Olog_Cohomology": {
+      "vote": "GO",
+      "cleared_count": 8,
+      "total_count": 8,
+      "open_gates": [],
+      "gates": {
+        "HF-SHEAF-01": {
+          "status": "CLEARED",
+          "detail": "Top-level keys present (8/8); pages count 377 == book.total_pages 377"
+        },
+        "HF-SHEAF-02": {
+          "status": "CLEARED",
+          "detail": "Body page coverage p.1..377: 377/377 (100.0%)"
+        },
+        "HF-SHEAF-03": {
+          "status": "CLEARED",
+          "detail": "18 unique stalks across 9 chapters; bad intervals: 0; tautological formal_cores: 0"
+        },
+        "HF-SHEAF-04": {
+          "status": "CLEARED",
+          "detail": "All 18 local Ologs valid with 16 distinct aspect verbs & zero kerning pollution (errors: 0)"
+        },
+        "HF-SHEAF-05": {
+          "status": "CLEARED",
+          "detail": "33 restriction morphisms; connected stalks: 18/18; bad endpoints: 0"
+        },
+        "HF-SHEAF-06": {
+          "status": "CLEARED",
+          "detail": "All 33 restriction morphisms carry content-computed TF-IDF/JSD overlap (mean fidelity=0.78, mean ||δ⁰||=0.22, invalid=0)"
+        },
+        "HF-SHEAF-07": {
+          "status": "CLEARED",
+          "detail": "8 commutative 2-simplices verified with content-computed holonomy (mean ||δ¹||=0.088, bad=0)"
+        },
+        "HF-STUDIO-07": {
+          "status": "CLEARED",
+          "detail": "Instruments verified: count=5 (>=5), tablists=3 (>=3), notebookStudio=True, onDemand3D=True"
+        }
+      }
+    },
+    "A2_Performance_FTS5_MCP_Contract": {
+      "vote": "GO",
+      "cleared_count": 6,
+      "total_count": 6,
+      "open_gates": [],
+      "gates": {
+        "HF-SHEAF-10": {
+          "status": "CLEARED",
+          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (558.5 KB)"
+        },
+        "HF-SHEAF-11": {
+          "status": "CLEARED",
+          "detail": "SQLite FTS5 verified: pages_fts=377/377, formal_items_fts=279/279"
+        },
+        "HF-STUDIO-02": {
+          "status": "CLEARED",
+          "detail": "Core HTML size 282.7 KB (< 450 KB limit); deferred bundle tag present=True"
+        },
+        "HF-STUDIO-09": {
+          "status": "CLEARED",
+          "detail": "Depth switcher=True; Cream/Ink paper switcher=True"
+        },
+        "HF-MCP-01": {
+          "status": "CLEARED",
+          "detail": "MCP stdio server tools verified: ['sheaf_query', 'sheaf_inspect_stalk', 'sheaf_read_page', 'sheaf_audit_cover']"
+        },
+        "HF-CONTRACT-01": {
+          "status": "CLEARED",
+          "detail": "Typed Meta-Prompt Contract present (21.8 KB)"
+        }
+      }
+    },
+    "A3_FieldManual_Math_SymbolicCraft": {
+      "vote": "GO",
+      "cleared_count": 6,
+      "total_count": 6,
+      "open_gates": [],
+      "gates": {
+        "HF-STUDIO-01": {
+          "status": "CLEARED",
+          "detail": "Field-Manual paper/ink & 3-voice typography tokens present (7/7)"
+        },
+        "HF-STUDIO-03": {
+          "status": "CLEARED",
+          "detail": "Static markup LaTeX leaks: 0; KB rendered LaTeX leaks: 0"
+        },
+        "HF-STUDIO-04": {
+          "status": "CLEARED",
+          "detail": "Plates present: 5 (['plate-1', 'plate-2', 'plate-3', 'plate-4', 'plate-5']); italic accent title nouns: 6"
+        },
+        "HF-STUDIO-05": {
+          "status": "CLEARED",
+          "detail": "Marginalia blocks: 5 (>=5); <cite> attributions: 5 (>=5); Counterpoints: 5 (>=5)"
+        },
+        "HF-STUDIO-06": {
+          "status": "CLEARED",
+          "detail": "Verdict stamps checked: 17; glyph-less stamps: 0"
+        },
+        "HF-STUDIO-08": {
+          "status": "CLEARED",
+          "detail": "FORGE compliance: zero 'So What'=True, zero 'Module N' titles=True, zero stacked callout-boxes=True"
+        }
+      }
+    },
+    "A4_Citations_PageFibers_Wiki": {
+      "vote": "GO",
+      "cleared_count": 4,
+      "total_count": 4,
+      "open_gates": [],
+      "gates": {
+        "HF-SHEAF-08": {
+          "status": "CLEARED",
+          "detail": "279 formal declarations indexed with 211 distinct contextual titles & valid page bounds (bad: 0)"
+        },
+        "HF-SHEAF-09": {
+          "status": "CLEARED",
+          "detail": "4 investigations & 12 empirical H¹ obstructions verified (errors: 0)"
+        },
+        "HF-SHEAF-12": {
+          "status": "CLEARED",
+          "detail": "Wiki files verified: HOME.md=True, chapters=9/9, concepts=18/18"
+        },
+        "HF-STUDIO-10": {
+          "status": "CLEARED",
+          "detail": "Slide-over 377-page verbatim reader & __jumpToPage wired=True; out-of-bounds page jumps=0; foreign Spivak/609 bleed=False"
+        }
+      }
+    }
+  },
+  "sheaf_metrics": {
+    "total_pages": 377,
+    "chapters": 9,
+    "stalks": 18,
+    "restriction_morphisms": 33,
+    "two_simplices": 8,
+    "formal_items": 279,
+    "notebook_investigations": 4,
+    "empirical_h1_obstructions": 12,
+    "mean_restriction_fidelity": 0.78,
+    "mean_coboundary_defect_d0": 0.22,
+    "mean_holonomy_defect_d1": 0.088,
+    "body_page_coverage_pct": 100.0,
+    "connected_component_ratio": 1.0
+  },
+  "studio_metrics": {
+    "core_html_size_kb": 282.7,
+    "plates_count": 5,
+    "marginalia_count": 5,
+    "counterpoint_count": 5,
+    "stamps_count": 17
+  }
+}

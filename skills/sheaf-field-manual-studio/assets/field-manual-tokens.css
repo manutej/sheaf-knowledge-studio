@@ -1,0 +1,58 @@
+/* ============================================================================
+ * CETI FIELD-NOTEBOOK-CRAFT & META-NOTEBOOK CANONICAL CSS TOKENS
+ * Warm Cream Paper (#F5EFE3) · Deep Ink (#1A1612) · Browning Copper (#A67756)
+ * ============================================================================ */
+:root {
+  --raw-paper: #F5EFE3;
+  --raw-paper-soft: #E8DFCB;
+  --raw-surface: #F2E6DC;       /* Shy Marshmallow */
+  --raw-ink: #1A1612;
+  --raw-ink-2: #3A312A;
+  --raw-ink-3: #6B5F53;
+  --raw-rule: #C8C9CB;          /* Kilim Grey */
+  --raw-copper: #A67756;        /* Browning Copper */
+  --raw-rust: #8C4A2E;
+  --raw-sage: #799070;          /* Grass Hopper */
+  --raw-plum: #4A3A5C;
+  --raw-slate: #3B6E8F;
+  --raw-crimson: #7A2E4A;
+
+  --paper: var(--raw-paper);
+  --paper-soft: var(--raw-paper-soft);
+  --surface: var(--raw-surface);
+  --ink: var(--raw-ink);
+  --ink-2: var(--raw-ink-2);
+  --ink-3: var(--raw-ink-3);
+  --rule: var(--raw-rule);
+  --rule-hair: rgba(26, 22, 18, 0.14);
+  --accent: var(--raw-copper);
+  --accent-text: var(--raw-rust);
+  --good: #3F5E39;
+  --warn: #8C4A2E;
+
+  --ax-research: var(--raw-plum);
+  --ax-technology: var(--raw-slate);
+  --ax-art: var(--raw-crimson);
+  --ax-science: #4A6344;
+  --ax-teaching: #8C4A2E;
+
+  --f-serif: 'Fraunces', 'Iowan Old Style', 'Palatino', Georgia, serif;
+  --f-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --f-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+  --f-math: 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'Fraunces', Georgia, serif;
+}
+
+html[data-theme="dark"] {
+  --paper: #1A1612;
+  --paper-soft: #241F1A;
+  --surface: #2B241E;
+  --ink: #F3ECDF;
+  --ink-2: #D4C8B4;
+  --ink-3: #9A8E7B;
+  --rule: #3E362E;
+  --rule-hair: rgba(243, 236, 223, 0.14);
+  --accent: #C8926D;
+  --accent-text: #DBA882;
+  --good: #96B08C;
+  --warn: #DBA882;
+}

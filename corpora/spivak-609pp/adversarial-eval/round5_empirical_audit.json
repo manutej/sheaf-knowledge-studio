@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-10-16T08:29:52Z",
+  "round": 5,
+  "label": "spivak-609pp-empirical-cohomology",
+  "verdict": "GO",
+  "cleared_count": 22,
+  "total_gates": 22,
+  "open_gates": [],
+  "gates": {
+    "HF-SHEAF-01": {
+      "status": "CLEARED",
+      "detail": "Top-level keys present (8/8); pages count 609 == book.total_pages 609"
+    },
+    "HF-SHEAF-02": {
+      "status": "CLEARED",
+      "detail": "Body page coverage p.11..584: 574/574 (100.0%)"
+    },
+    "HF-SHEAF-03": {
+      "status": "CLEARED",
+      "detail": "30 unique stalks; bad page intervals: 0"
+    },
+    "HF-SHEAF-04": {
+      "status": "CLEARED",
+      "detail": "All 30 local Ologs have valid types, aspects, and facts (errors: 0)"
+    },
+    "HF-SHEAF-05": {
+      "status": "CLEARED",
+      "detail": "55 restriction morphisms; connected stalks: 30/30; bad endpoints: 0"
+    },
+    "HF-SHEAF-06": {
+      "status": "CLEARED",
+      "detail": "All 55 restriction morphisms carry content-computed TF-IDF/JSD overlap (mean fidelity=0.678, mean ||δ⁰||=0.322, invalid=0)"
+    },
+    "HF-SHEAF-07": {
+      "status": "CLEARED",
+      "detail": "8 commutative 2-simplices verified with content-computed holonomy (mean ||δ¹||=0.128, bad=0)"
+    },
+    "HF-SHEAF-08": {
+      "status": "CLEARED",
+      "detail": "877 formal declarations indexed with valid page bounds & stalk assignments (bad: 0)"
+    },
+    "HF-SHEAF-09": {
+      "status": "CLEARED",
+      "detail": "5 investigations & 12 empirical H¹ obstructions verified (errors: 0)"
+    },
+    "HF-SHEAF-10": {
+      "status": "CLEARED",
+      "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (1510.7 KB)"
+    },
+    "HF-SHEAF-11": {
+      "status": "CLEARED",
+      "detail": "SQLite FTS5 verified: pages_fts=609/609, formal_items_fts=877/877"
+    },
+    "HF-SHEAF-12": {
+      "status": "CLEARED",
+      "detail": "Wiki files verified: HOME.md=True, chapters=7/7, concepts=30/30"
+    },
+    "HF-STUDIO-01": {
+      "status": "CLEARED",
+      "detail": "Field-Manual paper/ink & 3-voice typography tokens present (7/7)"
+    },
+    "HF-STUDIO-02": {
+      "status": "CLEARED",
+      "detail": "Core HTML size 399.9 KB (< 450 KB limit); deferred bundle tag present=True"
+    },
+    "HF-STUDIO-03": {
+      "status": "CLEARED",
+      "detail": "Static markup LaTeX leaks: 0; KB rendered LaTeX leaks: 0"
+    },
+    "HF-STUDIO-04": {
+      "status": "CLEARED",
+      "detail": "Plates present: 5 (['plate-1', 'plate-2', 'plate-3', 'plate-4', 'plate-5']); italic accent title nouns: 6"
+    },
+    "HF-STUDIO-05": {
+      "status": "CLEARED",
+      "detail": "Marginalia blocks: 5 (>=5); <cite> attributions: 5 (>=5); Counterpoints: 5 (>=5)"
+    },
+    "HF-STUDIO-06": {
+      "status": "CLEARED",
+      "detail": "Verdict stamps checked: 17; glyph-less stamps: 0"
+    },
+    "HF-STUDIO-07": {
+      "status": "CLEARED",
+      "detail": "Instruments verified: count=5 (>=5), tablists=3 (>=3), notebookStudio=True, onDemand3D=True"
+    },
+    "HF-STUDIO-08": {
+      "status": "CLEARED",
+      "detail": "FORGE compliance: zero 'So What'=True, zero 'Module N' titles=True, zero stacked callout-boxes=True"
+    },
+    "HF-STUDIO-09": {
+      "status": "CLEARED",
+      "detail": "Depth switcher=True; Cream/Ink paper switcher=True"
+    },
+    "HF-STUDIO-10": {
+      "status": "CLEARED",
+      "detail": "Slide-over 609-page verbatim reader & __jumpToPage wired=True"
+    }
+  },
+  "metrics": {
+    "total_pages": 609,
+    "chapters": 7,
+    "stalks": 30,
+    "restriction_morphisms": 55,
+    "two_simplices": 8,
+    "formal_items": 877,
+    "notebook_investigations": 5,
+    "empirical_h1_obstructions": 12,
+    "mean_restriction_fidelity": 0.678,
+    "mean_coboundary_defect_d0": 0.322,
+    "mean_holonomy_defect_d1": 0.128,
+    "body_page_coverage_pct": 100.0,
+    "connected_component_ratio": 1.0
+  }
+}
