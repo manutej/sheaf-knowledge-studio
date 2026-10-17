@@ -77,8 +77,11 @@ HTML_TEMPLATE = r"""<!doctype html>
   --rule-hair: rgba(26, 22, 18, 0.14);
   --accent: var(--raw-copper);
   --accent-text: var(--raw-rust);
+  --accent-soft: rgba(166, 119, 86, 0.14);
   --good: #3F5E39;
+  --good-soft: rgba(63, 94, 57, 0.14);
   --warn: #8C4A2E;
+  --bad: #8E2A22;
 
   /* Five axes */
   --ax-research: var(--raw-plum);
@@ -119,13 +122,23 @@ html[data-theme="dark"] {
   --rule-hair: rgba(243, 236, 223, 0.14);
   --accent: #C8926D;
   --accent-text: #DBA882;
+  --accent-soft: rgba(219, 168, 130, 0.16);
   --good: #96B08C;
+  --good-soft: rgba(150, 176, 140, 0.16);
   --warn: #DBA882;
+  --bad: #E07A70;
   --ax-research: #B8A4CF;
   --ax-technology: #7FB2D4;
   --ax-art: #D4849F;
   --ax-science: #96B08C;
   --ax-teaching: #DBA882;
+}
+html[data-theme="dark"] .hero-figure svg,
+html[data-theme="dark"] #symDiagramSvgWrap svg,
+html[data-theme="dark"] #gluedOlogSvgWrap svg {
+  background: #F5EFE3;
+  border-radius: 3px;
+  padding: 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -136,9 +149,11 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 body {
   margin: 0;
+  overflow-x: hidden;
+  max-width: 100%;
   background-color: var(--paper);
   background-image:
     radial-gradient(ellipse at 18% 0%, rgba(166,119,86,0.08), transparent 60%),
@@ -288,7 +303,9 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   border-radius: 3px;
   display: inline-block;
   line-height: 1.38;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 .math-display {
   font-family: var(--f-math);
@@ -303,6 +320,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   margin: 0.75rem 0;
   border-radius: 2px;
   overflow-x: auto;
+  max-width: 100%;
   line-height: 1.55;
   text-align: center;
 }
@@ -370,12 +388,13 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: var(--surface);
   border: 1px solid var(--accent);
   border-radius: 2px;
-  padding: 1px 6px;
+  padding: 4px 8px;
+  min-height: 29px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  margin: 0 2px;
+  margin: 2px;
   vertical-align: baseline;
   transition: background 0.12s, color 0.12s;
 }
@@ -392,6 +411,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   padding: 1px 5px;
   border-radius: 2px;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 /* ============================================================================
@@ -432,6 +452,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: var(--accent);
   display: inline-block;
   transform: rotate(45deg);
+  flex-shrink: 0;
 }
 .plate-nav {
   display: flex;
@@ -471,7 +492,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: var(--paper-soft);
 }
 .ctrl-group .ctrl-label {
-  padding: 3px 7px;
+  padding: 5px 7px;
   color: var(--ink-3);
   border-right: 1px solid var(--rule);
   text-transform: uppercase;
@@ -483,9 +504,11 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: transparent;
   color: var(--ink-2);
   font: inherit;
-  padding: 3px 8px;
+  padding: 5px 9px;
+  min-height: 29px;
   cursor: pointer;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 .ctrl-btn:hover { color: var(--ink); }
 .ctrl-btn[aria-pressed="true"] {
@@ -501,10 +524,12 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   font-size: 0.71rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 5px 10px;
+  min-height: 30px;
   border-radius: 2px;
   cursor: pointer;
   font-weight: 600;
+  white-space: nowrap;
 }
 .drawer-toggle-btn:hover {
   background: var(--ink);
@@ -517,8 +542,10 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
  * ============================================================================ */
 .page-wrap {
   max-width: var(--col-w);
+  width: 100%;
   margin: 0 auto;
   padding: 0 var(--pad);
+  overflow-x: clip;
 }
 header.frontispiece {
   padding: clamp(2rem, 4.5vw, 4rem) 0 clamp(1.8rem, 3.5vw, 3rem);
@@ -531,6 +558,7 @@ header.frontispiece {
   gap: var(--gap);
   align-items: end;
 }
+.frontispiece-grid > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .frontispiece-grid { grid-template-columns: 1fr; }
 }
@@ -566,6 +594,8 @@ header.frontispiece {
   border: 1px solid var(--rule);
   padding: 1rem 1.15rem 0.8rem;
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 .hero-figure figcaption {
   font-family: var(--f-mono);
@@ -574,6 +604,8 @@ header.frontispiece {
   margin-top: 0.5rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
   border-top: 1px solid var(--rule-hair);
   padding-top: 0.45rem;
 }
@@ -612,8 +644,10 @@ section.plate {
   margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
   align-items: baseline;
 }
+.plate-head > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .plate-head { grid-template-columns: 1fr; gap: 0.5rem; }
+  .plate-folio { position: static !important; }
 }
 .plate-folio {
   font-family: var(--f-mono);
@@ -647,6 +681,7 @@ section.plate {
   grid-template-columns: 230px 1fr;
   gap: var(--gap);
 }
+.plate-body > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .plate-body { grid-template-columns: 1fr; }
 }
@@ -656,8 +691,11 @@ section.plate {
   border-top: 1px solid var(--rule-hair);
   padding-top: 0.75rem;
   line-height: 1.5;
+  min-width: 0;
+  max-width: 100%;
 }
-.marginalia strong {
+.marginalia > strong:first-child,
+.marginalia div > strong:first-child {
   font-family: var(--f-mono);
   font-size: 0.70rem;
   letter-spacing: 0.08em;
@@ -681,6 +719,8 @@ section.plate {
   border: 1px solid var(--rule);
   padding: clamp(1rem, 2.2vw, 1.75rem);
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 .instrument-bar {
   display: flex;
@@ -747,6 +787,7 @@ section.plate {
   gap: 8px;
   margin-bottom: 1.2rem;
 }
+.pipe-rail > * { min-width: 0; max-width: 100%; }
 @media (max-width: 820px) {
   .pipe-rail { grid-template-columns: 1fr; }
 }
@@ -796,6 +837,7 @@ section.plate {
   grid-template-columns: 1.15fr 1fr;
   gap: 1.25rem;
 }
+.pipe-inspector > * { min-width: 0; max-width: 100%; }
 @media (max-width: 820px) {
   .pipe-inspector { grid-template-columns: 1fr; }
 }
@@ -809,6 +851,7 @@ section.plate {
   gap: 1.15rem;
   align-items: start;
 }
+.studio-split > * { min-width: 0; max-width: 100%; }
 @media (max-width: 960px) {
   .studio-split { grid-template-columns: 1fr; }
 }
@@ -818,6 +861,8 @@ section.plate {
   padding: 0.9rem;
   max-height: 760px;
   overflow-y: auto;
+  min-width: 0;
+  max-width: 100%;
 }
 .cover-stat-row {
   display: grid;
@@ -852,12 +897,15 @@ section.plate {
 .preset-btn {
   font-family: var(--f-mono);
   font-size: 0.68rem;
-  padding: 3px 7px;
+  padding: 5px 9px;
+  min-height: 29px;
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   color: var(--ink-2);
   cursor: pointer;
   border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
 }
 .preset-btn:hover, .preset-btn.active {
   background: var(--ink);
@@ -905,6 +953,9 @@ section.plate {
   background: var(--paper);
   border: 1px solid var(--rule);
   padding: 1.15rem;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .query-bar {
   display: flex;
@@ -913,6 +964,8 @@ section.plate {
 }
 .query-input {
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   padding: 9px 12px;
@@ -931,6 +984,7 @@ section.plate {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 8px 14px;
+  min-height: 32px;
   cursor: pointer;
   border-radius: 2px;
 }
@@ -950,7 +1004,8 @@ section.plate {
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   color: var(--ink-2);
-  padding: 5px 9px;
+  padding: 6px 10px;
+  min-height: 30px;
   border-radius: 2px;
   cursor: pointer;
   text-align: left;
@@ -975,6 +1030,7 @@ section.plate {
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+.synthesis-prose { min-width: 0; max-width: 100%; overflow-wrap: break-word; }
 .synthesis-prose h2, .synthesis-prose h3 {
   font-size: 1.25rem;
   margin: 0.8rem 0 0.5rem;
@@ -1006,6 +1062,7 @@ section.plate {
   gap: 7px;
   margin-bottom: 1.1rem;
 }
+.sym-selector > * { min-width: 0; max-width: 100%; }
 @media (max-width: 860px) {
   .sym-selector { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1048,6 +1105,7 @@ section.plate {
   gap: 1.2rem;
   align-items: start;
 }
+.sym-stage > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .sym-stage { grid-template-columns: 1fr; }
 }
@@ -1060,7 +1118,8 @@ section.plate {
 .token-chip {
   font-family: var(--f-math);
   font-size: 0.95rem;
-  padding: 4px 10px;
+  padding: 5px 10px;
+  min-height: 30px;
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   border-radius: 2px;
@@ -1078,6 +1137,7 @@ section.plate {
  * ============================================================================ */
 .subview-tabs {
   display: inline-flex;
+  flex-wrap: wrap;
   border: 1px solid var(--rule);
   background: var(--paper);
   margin-bottom: 1rem;
@@ -1087,6 +1147,7 @@ section.plate {
   border: 0;
   background: transparent;
   padding: 6px 13px;
+  min-height: 30px;
   font-family: var(--f-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -1102,9 +1163,10 @@ section.plate {
 }
 .stalk-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 0.9rem;
 }
+.stalk-cards-grid > * { min-width: 0; max-width: 100%; }
 .stalk-card {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -1112,6 +1174,8 @@ section.plate {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
+  max-width: 100%;
 }
 .stalk-card:hover { border-color: var(--accent); }
 
@@ -1135,10 +1199,11 @@ section.plate {
  * ============================================================================ */
 .course-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0.95rem;
   margin-top: 1rem;
 }
+.course-grid > * { min-width: 0; max-width: 100%; }
 .module-card {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -1146,6 +1211,8 @@ section.plate {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+  min-width: 0;
+  max-width: 100%;
 }
 .module-card .m-head {
   display: flex;
@@ -1198,6 +1265,11 @@ section.plate {
   overflow-y: auto;
   flex: 1;
 }
+#readerPageMeta .stamp {
+  white-space: normal;
+  max-width: 100%;
+  line-height: 1.3;
+}
 .verbatim-sheet {
   background: var(--paper-soft);
   border: 1px solid var(--rule);
@@ -1206,6 +1278,7 @@ section.plate {
   font-size: 0.91rem;
   line-height: 1.65;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
   color: var(--ink);
 }
 mark.hl {
@@ -1225,6 +1298,8 @@ html[data-view-mode="focus"] section.plate.active-plate { display: block; animat
   display: none;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   background: var(--surface);
   border: 1px solid var(--ink);
   padding: 0.55rem 0.9rem;
@@ -1241,7 +1316,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   margin: 0.55rem 0;
 }
 .podcast-act-step {
-  padding: 5px 8px;
+  padding: 6px 8px;
+  min-height: 30px;
   background: var(--paper);
   border: 1px solid var(--rule);
   font-family: var(--f-mono);
@@ -1277,6 +1353,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   display: none;
   width: 100%;
   padding: 9px 12px;
+  min-height: 36px;
   background: var(--surface);
   border: 1px solid var(--ink);
   font-family: var(--f-mono);
@@ -1310,7 +1387,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   border-radius: 3px;
-  padding: 6px 4px;
+  padding: 7px 4px;
+  min-height: 34px;
   font-family: var(--f-mono);
   font-size: 0.66rem;
   font-weight: 600;
@@ -1346,19 +1424,31 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 }
 
 @media (max-width: 720px) {
-  body { padding-bottom: 64px; }
-  .axis-ribbon-inner { padding: 6px 10px; gap: 6px; }
-  .brand-mark span:last-child { font-size: 0.65rem; max-width: 210px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .plate-nav {
-    width: 100%;
-    overflow-x: auto;
+  body { padding-bottom: 68px; }
+  .axis-ribbon-inner {
+    padding: 5px 10px;
+    gap: 4px;
     flex-wrap: nowrap;
-    padding-bottom: 2px;
-    -webkit-overflow-scrolling: touch;
+    justify-content: space-between;
   }
-  .plate-nav a { flex: 0 0 auto; padding: 4px 7px; font-size: 0.66rem; }
-  .field-controls { width: 100%; justify-content: space-between; overflow-x: auto; padding-bottom: 2px; }
+  .brand-mark { gap: 6px; min-width: 0; flex: 0 1 auto; }
+  .brand-mark span:last-child {
+    font-size: 0.62rem;
+    max-width: 118px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .plate-nav { display: none; }
+  .field-controls {
+    width: auto;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
+  }
   .ctrl-label { display: none; }
+  .ctrl-btn { padding: 4px 6px; font-size: 0.63rem; min-height: 28px; white-space: nowrap; }
+  #openReaderBtn { display: none; }
   .query-bar { flex-direction: column; }
   .query-bar .btn-copper { width: 100%; padding: 9px; }
   .mobile-bottom-dock { display: grid; }
@@ -1643,7 +1733,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
             <!-- Right column: Query Bar, Curated Investigations, Synthesis, Commutative Olog -->
             <div class="notebook-main">
               <div class="query-bar">
-                <input type="text" class="query-input" id="notebookQueryInput" placeholder="Ask a category theory question across the active open cover (e.g., Why is a database state a functor I → Set, and how do Π and Σ migrate data?)…">
+                <input type="text" class="query-input" id="notebookQueryInput" placeholder="Ask across the active open cover (e.g., How do Π and Σ migrate data?)…">
                 <button class="btn-copper" id="runGlueQueryBtn">Glue Section ↵</button>
               </div>
 
@@ -1768,7 +1858,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <div class="eyebrow">CATEGORY THEORY ILLUSTRATED · UNDERSTANDING THROUGH SYMBOLS &amp; COMMUTING DIAGRAMS</div>
         <h2 class="plate-title">Every <em class="u-copper">symbol</em> is a spatial diagram compressed into a one-dimensional string.</h2>
         <p class="plate-sub">
-          Mathematical notation feels opaque only when its symbols are divorced from the spatial gestures they encode. Select any of the <strong>8 core symbolic primitives</strong> below, click individual symbolic tokens (<span class="math-expr">&circ;</span>, <span class="math-expr">&lang;f,g&rang;</span>, <span class="math-expr">&times;<sub>Z</sub></span>, <span class="math-expr">&#8867;</span>, <span class="math-expr">&rArr;</span>), and watch the symbol, the commuting diagram, and a concrete finite-set data trace illuminate in unison.
+          Mathematical notation feels opaque only when its symbols are divorced from the spatial gestures they encode. Select any of the <strong>8 core symbolic primitives</strong> below, click individual symbolic tokens (<span class="math-expr">&#8728;</span>, <span class="math-expr">&lang;f,g&rang;</span>, <span class="math-expr">&times;<sub>Z</sub></span>, <span class="math-expr">&#8867;</span>, <span class="math-expr">&rArr;</span>), and watch the symbol, the commuting diagram, and a concrete finite-set data trace illuminate in unison.
         </p>
       </div>
     </div>
@@ -1776,7 +1866,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     <div class="plate-body">
       <aside class="marginalia">
         <strong>Pedagogical Law: Symbol &harr; Diagram Duality</strong>
-        In Spivak’s text, every algebraic equation between morphisms (<span class="math-expr">g &circ; f = k &circ; h</span>) is literally a topological assertion that two directed paths in a diagram bound a 2-cell that <em>commutes</em>.
+        In Spivak’s text, every algebraic equation between morphisms (<span class="math-expr">g &#8728; f = k &#8728; h</span>) is literally a topological assertion that two directed paths in a diagram bound a 2-cell that <em>commutes</em>.
         <br><br>
         When learners can click a token inside a formula and see which arrow or universal cone it controls, symbolic fluency becomes visual intuition.
         <cite>— Spivak §2.1.2 (p. 74) &amp; §6.1.3 (p. 418)</cite>
@@ -1791,7 +1881,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
           <div class="sym-selector" role="tablist" id="symSelector">
             <button class="sym-btn" role="tab" aria-selected="true" data-sym="comp">
-              <span class="s-glyph">g &circ; f = h</span>
+              <span class="s-glyph">g &#8728; f = h</span>
               <span class="s-title">1. Composition</span>
             </button>
             <button class="sym-btn" role="tab" aria-selected="false" data-sym="prod">
@@ -1853,9 +1943,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         </div>
 
         <div class="counterpoint">
-          <div class="cp-head"><span>⊘ Counterpoint · Directional Reading Trap (g &circ; f vs. Path Order)</span></div>
+          <div class="cp-head"><span>⊘ Counterpoint · Directional Reading Trap (g &#8728; f vs. Path Order)</span></div>
           <div>
-            Beginners frequently confuse algebraic composition order <span class="math-expr">g &circ; f</span> (read right-to-left: "apply <span class="math-expr">f</span> first, then <span class="math-expr">g</span>") with diagrammatic path order <span class="math-expr">X &rarr;<sup>f</sup> Y &rarr;<sup>g</sup> Z</span> (drawn left-to-right). Spivak explicitly notes this notation tension in §2.1.2 (p. 47); our symbolic translator highlights the intermediate object <span class="math-expr">Y</span> when clicking <span class="math-expr">&circ;</span> so learners anchor composition at the shared codomain/domain seam.
+            Beginners frequently confuse algebraic composition order <span class="math-expr">g &#8728; f</span> (read right-to-left: "apply <span class="math-expr">f</span> first, then <span class="math-expr">g</span>") with diagrammatic path order <span class="math-expr">X &rarr;<sup>f</sup> Y &rarr;<sup>g</sup> Z</span> (drawn left-to-right). Spivak explicitly notes this notation tension in §2.1.2 (p. 47); our symbolic translator highlights the intermediate object <span class="math-expr">Y</span> when clicking <span class="math-expr">&#8728;</span> so learners anchor composition at the shared codomain/domain seam.
           </div>
         </div>
       </div>
@@ -2019,7 +2109,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
               </thead>
               <tbody>
                 <tr style="border-bottom:1px solid var(--rule-hair)">
-                  <td style="padding:7px 8px"><span class="math-expr">g &circ; f : X &rarr; Z</span></td>
+                  <td style="padding:7px 8px"><span class="math-expr">g &#8728; f : X &rarr; Z</span></td>
                   <td style="padding:7px 8px">Path concatenation + associative pipeline slider</td>
                   <td style="padding:7px 8px">Foreign-key join chain / pure function pipe</td>
                   <td style="padding:7px 8px"><button class="cite-pill" onclick="window.__jumpToPage(47,'olog')">§ p.47</button> <button class="cite-pill" onclick="window.__jumpToPage(74,'composition')">§ p.74</button></td>
@@ -2169,11 +2259,32 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   function convertLatexTokensToHtml(mathStr) {
     let s = escapeHtml(mathStr.trim());
 
+    // Protect escaped set braces \{ and \} and escaped \& before brace stripping
+    s = s.replace(/\\\{/g, '&#123;').replace(/\\\}/g, '&#125;');
+    s = s.replace(/\\&amp;/g, '&amp;');
+
     // Remove sizing commands
     s = s.replace(/\\(?:left|right|bigl|bigr|Bigl|Bigr|big|Big)\b/g, '');
     s = s.replace(/\\[,;:!]/g, ' ');
     s = s.replace(/\\quad\b/g, ' &emsp; ');
     s = s.replace(/\\qquad\b/g, ' &emsp;&emsp; ');
+    s = s.replace(/\^\{\\circ\}/g, '&deg;');
+    s = s.replace(/\^\\circ\b/g, '&deg;');
+    s = s.replace(/\\pmod\{([^{}]+)\}/g, ' (mod $1)');
+
+    // Labeled arrows: \xrightarrow{...}, \xleftarrow{...}, \overset{...}{\to} BEFORE font macros so recursive convertLatexTokensToHtml(lbl) never double-escapes HTML tags
+    s = s.replace(/\\overset\{\\sim\}\{\\to\}/g, '<span class="m-arrow"><span class="m-arrow-label">&sim;</span><span class="m-arrow-body">&rarr;</span></span>');
+    s = s.replace(/\\xrightarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
+    s = s.replace(/\\xleftarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
+    s = s.replace(/\\overset\{((?:[^{}]|\{[^{}]*\})+)\}\{\\to\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
+
+    // Font macros
+    for (let pass = 0; pass < 3; pass++) {
+      s = s.replace(/\\mathcal\{([^{}]+)\}/g, '<span class="m-cal">$1</span>');
+      s = s.replace(/\\mathbf\{([^{}]+)\}/g, '<span class="m-cat">$1</span>');
+      s = s.replace(/\\(?:mathrm|text|operatorname)\{([^{}]+)\}/g, '<span class="m-op">$1</span>');
+      s = s.replace(/\\emph\{([^{}]+)\}/g, '<em>$1</em>');
+    }
 
     // Limits & Colimits with subscripts
     s = s.replace(/\\varprojlim_\{([^}]+)\}/g, '<span class="m-lim"><span class="m-lim-top">lim&larr;</span><span class="m-lim-sub">$1</span></span>');
@@ -2183,20 +2294,6 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/\\varinjlim_\{([^}]+)\}/g, '<span class="m-lim"><span class="m-lim-top">colim&rarr;</span><span class="m-lim-sub">$1</span></span>');
     s = s.replace(/\\varinjlim_([A-Za-z0-9]+)/g, '<span class="m-lim"><span class="m-lim-top">colim&rarr;</span><span class="m-lim-sub">$1</span></span>');
     s = s.replace(/\\varinjlim\b/g, '<span class="m-op">colim&rarr;</span>');
-
-    // Labeled arrows: \xrightarrow{...}, \xleftarrow{...}, \overset{...}{\to}
-    s = s.replace(/\\xrightarrow\{([^}]+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
-    s = s.replace(/\\xleftarrow\{([^}]+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
-    s = s.replace(/\\overset\{([^}]+)\}\{\\to\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
-    s = s.replace(/\\overset\{\\sim\}\{\\to\}/g, '<span class="m-arrow"><span class="m-arrow-label">&sim;</span><span class="m-arrow-body">&rarr;</span></span>');
-
-    // Font macros: \mathcal, \mathbf, \mathrm, \text, \operatorname
-    for (let pass = 0; pass < 3; pass++) {
-      s = s.replace(/\\mathcal\{([^{}]+)\}/g, '<span class="m-cal">$1</span>');
-      s = s.replace(/\\mathbf\{([^{}]+)\}/g, '<span class="m-cat">$1</span>');
-      s = s.replace(/\\(?:mathrm|text|operatorname)\{([^{}]+)\}/g, '<span class="m-op">$1</span>');
-      s = s.replace(/\\emph\{([^{}]+)\}/g, '<em>$1</em>');
-    }
 
     // Greek letters & Categorical symbols
     const symMap = {
@@ -2224,7 +2321,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       '\\sqcup': '&#8852;', '\\bigsqcup': '&#10758;', '\\sqcap': '&#8851;',
       '\\times': '&times;', '\\otimes': '&otimes;', '\\oplus': '&oplus;',
       '\\prod': '&prod;', '\\coprod': '&#8720;', '\\sum': '&sum;', '\\int': '&int;',
-      '\\circ': '&circ;', '\\bullet': '&bull;', '\\cdot': '&middot;',
+      '\\circ': '&#8728;', '\\bullet': '&bull;', '\\cdot': '&middot;',
       '\\forall': '&forall;', '\\exists': '&exist;', '\\nexists': '&#8708;',
       '\\emptyset': '&empty;', '\\varnothing': '&empty;', '\\infty': '&infin;',
       '\\partial': '&part;', '\\nabla': '&nabla;',
@@ -2234,7 +2331,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       '\\mathbb{N}': '&#8469;', '\\mathbb{Z}': '&#8484;', '\\mathbb{Q}': '&#8474;',
       '\\mathbb{R}': '&#8477;', '\\mathbb{C}': '&#8450;',
       '\\top': '&#8868;', '\\bot': '&#8869;',
-      '\\{': '{', '\\}': '}'
+      '\\mid': ' &#8739; ', '\\parallel': '&#8741;', '\\setminus': '&#8726;',
+      '\\neg': '&not;', '\\land': '&and;', '\\lor': '&or;'
     };
 
     const sortedKeys = Object.keys(symMap).sort((a, b) => b.length - a.length);
@@ -2249,8 +2347,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       s = s.replace(/_\{([^{}]+)\}/g, '<sub>$1</sub>');
       s = s.replace(/\^\{([^{}]+)\}/g, '<sup>$1</sup>');
     }
-    s = s.replace(/_([A-Za-z0-9&;#]+)/g, '<sub>$1</sub>');
-    s = s.replace(/\^([A-Za-z0-9&;#]+)/g, '<sup>$1</sup>');
+    s = s.replace(/_(&[A-Za-z0-9#]+;|[A-Za-z0-9])/g, '<sub>$1</sub>');
+    s = s.replace(/\^(&[A-Za-z0-9#]+;|[A-Za-z0-9])/g, '<sup>$1</sup>');
 
     s = s.replace(/\{([^{}]+)\}/g, '$1');
     return s;
@@ -2287,10 +2385,11 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     // 3. Escape HTML on the prose
     let html = escapeHtml(text);
 
-    // 4. Convert Page Citations [p. 520] or `[p. 520, Def 7.2.2.2]`
+    // 4. Convert Page Citations [p. 520] or `[p. 520, Def 7.2.2.2]` and [CITE-0X] badges
     html = html.replace(/`?\[p\.\s*(\d+)([^\]]*)\]`?/g, (_, pNum, rest) => {
       return `<button class="cite-pill" onclick="window.__jumpToPage(${pNum}, '')">§ p.${pNum}${rest}</button>`;
     });
+    html = html.replace(/`?\[(CITE-\d+)\]`?/g, '<span class="stamp ratified" style="font-size:0.65rem;padding:1px 5px">$1</span>');
 
     // 5. Convert inline code `...` (if it contains LaTeX backslashes or math tokens, render as math chip!)
     html = html.replace(/`([^`]+)`/g, (_, codeStr) => {
@@ -2304,7 +2403,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
 
-    // 7. Block-level Markdown structure (headings, lists, paragraphs)
+    // 7. Block-level Markdown structure (headings, blockquotes, lists, paragraphs)
     const lines = html.split('\n');
     const out = [];
     let inList = false;
@@ -2323,7 +2422,13 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         out.push(`<h3>${line.slice(4)}</h3>`);
       } else if (line.startsWith('## ')) {
         if (inList) { out.push('</ul>'); inList = false; }
-        out.push(`<h2>${line.slice(3)}</h2>`);
+        out.push(`<h3 style="margin-top:0.85rem;margin-bottom:0.35rem;color:var(--accent-text)">${line.slice(3)}</h3>`);
+      } else if (line.startsWith('# ')) {
+        if (inList) { out.push('</ul>'); inList = false; }
+        out.push(`<h2 style="font-size:1.15rem;margin-top:0.4rem;margin-bottom:0.45rem;border-bottom:1px solid var(--rule-hair);padding-bottom:0.3rem">${line.slice(2)}</h2>`);
+      } else if (line.startsWith('&gt; ')) {
+        if (inList) { out.push('</ul>'); inList = false; }
+        out.push(`<blockquote style="border-left:3px solid var(--accent);padding:0.35rem 0.85rem;margin:0.55rem 0;background:rgba(166,119,86,0.06);color:var(--ink-2)">${line.slice(5)}</blockquote>`);
       } else if (line.startsWith('- ') || line.startsWith('* ')) {
         if (!inList) { out.push('<ul>'); inList = true; }
         out.push(`<li>${line.slice(2)}</li>`);
@@ -2347,7 +2452,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     finalHtml = finalHtml.replace(/@@MATH_INLINE_(\d+)@@/g, (_, idx) => mathInlines[Number(idx)]);
 
     // Catch any remaining bare LaTeX sequences outside $...$
-    if (/\\(?:mathcal|mathbf|varprojlim|varinjlim|xrightarrow|dashv|simeq|cong|rho|Delta|Sigma|Pi)/.test(finalHtml)) {
+    if (/\\(?:mathcal|mathbf|varprojlim|varinjlim|xrightarrow|dashv|simeq|cong|rho|Delta|Sigma|Pi|mid)/.test(finalHtml)) {
       finalHtml = convertLatexTokensToHtml(finalHtml);
     }
     return finalHtml;
@@ -3040,7 +3145,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <line x1="232" y1="60" x2="325" y2="135" stroke="${hl==='edge-g'?'#8C4A2E':'#1A1612'}" stroke-width="${hl==='edge-g'?3.2:1.8}" marker-end="url(#${hl==='edge-g'?'sa-hi':'sa'})"/>
           <text x="290" y="85" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#8C4A2E">g</text>
           <line x1="105" y1="155" x2="315" y2="155" stroke="${hl==='edge-h'?'#8C4A2E':'#3F5E39'}" stroke-width="${hl==='edge-h'?3.2:2}" stroke-dasharray="${hl==='edge-h'?'none':'5 3'}" marker-end="url(#sa)"/>
-          <text x="210" y="178" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#3F5E39">h = g &circ; f</text>
+          <text x="210" y="178" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#3F5E39">h = g &#8728; f</text>
           <circle cx="75" cy="155" r="22" fill="${hl==='node-X'?'#F2E6DC':'#F5EFE3'}" stroke="#1A1612" stroke-width="${hl==='node-X'?3:1.6}"/>
           <text x="75" y="160" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="15">X</text>
           <circle cx="210" cy="45" r="22" fill="${hl==='node-Y'?'#F2E6DC':'#F5EFE3'}" stroke="#1A1612" stroke-width="${hl==='node-Y'?3:1.6}"/>
@@ -3167,7 +3272,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <rect x="110" y="142" width="60" height="32" rx="4" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/>
           <text x="140" y="163" text-anchor="middle" font-family="Fraunces, serif" font-size="14">X</text>
           <rect x="245" y="142" width="95" height="32" rx="4" fill="${hl==='node-po'?'#F2E6DC':'#F5EFE3'}" stroke="#1A1612" stroke-width="${hl==='node-po'?3:1.8}"/>
-          <text x="292" y="163" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600">X &sqcup;<sub>W</sub> Y</text>
+          <text x="292" y="163" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600">X &sqcup;<tspan dy="3" font-size="10">W</tspan><tspan dy="-3"> Y</tspan></text>
           <polyline points="252,134 238,134 238,148" fill="none" stroke="#8C4A2E" stroke-width="2"/>
           <line x1="170" y1="48" x2="260" y2="48" stroke="#1A1612" stroke-width="1.6" marker-end="url(#poa)"/><text x="215" y="41" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="13">g</text>
           <line x1="140" y1="64" x2="140" y2="137" stroke="#1A1612" stroke-width="1.6" marker-end="url(#poa)"/><text x="125" y="105" font-family="Fraunces, serif" font-style="italic" font-size="13">f</text>
@@ -3194,8 +3299,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <rect x="262" y="34" width="68" height="30" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/><text x="296" y="54" text-anchor="middle" font-family="Fraunces, serif" font-size="13">G(c)</text>
           <rect x="90" y="144" width="68" height="30" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/><text x="124" y="164" text-anchor="middle" font-family="Fraunces, serif" font-size="13">F(c&prime;)</text>
           <rect x="262" y="144" width="68" height="30" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/><text x="296" y="164" text-anchor="middle" font-family="Fraunces, serif" font-size="13">G(c&prime;)</text>
-          <line x1="158" y1="49" x2="257" y2="49" stroke="#8C4A2E" stroke-width="${hl==='alpha-c'?3.2:2}" marker-end="url(#na)"/><text x="210" y="41" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<sub>c</sub></text>
-          <line x1="158" y1="159" x2="257" y2="159" stroke="#8C4A2E" stroke-width="2" marker-end="url(#na)"/><text x="210" y="176" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<sub>c&prime;</sub></text>
+          <line x1="158" y1="49" x2="257" y2="49" stroke="#8C4A2E" stroke-width="${hl==='alpha-c'?3.2:2}" marker-end="url(#na)"/><text x="210" y="41" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<tspan dy="3" font-size="10">c</tspan></text>
+          <line x1="158" y1="159" x2="257" y2="159" stroke="#8C4A2E" stroke-width="2" marker-end="url(#na)"/><text x="210" y="176" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<tspan dy="3" font-size="10">c&prime;</tspan></text>
           <line x1="124" y1="64" x2="124" y2="139" stroke="#1A1612" stroke-width="${hl==='fg-f'?3:1.6}" marker-end="url(#na)"/><text x="98" y="106" font-family="Fraunces, serif" font-style="italic" font-size="13">F(f)</text>
           <line x1="296" y1="64" x2="296" y2="139" stroke="#1A1612" stroke-width="${hl==='fg-f'?3:1.6}" marker-end="url(#na)"/><text x="322" y="106" font-family="Fraunces, serif" font-style="italic" font-size="13">G(f)</text>
           <text x="210" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3F5E39">Naturality Square ◆</text>
@@ -3251,8 +3356,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <text x="216" y="107" text-anchor="middle" font-family="Fraunces, serif" font-size="13">O(U) &times; O(V)</text>
           <line x1="270" y1="95" x2="314" y2="95" stroke="#8C4A2E" stroke-width="1.8" marker-end="url(#sha)"/>
           <line x1="270" y1="111" x2="314" y2="111" stroke="#3B6E8F" stroke-width="1.8" marker-end="url(#sha)"/>
-          <text x="292" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8C4A2E">&rho;<sub>U</sub></text>
-          <text x="292" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#3B6E8F">&rho;<sub>V</sub></text>
+          <text x="292" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8C4A2E">&rho;<tspan dy="2" font-size="7.5">U</tspan></text>
+          <text x="292" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#3B6E8F">&rho;<tspan dy="2" font-size="7.5">V</tspan></text>
           <rect x="318" y="80" width="88" height="46" rx="4" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/>
           <text x="362" y="107" text-anchor="middle" font-family="Fraunces, serif" font-size="13">O(U &cap; V)</text>
         </svg>`
@@ -3669,10 +3774,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       ${sBadges ? `<div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">${sBadges}</div>` : ''}
     `;
 
-    let rawHtml = escapeHtml(pObj.txt || '(Diagram / Blank Page in PDF — click "Open PDF ↗" above to inspect vector graphic)');
+    let rawHtml = renderRichMarkdown(pObj.txt || '(Diagram / Blank Page in PDF — click "Open PDF ↗" above to inspect vector graphic)');
     if (state.highlightTerm && state.highlightTerm.length >= 2) {
       const safe = state.highlightTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      rawHtml = rawHtml.replace(new RegExp(`(${safe})`, 'gi'), '<mark class="hl">$1</mark>');
+      rawHtml = rawHtml.replace(new RegExp(`(<[^>]+>)|(${safe})`, 'gi'), (m, tag, hit) => tag ? tag : `<mark class="hl">${hit}</mark>`);
     }
     document.getElementById('readerPageText').innerHTML = rawHtml;
   }
@@ -3825,8 +3930,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     const actIdx = getTurnActIndex(turn, idx);
     actButtons.forEach((b, bIdx) => b.classList.toggle('active', bIdx === actIdx));
     if (visualCueText) {
-      const cue = turn.visual_cue || `Inspecting ${turn.act || 'diagram'} on page ${turn.cite_page || 1}`;
-      visualCueText.innerHTML = `👁️ <strong>${escapeHtml(turn.act || 'Visual Cue')}:</strong> ${escapeHtml(cue)}`;
+      const rawCue = turn.visual_cue || `Inspecting ${turn.act || 'diagram'} on page ${turn.cite_page || 1}`;
+      const cleanCue = rawCue.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F\s]+/u, '');
+      visualCueText.innerHTML = `👁️ <strong>${escapeHtml(turn.act || 'Visual Cue')}:</strong> ${escapeHtml(cleanCue)}`;
     }
     if (cuePageBtn) {
       const cp = turn.cite_page || 1;
@@ -4124,10 +4230,11 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
         for ch in chapters:
             cnum = ch["chapter"]
             ctitle = ch["title"].split(":", 1)[-1].strip().replace("&", "&amp;")
+            short_ctitle = ctitle.split("&amp;")[0].strip().rstrip(",")
             opts.append(f'                <option value="{cnum}">Ch {cnum} · {ctitle}</option>')
             ch_stalk_cnt = sum(1 for s in stalks if s.get("chapter") == cnum)
             ch_pp = max(1, ch.get("end_page", 1) - ch.get("start_page", 1) + 1)
-            ch_dist_lines.append(f"        • Ch {cnum} ({ctitle[:24]}): {ch_stalk_cnt} stalks · {ch_pp} pp.")
+            ch_dist_lines.append(f"        • Ch {cnum} ({short_ctitle}): {ch_stalk_cnt} stalks · {ch_pp} pp.")
         ch_select_block = '<select id="chapterFilterSelect" class="query-input" style="padding:4px 8px;font-size:0.76rem">\n' + "\n".join(opts) + "\n              </select>"
         t = re.sub(
             r'<select id="chapterFilterSelect"[^>]*>.*?</select>',
@@ -4145,6 +4252,7 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
             "        • Ch 7 (Adjunctions/Sheaves): 3 stalks · 115 pp."
         )
         t = t.replace(old_dist_block, "<br>\n".join(ch_dist_lines))
+        t = t.replace("Measured Distribution Across 7 Chapters", f"Measured Distribution Across {n_ch} Chapters ({total_pages} pp.)")
 
     # 2. Clamp any out-of-bounds page numbers in __jumpToPage(N, ...) and p.N labels
     def clamp_jump(m):
@@ -4169,15 +4277,16 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
     t = t.replace("/ 609</span>", f"/ {total_pages}</span>")
 
     # 4. Replace corpus title, author, and counts
+    n_simpl = len(kb_obj.get("two_simplices", []))
     replacements = [
         ("The Sheaf of Ologged Concepts · Category Theory for the Sciences (Field Manual &amp; Notebook Studio)", f"{book_title} · Sheaf Field Manual &amp; Notebook Studio"),
-        ("CETI · SHEAF FIELD MANUAL · SPIVAK (609 PP.)", f"CETI · SHEAF FIELD MANUAL · {author_last.upper()} ({total_pages} PP.)"),
-        ("David I. Spivak’s <em>Category Theory for the Sciences</em>", f"{book_author}’s <em>{book_title}</em>"),
+        ("CETI · SHEAF FIELD MANUAL · SPIVAK (609 PP.)", f"CETI · SHEAF FIELD MANUAL · {book_title.upper()[:42]} ({total_pages} PP.)"),
+        ("David I. Spivak’s <em>Category Theory for the Sciences</em>", f"<em>{book_title}</em> ({book_author})"),
         ("David I. Spivak · MIT Press (609 pp.)", f"{book_author} ({total_pages} pp.)"),
-        ("BUILT FROM SPIVAK’S <em>CATEGORY THEORY FOR THE SCIENCES</em> (609 PP.)", f"BUILT FROM {author_last.upper()}’S <em>{book_title.upper()}</em> ({total_pages} PP.)"),
-        ("THE MEASURED CORPUS OF SPIVAK’S 609 PAGES", f"THE MEASURED CORPUS OF {author_last.upper()}’S {total_pages} PAGES"),
-        ("SPIVAK §7.2.2.2, P.520", f"{author_last.upper()} · P.{default_page}"),
-        ("Verbatim 609-Page Book Reader · Spivak (2014)", f"Verbatim {total_pages}-Page Book Reader · {author_last} ({book_year})"),
+        ("BUILT FROM SPIVAK’S <em>CATEGORY THEORY FOR THE SCIENCES</em> (609 PP.)", f"BUILT FROM <em>{book_title.upper()}</em> ({total_pages} PP.)"),
+        ("THE MEASURED CORPUS OF SPIVAK’S 609 PAGES", f"THE MEASURED CORPUS OF ALL {total_pages} MONOGRAPH PAGES"),
+        ("SPIVAK §7.2.2.2, P.520", f"THM 2.5 · P.{default_page}"),
+        ("Verbatim 609-Page Book Reader · Spivak (2014)", f"Verbatim {total_pages}-Page Book Reader · {book_author} ({book_year})"),
         ("Open 609-Page Verbatim Book Reader", f"Open {total_pages}-Page Verbatim Book Reader"),
         ("609-Page Verbatim Reader", f"{total_pages}-Page Verbatim Reader"),
         ("SLIDE-OVER 609-PAGE VERBATIM PDF READER", f"SLIDE-OVER {total_pages}-PAGE VERBATIM READER"),
@@ -4187,7 +4296,7 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
         ("Search all 609 verbatim PDF pages", f"Search all {total_pages} verbatim PDF pages"),
         ("No matches in 609 pages", f"No matches in {total_pages} pages"),
         ("Across 609 Pages", f"Across {total_pages} Pages"),
-        ("all 609 pages of Spivak’s book", f"all {total_pages} pages of {author_last}’s corpus"),
+        ("all 609 pages of Spivak’s book", f"all {total_pages} pages of the monograph"),
         ("all <strong>609 pages</strong> and <strong>877 formal declarations</strong>", f"all <strong>{total_pages} pages</strong> and <strong>{n_items} formal declarations</strong>"),
         ("While all 609 pages and 877 numbered declarations", f"While all {total_pages} pages and {n_items} formal declarations"),
         ("609 pages, 96 sections, and 877 formal numbered declarations", f"{total_pages} pages, {n_stalks} sections, and {n_items} formal declarations"),
@@ -4197,7 +4306,7 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
         ("⚖ 609 pp", f"⚖ {total_pages} pp"),
         ("of 609 ·", f"of {total_pages} ·"),
         ("Math.min(609,", f"Math.min({total_pages},"),
-        ("from 877 total in Spivak", f"from {n_items} total in {author_last}"),
+        ("from 877 total in Spivak", f"from {n_items} total in the monograph"),
         ("877 numbered formal declarations", f"{n_items} formal declarations"),
         ("877 Formal Definitions / Theorems / Ologs", f"{n_items} Formal Definitions / Theorems / Declarations"),
         ("877 Formal Declarations", f"{n_items} Formal Declarations"),
@@ -4208,6 +4317,7 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
         ("THE 30 CONCEPT STALKS, 877 FORMAL ITEMS & 3D POSET ATLAS", f"THE {n_stalks} CONCEPT STALKS, {n_items} FORMAL ITEMS & 3D POSET ATLAS"),
         ("30 CONCEPT STALKS, 877 DECLARATIONS", f"{n_stalks} CONCEPT STALKS, {n_items} DECLARATIONS"),
         ("30 Stalks · 877 Items", f"{n_stalks} Stalks · {n_items} Items"),
+        ("30 Stalks · 52 Morphisms · 8 2-Simplices", f"{n_stalks} Stalks · {n_morphs} Morphisms · {n_simpl} 2-Simplices"),
         ("30 Stalks · 52 Morphisms", f"{n_stalks} Stalks · {n_morphs} Morphisms"),
         ("ALL 30 STALKS · 52 RESTRICTIONS", f"ALL {n_stalks} STALKS · {n_morphs} RESTRICTIONS"),
         ("IV · 30 Stalks &amp; Atlas", f"IV · {n_stalks} Stalks &amp; Atlas"),
@@ -4221,17 +4331,17 @@ def adapt_html_template_for_corpus(raw_template: str, kb_obj: dict) -> str:
         ("52 restriction morphisms", f"{n_morphs} restriction morphisms"),
         ("52 typed restriction morphisms", f"{n_morphs} typed restriction morphisms"),
         ("◆ 52 arrows", f"◆ {n_morphs} arrows"),
+        ("◆ 8 simplices", f"◆ {n_simpl} simplices"),
+        ("8 higher-order commutative 2-simplices", f"{n_simpl} higher-order commutative 2-simplices"),
         ("Chapters 1–7", f"Chapters 1–{n_ch}"),
         ("Category Theory Illustrated · Through Symbols", f"{book_title} · Through Symbols"),
         ("Category Theory Illustrated: Through Symbols", f"{book_title}: Through Symbols"),
         ("CATEGORY THEORY ILLUSTRATED · UNDERSTANDING THROUGH SYMBOLS", f"{book_title.upper()} · UNDERSTANDING THROUGH SYMBOLS"),
         ("CATEGORY THEORY ILLUSTRATED THROUGH SYMBOLS", f"{book_title.upper()} THROUGH SYMBOLS"),
-        ("Spivak Grounding", f"{author_last} Grounding"),
-        ("Spivak Text", f"{author_last} Text"),
-        ("Spivak’s text", f"{author_last}’s text"),
+        ("Spivak Grounding", "Monograph Grounding (36 pp.)"),
+        ("Spivak Text", "Monograph Text"),
+        ("Spivak’s text", "this monograph"),
         ("Spivak’s", f"{author_last}’s"),
-        ("Spivak", author_last),
-        ("SPIVAK", author_last.upper()),
     ]
     for old_s, new_s in replacements:
         t = t.replace(old_s, new_s)
@@ -4256,7 +4366,13 @@ def main():
         "formal_items": kb_obj["formal_items"],
         "full_stalk_items": {s["id"]: s.get("formal_items", []) for s in kb_obj["stalks"]}
     }
-    bundle_js = "window.__onSheafBundleLoaded && window.__onSheafBundleLoaded(" + json.dumps(bundle_obj, ensure_ascii=False, separators=(",", ":")) + ");\n"
+    bundle_json_str = json.dumps(bundle_obj, ensure_ascii=False, separators=(",", ":"))
+    bundle_js = (
+        "window.SHEAF_PAGES_BUNDLE=" + bundle_json_str + ";"
+        "window.__SHEAF_PAGES__=window.SHEAF_PAGES_BUNDLE.pages;"
+        "window.__SHEAF_BUNDLE_LOADED__=true;"
+        "window.__onSheafBundleLoaded&&window.__onSheafBundleLoaded(window.SHEAF_PAGES_BUNDLE);\n"
+    )
     bundle_path.parent.mkdir(parents=True, exist_ok=True)
     bundle_path.write_text(bundle_js, encoding="utf-8")
 

@@ -59,7 +59,7 @@
         },
         "HF-STUDIO-02": {
           "status": "CLEARED",
-          "detail": "Core HTML size 411.6 KB (< 450 KB limit); deferred bundle tag present=True"
+          "detail": "Core HTML size 415.5 KB (< 450 KB limit); deferred bundle tag present=True"
         },
         "HF-STUDIO-09": {
           "status": "CLEARED",
@@ -99,7 +99,7 @@
         },
         "HF-STUDIO-06": {
           "status": "CLEARED",
-          "detail": "Verdict stamps checked: 18; glyph-less stamps: 0"
+          "detail": "Verdict stamps checked: 19; glyph-less stamps: 0"
         },
         "HF-STUDIO-08": {
           "status": "CLEARED",
@@ -156,10 +156,10 @@
     "connected_component_ratio": 1.0
   },
   "studio_metrics": {
-    "core_html_size_kb": 411.6,
+    "core_html_size_kb": 415.5,
     "plates_count": 5,
     "marginalia_count": 5,
     "counterpoint_count": 5,
-    "stamps_count": 18
+    "stamps_count": 19
   }
 }

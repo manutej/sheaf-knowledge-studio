@@ -39,8 +39,11 @@
   --rule-hair: rgba(26, 22, 18, 0.14);
   --accent: var(--raw-copper);
   --accent-text: var(--raw-rust);
+  --accent-soft: rgba(166, 119, 86, 0.14);
   --good: #3F5E39;
+  --good-soft: rgba(63, 94, 57, 0.14);
   --warn: #8C4A2E;
+  --bad: #8E2A22;
 
   /* Five axes */
   --ax-research: var(--raw-plum);
@@ -81,13 +84,23 @@ html[data-theme="dark"] {
   --rule-hair: rgba(243, 236, 223, 0.14);
   --accent: #C8926D;
   --accent-text: #DBA882;
+  --accent-soft: rgba(219, 168, 130, 0.16);
   --good: #96B08C;
+  --good-soft: rgba(150, 176, 140, 0.16);
   --warn: #DBA882;
+  --bad: #E07A70;
   --ax-research: #B8A4CF;
   --ax-technology: #7FB2D4;
   --ax-art: #D4849F;
   --ax-science: #96B08C;
   --ax-teaching: #DBA882;
+}
+html[data-theme="dark"] .hero-figure svg,
+html[data-theme="dark"] #symDiagramSvgWrap svg,
+html[data-theme="dark"] #gluedOlogSvgWrap svg {
+  background: #F5EFE3;
+  border-radius: 3px;
+  padding: 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -98,9 +111,11 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 body {
   margin: 0;
+  overflow-x: hidden;
+  max-width: 100%;
   background-color: var(--paper);
   background-image:
     radial-gradient(ellipse at 18% 0%, rgba(166,119,86,0.08), transparent 60%),
@@ -250,7 +265,9 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   border-radius: 3px;
   display: inline-block;
   line-height: 1.38;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 .math-display {
   font-family: var(--f-math);
@@ -265,6 +282,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   margin: 0.75rem 0;
   border-radius: 2px;
   overflow-x: auto;
+  max-width: 100%;
   line-height: 1.55;
   text-align: center;
 }
@@ -332,12 +350,13 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: var(--surface);
   border: 1px solid var(--accent);
   border-radius: 2px;
-  padding: 1px 6px;
+  padding: 4px 8px;
+  min-height: 29px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  margin: 0 2px;
+  margin: 2px;
   vertical-align: baseline;
   transition: background 0.12s, color 0.12s;
 }
@@ -354,6 +373,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   padding: 1px 5px;
   border-radius: 2px;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 /* ============================================================================
@@ -394,6 +414,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: var(--accent);
   display: inline-block;
   transform: rotate(45deg);
+  flex-shrink: 0;
 }
 .plate-nav {
   display: flex;
@@ -433,7 +454,7 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: var(--paper-soft);
 }
 .ctrl-group .ctrl-label {
-  padding: 3px 7px;
+  padding: 5px 7px;
   color: var(--ink-3);
   border-right: 1px solid var(--rule);
   text-transform: uppercase;
@@ -445,9 +466,11 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   background: transparent;
   color: var(--ink-2);
   font: inherit;
-  padding: 3px 8px;
+  padding: 5px 9px;
+  min-height: 29px;
   cursor: pointer;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 .ctrl-btn:hover { color: var(--ink); }
 .ctrl-btn[aria-pressed="true"] {
@@ -463,10 +486,12 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
   font-size: 0.71rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 5px 10px;
+  min-height: 30px;
   border-radius: 2px;
   cursor: pointer;
   font-weight: 600;
+  white-space: nowrap;
 }
 .drawer-toggle-btn:hover {
   background: var(--ink);
@@ -479,8 +504,10 @@ html[data-level="practitioner"] [data-depth="3"] { display: none !important; }
  * ============================================================================ */
 .page-wrap {
   max-width: var(--col-w);
+  width: 100%;
   margin: 0 auto;
   padding: 0 var(--pad);
+  overflow-x: clip;
 }
 header.frontispiece {
   padding: clamp(2rem, 4.5vw, 4rem) 0 clamp(1.8rem, 3.5vw, 3rem);
@@ -493,6 +520,7 @@ header.frontispiece {
   gap: var(--gap);
   align-items: end;
 }
+.frontispiece-grid > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .frontispiece-grid { grid-template-columns: 1fr; }
 }
@@ -528,6 +556,8 @@ header.frontispiece {
   border: 1px solid var(--rule);
   padding: 1rem 1.15rem 0.8rem;
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 .hero-figure figcaption {
   font-family: var(--f-mono);
@@ -536,6 +566,8 @@ header.frontispiece {
   margin-top: 0.5rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
   border-top: 1px solid var(--rule-hair);
   padding-top: 0.45rem;
 }
@@ -574,8 +606,10 @@ section.plate {
   margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
   align-items: baseline;
 }
+.plate-head > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .plate-head { grid-template-columns: 1fr; gap: 0.5rem; }
+  .plate-folio { position: static !important; }
 }
 .plate-folio {
   font-family: var(--f-mono);
@@ -609,6 +643,7 @@ section.plate {
   grid-template-columns: 230px 1fr;
   gap: var(--gap);
 }
+.plate-body > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .plate-body { grid-template-columns: 1fr; }
 }
@@ -618,8 +653,11 @@ section.plate {
   border-top: 1px solid var(--rule-hair);
   padding-top: 0.75rem;
   line-height: 1.5;
+  min-width: 0;
+  max-width: 100%;
 }
-.marginalia strong {
+.marginalia > strong:first-child,
+.marginalia div > strong:first-child {
   font-family: var(--f-mono);
   font-size: 0.70rem;
   letter-spacing: 0.08em;
@@ -643,6 +681,8 @@ section.plate {
   border: 1px solid var(--rule);
   padding: clamp(1rem, 2.2vw, 1.75rem);
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 .instrument-bar {
   display: flex;
@@ -709,6 +749,7 @@ section.plate {
   gap: 8px;
   margin-bottom: 1.2rem;
 }
+.pipe-rail > * { min-width: 0; max-width: 100%; }
 @media (max-width: 820px) {
   .pipe-rail { grid-template-columns: 1fr; }
 }
@@ -758,6 +799,7 @@ section.plate {
   grid-template-columns: 1.15fr 1fr;
   gap: 1.25rem;
 }
+.pipe-inspector > * { min-width: 0; max-width: 100%; }
 @media (max-width: 820px) {
   .pipe-inspector { grid-template-columns: 1fr; }
 }
@@ -771,6 +813,7 @@ section.plate {
   gap: 1.15rem;
   align-items: start;
 }
+.studio-split > * { min-width: 0; max-width: 100%; }
 @media (max-width: 960px) {
   .studio-split { grid-template-columns: 1fr; }
 }
@@ -780,6 +823,8 @@ section.plate {
   padding: 0.9rem;
   max-height: 760px;
   overflow-y: auto;
+  min-width: 0;
+  max-width: 100%;
 }
 .cover-stat-row {
   display: grid;
@@ -814,12 +859,15 @@ section.plate {
 .preset-btn {
   font-family: var(--f-mono);
   font-size: 0.68rem;
-  padding: 3px 7px;
+  padding: 5px 9px;
+  min-height: 29px;
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   color: var(--ink-2);
   cursor: pointer;
   border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
 }
 .preset-btn:hover, .preset-btn.active {
   background: var(--ink);
@@ -867,6 +915,9 @@ section.plate {
   background: var(--paper);
   border: 1px solid var(--rule);
   padding: 1.15rem;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .query-bar {
   display: flex;
@@ -875,6 +926,8 @@ section.plate {
 }
 .query-input {
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   padding: 9px 12px;
@@ -893,6 +946,7 @@ section.plate {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 8px 14px;
+  min-height: 32px;
   cursor: pointer;
   border-radius: 2px;
 }
@@ -912,7 +966,8 @@ section.plate {
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   color: var(--ink-2);
-  padding: 5px 9px;
+  padding: 6px 10px;
+  min-height: 30px;
   border-radius: 2px;
   cursor: pointer;
   text-align: left;
@@ -937,6 +992,7 @@ section.plate {
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+.synthesis-prose { min-width: 0; max-width: 100%; overflow-wrap: break-word; }
 .synthesis-prose h2, .synthesis-prose h3 {
   font-size: 1.25rem;
   margin: 0.8rem 0 0.5rem;
@@ -968,6 +1024,7 @@ section.plate {
   gap: 7px;
   margin-bottom: 1.1rem;
 }
+.sym-selector > * { min-width: 0; max-width: 100%; }
 @media (max-width: 860px) {
   .sym-selector { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1010,6 +1067,7 @@ section.plate {
   gap: 1.2rem;
   align-items: start;
 }
+.sym-stage > * { min-width: 0; max-width: 100%; }
 @media (max-width: 900px) {
   .sym-stage { grid-template-columns: 1fr; }
 }
@@ -1022,7 +1080,8 @@ section.plate {
 .token-chip {
   font-family: var(--f-math);
   font-size: 0.95rem;
-  padding: 4px 10px;
+  padding: 5px 10px;
+  min-height: 30px;
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   border-radius: 2px;
@@ -1040,6 +1099,7 @@ section.plate {
  * ============================================================================ */
 .subview-tabs {
   display: inline-flex;
+  flex-wrap: wrap;
   border: 1px solid var(--rule);
   background: var(--paper);
   margin-bottom: 1rem;
@@ -1049,6 +1109,7 @@ section.plate {
   border: 0;
   background: transparent;
   padding: 6px 13px;
+  min-height: 30px;
   font-family: var(--f-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -1064,9 +1125,10 @@ section.plate {
 }
 .stalk-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 0.9rem;
 }
+.stalk-cards-grid > * { min-width: 0; max-width: 100%; }
 .stalk-card {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -1074,6 +1136,8 @@ section.plate {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
+  max-width: 100%;
 }
 .stalk-card:hover { border-color: var(--accent); }
 
@@ -1097,10 +1161,11 @@ section.plate {
  * ============================================================================ */
 .course-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0.95rem;
   margin-top: 1rem;
 }
+.course-grid > * { min-width: 0; max-width: 100%; }
 .module-card {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -1108,6 +1173,8 @@ section.plate {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+  min-width: 0;
+  max-width: 100%;
 }
 .module-card .m-head {
   display: flex;
@@ -1160,6 +1227,11 @@ section.plate {
   overflow-y: auto;
   flex: 1;
 }
+#readerPageMeta .stamp {
+  white-space: normal;
+  max-width: 100%;
+  line-height: 1.3;
+}
 .verbatim-sheet {
   background: var(--paper-soft);
   border: 1px solid var(--rule);
@@ -1168,6 +1240,7 @@ section.plate {
   font-size: 0.91rem;
   line-height: 1.65;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
   color: var(--ink);
 }
 mark.hl {
@@ -1187,6 +1260,8 @@ html[data-view-mode="focus"] section.plate.active-plate { display: block; animat
   display: none;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   background: var(--surface);
   border: 1px solid var(--ink);
   padding: 0.55rem 0.9rem;
@@ -1203,7 +1278,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   margin: 0.55rem 0;
 }
 .podcast-act-step {
-  padding: 5px 8px;
+  padding: 6px 8px;
+  min-height: 30px;
   background: var(--paper);
   border: 1px solid var(--rule);
   font-family: var(--f-mono);
@@ -1239,6 +1315,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   display: none;
   width: 100%;
   padding: 9px 12px;
+  min-height: 36px;
   background: var(--surface);
   border: 1px solid var(--ink);
   font-family: var(--f-mono);
@@ -1272,7 +1349,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   background: var(--paper-soft);
   border: 1px solid var(--rule);
   border-radius: 3px;
-  padding: 6px 4px;
+  padding: 7px 4px;
+  min-height: 34px;
   font-family: var(--f-mono);
   font-size: 0.66rem;
   font-weight: 600;
@@ -1308,19 +1386,31 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 }
 
 @media (max-width: 720px) {
-  body { padding-bottom: 64px; }
-  .axis-ribbon-inner { padding: 6px 10px; gap: 6px; }
-  .brand-mark span:last-child { font-size: 0.65rem; max-width: 210px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .plate-nav {
-    width: 100%;
-    overflow-x: auto;
+  body { padding-bottom: 68px; }
+  .axis-ribbon-inner {
+    padding: 5px 10px;
+    gap: 4px;
     flex-wrap: nowrap;
-    padding-bottom: 2px;
-    -webkit-overflow-scrolling: touch;
+    justify-content: space-between;
   }
-  .plate-nav a { flex: 0 0 auto; padding: 4px 7px; font-size: 0.66rem; }
-  .field-controls { width: 100%; justify-content: space-between; overflow-x: auto; padding-bottom: 2px; }
+  .brand-mark { gap: 6px; min-width: 0; flex: 0 1 auto; }
+  .brand-mark span:last-child {
+    font-size: 0.62rem;
+    max-width: 118px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .plate-nav { display: none; }
+  .field-controls {
+    width: auto;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
+  }
   .ctrl-label { display: none; }
+  .ctrl-btn { padding: 4px 6px; font-size: 0.63rem; min-height: 28px; white-space: nowrap; }
+  #openReaderBtn { display: none; }
   .query-bar { flex-direction: column; }
   .query-bar .btn-copper { width: 100%; padding: 9px; }
   .mobile-bottom-dock { display: grid; }
@@ -1336,7 +1426,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   <div class="axis-ribbon-inner">
     <div class="brand-mark">
       <span class="dot"></span>
-      <span>CETI · SHEAF FIELD MANUAL · MARINOV (377 PP.)</span>
+      <span>CETI · SHEAF FIELD MANUAL · CATEGORY THEORY ILLUSTRATED (INDEPENDENT A (377 PP.)</span>
     </div>
 
     <nav class="plate-nav" aria-label="Plates">
@@ -1389,7 +1479,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           The <em class="u-copper">Sheaf</em> of Ologged Concepts, written down.
         </h1>
         <p class="hero-lede">
-          Rather than flattening Boris Marinov’s <em>Category Theory Illustrated (Independent Agent Run)</em> into an unstructured vector soup, this studio indexes all <strong>377 pages</strong> and <strong>279 formal declarations</strong> as an <abbr data-gloss="An Alexandrov topology on a poset X^op where open sets U are downward-closed concept neighborhoods.">Alexandrov topology</abbr> <span class="math-expr"><span class="m-cal">O</span> : <span class="m-op">Open</span>(<span class="m-cal">X</span>)<sup>op</sup> &rarr; <span class="m-cat">Sch</span> &simeq; <span class="m-cat">Cat</span></span>. Every query selects an open cover <span class="math-expr"><span class="m-cal">U</span> = {U<sub>i</sub>}</span>, audits restriction morphisms <span class="math-expr">&rho;<sub>U,V</sub></span> on pairwise overlaps, and glues local sections into a global categorical synthesis.
+          Rather than flattening <em>Category Theory Illustrated (Independent Agent Run)</em> (Boris Marinov) into an unstructured vector soup, this studio indexes all <strong>377 pages</strong> and <strong>279 formal declarations</strong> as an <abbr data-gloss="An Alexandrov topology on a poset X^op where open sets U are downward-closed concept neighborhoods.">Alexandrov topology</abbr> <span class="math-expr"><span class="m-cal">O</span> : <span class="m-op">Open</span>(<span class="m-cal">X</span>)<sup>op</sup> &rarr; <span class="m-cat">Sch</span> &simeq; <span class="m-cat">Cat</span></span>. Every query selects an open cover <span class="math-expr"><span class="m-cal">U</span> = {U<sub>i</sub>}</span>, audits restriction morphisms <span class="math-expr">&rho;<sub>U,V</sub></span> on pairwise overlaps, and glues local sections into a global categorical synthesis.
         </p>
       </div>
 
@@ -1417,7 +1507,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <text x="366" y="127" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#3F5E39">Section ◆</text>
         </svg>
         <figcaption>
-          <span>FIG 0.1 · SHEAF EQUALIZER CONDITION (MARINOV · P.43)</span>
+          <span>FIG 0.1 · SHEAF EQUALIZER CONDITION (THM 2.5 · P.43)</span>
           <span>O(U&cup;V) &cong; O(U) &times;<sub>O(U&cap;V)</sub> O(V)</span>
         </figcaption>
       </figure>
@@ -1467,7 +1557,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         Standard RAG chunks a PDF into arbitrary 500-token windows and averages embeddings, destroying commutative diagrams and universal properties.
         <br><br>
         In our sheaf architecture, every page belongs to a formal stalk <span class="math-expr">U<sub>i</sub></span>, and two stalks can only be synthesized together if their restriction morphisms <span class="math-expr">&rho;<sub>U, U&cap;V</sub></span> agree on shared definitions.
-        <cite>— Marinov §7.2.2, p.518–524 · build_sheaf_kb.py</cite>
+        <cite>— Spivak §7.2.2, p.518–524 · build_sheaf_kb.py</cite>
       </aside>
 
       <div>
@@ -1553,7 +1643,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <div class="math-display" style="font-size:0.88rem;padding:0.45rem;margin:0.5rem 0">
           &rho;<sub>U<sub>i</sub>, U<sub>i</sub>&cap;U<sub>j</sub></sub>(s<sub>i</sub>) = &rho;<sub>U<sub>j</sub>, U<sub>i</sub>&cap;U<sub>j</sub></sub>(s<sub>j</sub>)
         </div>
-        <cite>— Marinov, Definition 7.2.2.2 (p. 520)</cite>
+        <cite>— Spivak, Definition 7.2.2.2 (p. 520)</cite>
 
         <div style="margin-top:1.2rem;padding-top:0.8rem;border-top:1px solid var(--rule-hair)">
           <strong>NotebookLM Deep Dive Podcast</strong>
@@ -1605,7 +1695,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
             <!-- Right column: Query Bar, Curated Investigations, Synthesis, Commutative Olog -->
             <div class="notebook-main">
               <div class="query-bar">
-                <input type="text" class="query-input" id="notebookQueryInput" placeholder="Ask a category theory question across the active open cover (e.g., Why is a database state a functor I → Set, and how do Π and Σ migrate data?)…">
+                <input type="text" class="query-input" id="notebookQueryInput" placeholder="Ask across the active open cover (e.g., How do Π and Σ migrate data?)…">
                 <button class="btn-copper" id="runGlueQueryBtn">Glue Section ↵</button>
               </div>
 
@@ -1730,7 +1820,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <div class="eyebrow">CATEGORY THEORY ILLUSTRATED (INDEPENDENT AGENT RUN) · UNDERSTANDING THROUGH SYMBOLS &amp; COMMUTING DIAGRAMS</div>
         <h2 class="plate-title">Every <em class="u-copper">symbol</em> is a spatial diagram compressed into a one-dimensional string.</h2>
         <p class="plate-sub">
-          Mathematical notation feels opaque only when its symbols are divorced from the spatial gestures they encode. Select any of the <strong>8 core symbolic primitives</strong> below, click individual symbolic tokens (<span class="math-expr">&circ;</span>, <span class="math-expr">&lang;f,g&rang;</span>, <span class="math-expr">&times;<sub>Z</sub></span>, <span class="math-expr">&#8867;</span>, <span class="math-expr">&rArr;</span>), and watch the symbol, the commuting diagram, and a concrete finite-set data trace illuminate in unison.
+          Mathematical notation feels opaque only when its symbols are divorced from the spatial gestures they encode. Select any of the <strong>8 core symbolic primitives</strong> below, click individual symbolic tokens (<span class="math-expr">&#8728;</span>, <span class="math-expr">&lang;f,g&rang;</span>, <span class="math-expr">&times;<sub>Z</sub></span>, <span class="math-expr">&#8867;</span>, <span class="math-expr">&rArr;</span>), and watch the symbol, the commuting diagram, and a concrete finite-set data trace illuminate in unison.
         </p>
       </div>
     </div>
@@ -1738,22 +1828,22 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     <div class="plate-body">
       <aside class="marginalia">
         <strong>Pedagogical Law: Symbol &harr; Diagram Duality</strong>
-        In Marinov’s text, every algebraic equation between morphisms (<span class="math-expr">g &circ; f = k &circ; h</span>) is literally a topological assertion that two directed paths in a diagram bound a 2-cell that <em>commutes</em>.
+        In this monograph, every algebraic equation between morphisms (<span class="math-expr">g &#8728; f = k &#8728; h</span>) is literally a topological assertion that two directed paths in a diagram bound a 2-cell that <em>commutes</em>.
         <br><br>
         When learners can click a token inside a formula and see which arrow or universal cone it controls, symbolic fluency becomes visual intuition.
-        <cite>— Marinov §2.1.2 (p. 74) &amp; §6.1.3 (p. 418)</cite>
+        <cite>— Spivak §2.1.2 (p. 74) &amp; §6.1.3 (p. 418)</cite>
       </aside>
 
       <div>
         <div class="instrument">
           <div class="instrument-bar">
             <span>INSTRUMENT III · SYMBOL-TO-DIAGRAM INTERACTIVE TRANSLATOR (SINGLE-MUTATOR)</span>
-            <span class="stamp accept" id="symMarinovRef">✓ Marinov §2.1.2 · p.74</span>
+            <span class="stamp accept" id="symSpivakRef">✓ Spivak §2.1.2 · p.74</span>
           </div>
 
           <div class="sym-selector" role="tablist" id="symSelector">
             <button class="sym-btn" role="tab" aria-selected="true" data-sym="comp">
-              <span class="s-glyph">g &circ; f = h</span>
+              <span class="s-glyph">g &#8728; f = h</span>
               <span class="s-title">1. Composition</span>
             </button>
             <button class="sym-btn" role="tab" aria-selected="false" data-sym="prod">
@@ -1815,9 +1905,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         </div>
 
         <div class="counterpoint">
-          <div class="cp-head"><span>⊘ Counterpoint · Directional Reading Trap (g &circ; f vs. Path Order)</span></div>
+          <div class="cp-head"><span>⊘ Counterpoint · Directional Reading Trap (g &#8728; f vs. Path Order)</span></div>
           <div>
-            Beginners frequently confuse algebraic composition order <span class="math-expr">g &circ; f</span> (read right-to-left: "apply <span class="math-expr">f</span> first, then <span class="math-expr">g</span>") with diagrammatic path order <span class="math-expr">X &rarr;<sup>f</sup> Y &rarr;<sup>g</sup> Z</span> (drawn left-to-right). Marinov explicitly notes this notation tension in §2.1.2 (p. 47); our symbolic translator highlights the intermediate object <span class="math-expr">Y</span> when clicking <span class="math-expr">&circ;</span> so learners anchor composition at the shared codomain/domain seam.
+            Beginners frequently confuse algebraic composition order <span class="math-expr">g &#8728; f</span> (read right-to-left: "apply <span class="math-expr">f</span> first, then <span class="math-expr">g</span>") with diagrammatic path order <span class="math-expr">X &rarr;<sup>f</sup> Y &rarr;<sup>g</sup> Z</span> (drawn left-to-right). Spivak explicitly notes this notation tension in §2.1.2 (p. 47); our symbolic translator highlights the intermediate object <span class="math-expr">Y</span> when clicking <span class="math-expr">&#8728;</span> so learners anchor composition at the shared codomain/domain seam.
           </div>
         </div>
       </div>
@@ -1836,7 +1926,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <div style="margin-top:6px"><span class="stamp measured">⚖ 18 Stalks · 279 Items</span></div>
       </div>
       <div>
-        <div class="eyebrow">VOL II ARCHETYPE · THE MEASURED CORPUS OF MARINOV’S 377 PAGES</div>
+        <div class="eyebrow">VOL II ARCHETYPE · THE MEASURED CORPUS OF ALL 377 MONOGRAPH PAGES</div>
         <h2 class="plate-title">Every stalk carries a local <em class="u-copper">olog</em>, restriction arrows, and verbatim declarations.</h2>
         <p class="plate-sub">
           Switch between the <strong>18 Concept Stalks Encyclopedia</strong> (with typeset mathematical cores, local Ologs, and restriction morphisms), the <strong>279 Formal Declarations Browser</strong> (every Definition, Theorem, Proposition, Example, Application, and Exercise), and the on-demand <strong>3D Alexandrov Poset Fiber Bundle</strong>.
@@ -1846,17 +1936,17 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
     <div class="plate-body">
       <aside class="marginalia">
-        <strong>Measured Distribution Across 7 Chapters</strong>
-        • Ch 1 (Sets &amp; Functions): 2 stalks · 51 pp.<br>
+        <strong>Measured Distribution Across 9 Chapters (377 pp.)</strong>
+        • Ch 1 (Sets): 2 stalks · 51 pp.<br>
         • Ch 2 (From Sets to Categories): 2 stalks · 30 pp.<br>
-        • Ch 3 (Categories &amp; Morphis): 0 stalks · 13 pp.<br>
-        • Ch 4 (Monoids, Groups &amp; Al): 2 stalks · 36 pp.<br>
-        • Ch 5 (Preorders, Posets &amp; ): 2 stalks · 31 pp.<br>
-        • Ch 6 (Propositional &amp; Cate): 2 stalks · 50 pp.<br>
-        • Ch 7 (Types, Currying &amp; La): 3 stalks · 66 pp.<br>
-        • Ch 8 (Functors &amp; Presheaf ): 2 stalks · 41 pp.<br>
-        • Ch 9 (Natural Transformations ): 3 stalks · 59 pp.
-        <cite>— Marinov Chapters 1–9 · Extracted by build_sheaf_kb.py</cite>
+        • Ch 3 (Categories): 0 stalks · 13 pp.<br>
+        • Ch 4 (Monoids, Groups): 2 stalks · 36 pp.<br>
+        • Ch 5 (Preorders, Posets): 2 stalks · 31 pp.<br>
+        • Ch 6 (Propositional): 2 stalks · 50 pp.<br>
+        • Ch 7 (Types, Currying): 3 stalks · 66 pp.<br>
+        • Ch 8 (Functors): 2 stalks · 41 pp.<br>
+        • Ch 9 (Natural Transformations): 3 stalks · 59 pp.
+        <cite>— Spivak Chapters 1–9 · Extracted by build_sheaf_kb.py</cite>
       </aside>
 
       <div>
@@ -1980,12 +2070,12 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
                   <th style="padding:6px 8px">Symbolic Token</th>
                   <th style="padding:6px 8px">Visual Gesture (SVG Primitive)</th>
                   <th style="padding:6px 8px">Concrete System / Data Analogue</th>
-                  <th style="padding:6px 8px">Marinov Grounding</th>
+                  <th style="padding:6px 8px">Monograph Grounding (36 pp.)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr style="border-bottom:1px solid var(--rule-hair)">
-                  <td style="padding:7px 8px"><span class="math-expr">g &circ; f : X &rarr; Z</span></td>
+                  <td style="padding:7px 8px"><span class="math-expr">g &#8728; f : X &rarr; Z</span></td>
                   <td style="padding:7px 8px">Path concatenation + associative pipeline slider</td>
                   <td style="padding:7px 8px">Foreign-key join chain / pure function pipe</td>
                   <td style="padding:7px 8px"><button class="cite-pill" onclick="window.__jumpToPage(47,'olog')">§ p.47</button> <button class="cite-pill" onclick="window.__jumpToPage(74,'composition')">§ p.74</button></td>
@@ -2040,7 +2130,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   </section>
 
   <footer style="padding:2.5rem 0 3.5rem;font-family:var(--f-mono);font-size:var(--s-mono);color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
-    <div>CETI SHEAF KNOWLEDGE BASE &amp; FIELD MANUAL · BUILT FROM MARINOV’S <em>CATEGORY THEORY ILLUSTRATED (INDEPENDENT AGENT RUN)</em> (377 PP.)</div>
+    <div>CETI SHEAF KNOWLEDGE BASE &amp; FIELD MANUAL · BUILT FROM <em>CATEGORY THEORY ILLUSTRATED (INDEPENDENT AGENT RUN)</em> (377 PP.)</div>
     <div>ALL 18 STALKS · 33 RESTRICTIONS · 279 DECLARATIONS VERIFIED ON DISK</div>
   </footer>
 
@@ -2053,7 +2143,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   <div class="reader-head">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <span class="mono" style="font-weight:600;text-transform:uppercase;color:var(--accent-text)">
-        Verbatim 377-Page Book Reader · Marinov (2026)
+        Verbatim 377-Page Book Reader · Boris Marinov (2026)
       </span>
       <div style="display:flex;gap:6px">
         <a id="openRawPdfLink" href="document.pdf#page=43" target="_blank" class="preset-btn" style="text-decoration:none">Open PDF ↗</a>
@@ -2135,11 +2225,32 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   function convertLatexTokensToHtml(mathStr) {
     let s = escapeHtml(mathStr.trim());
 
+    // Protect escaped set braces \{ and \} and escaped \& before brace stripping
+    s = s.replace(/\\\{/g, '&#123;').replace(/\\\}/g, '&#125;');
+    s = s.replace(/\\&amp;/g, '&amp;');
+
     // Remove sizing commands
     s = s.replace(/\\(?:left|right|bigl|bigr|Bigl|Bigr|big|Big)\b/g, '');
     s = s.replace(/\\[,;:!]/g, ' ');
     s = s.replace(/\\quad\b/g, ' &emsp; ');
     s = s.replace(/\\qquad\b/g, ' &emsp;&emsp; ');
+    s = s.replace(/\^\{\\circ\}/g, '&deg;');
+    s = s.replace(/\^\\circ\b/g, '&deg;');
+    s = s.replace(/\\pmod\{([^{}]+)\}/g, ' (mod $1)');
+
+    // Labeled arrows: \xrightarrow{...}, \xleftarrow{...}, \overset{...}{\to} BEFORE font macros so recursive convertLatexTokensToHtml(lbl) never double-escapes HTML tags
+    s = s.replace(/\\overset\{\\sim\}\{\\to\}/g, '<span class="m-arrow"><span class="m-arrow-label">&sim;</span><span class="m-arrow-body">&rarr;</span></span>');
+    s = s.replace(/\\xrightarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
+    s = s.replace(/\\xleftarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
+    s = s.replace(/\\overset\{((?:[^{}]|\{[^{}]*\})+)\}\{\\to\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
+
+    // Font macros
+    for (let pass = 0; pass < 3; pass++) {
+      s = s.replace(/\\mathcal\{([^{}]+)\}/g, '<span class="m-cal">$1</span>');
+      s = s.replace(/\\mathbf\{([^{}]+)\}/g, '<span class="m-cat">$1</span>');
+      s = s.replace(/\\(?:mathrm|text|operatorname)\{([^{}]+)\}/g, '<span class="m-op">$1</span>');
+      s = s.replace(/\\emph\{([^{}]+)\}/g, '<em>$1</em>');
+    }
 
     // Limits & Colimits with subscripts
     s = s.replace(/\\varprojlim_\{([^}]+)\}/g, '<span class="m-lim"><span class="m-lim-top">lim&larr;</span><span class="m-lim-sub">$1</span></span>');
@@ -2149,20 +2260,6 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/\\varinjlim_\{([^}]+)\}/g, '<span class="m-lim"><span class="m-lim-top">colim&rarr;</span><span class="m-lim-sub">$1</span></span>');
     s = s.replace(/\\varinjlim_([A-Za-z0-9]+)/g, '<span class="m-lim"><span class="m-lim-top">colim&rarr;</span><span class="m-lim-sub">$1</span></span>');
     s = s.replace(/\\varinjlim\b/g, '<span class="m-op">colim&rarr;</span>');
-
-    // Labeled arrows: \xrightarrow{...}, \xleftarrow{...}, \overset{...}{\to}
-    s = s.replace(/\\xrightarrow\{([^}]+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
-    s = s.replace(/\\xleftarrow\{([^}]+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
-    s = s.replace(/\\overset\{([^}]+)\}\{\\to\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
-    s = s.replace(/\\overset\{\\sim\}\{\\to\}/g, '<span class="m-arrow"><span class="m-arrow-label">&sim;</span><span class="m-arrow-body">&rarr;</span></span>');
-
-    // Font macros: \mathcal, \mathbf, \mathrm, \text, \operatorname
-    for (let pass = 0; pass < 3; pass++) {
-      s = s.replace(/\\mathcal\{([^{}]+)\}/g, '<span class="m-cal">$1</span>');
-      s = s.replace(/\\mathbf\{([^{}]+)\}/g, '<span class="m-cat">$1</span>');
-      s = s.replace(/\\(?:mathrm|text|operatorname)\{([^{}]+)\}/g, '<span class="m-op">$1</span>');
-      s = s.replace(/\\emph\{([^{}]+)\}/g, '<em>$1</em>');
-    }
 
     // Greek letters & Categorical symbols
     const symMap = {
@@ -2190,7 +2287,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       '\\sqcup': '&#8852;', '\\bigsqcup': '&#10758;', '\\sqcap': '&#8851;',
       '\\times': '&times;', '\\otimes': '&otimes;', '\\oplus': '&oplus;',
       '\\prod': '&prod;', '\\coprod': '&#8720;', '\\sum': '&sum;', '\\int': '&int;',
-      '\\circ': '&circ;', '\\bullet': '&bull;', '\\cdot': '&middot;',
+      '\\circ': '&#8728;', '\\bullet': '&bull;', '\\cdot': '&middot;',
       '\\forall': '&forall;', '\\exists': '&exist;', '\\nexists': '&#8708;',
       '\\emptyset': '&empty;', '\\varnothing': '&empty;', '\\infty': '&infin;',
       '\\partial': '&part;', '\\nabla': '&nabla;',
@@ -2200,7 +2297,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       '\\mathbb{N}': '&#8469;', '\\mathbb{Z}': '&#8484;', '\\mathbb{Q}': '&#8474;',
       '\\mathbb{R}': '&#8477;', '\\mathbb{C}': '&#8450;',
       '\\top': '&#8868;', '\\bot': '&#8869;',
-      '\\{': '{', '\\}': '}'
+      '\\mid': ' &#8739; ', '\\parallel': '&#8741;', '\\setminus': '&#8726;',
+      '\\neg': '&not;', '\\land': '&and;', '\\lor': '&or;'
     };
 
     const sortedKeys = Object.keys(symMap).sort((a, b) => b.length - a.length);
@@ -2215,8 +2313,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       s = s.replace(/_\{([^{}]+)\}/g, '<sub>$1</sub>');
       s = s.replace(/\^\{([^{}]+)\}/g, '<sup>$1</sup>');
     }
-    s = s.replace(/_([A-Za-z0-9&;#]+)/g, '<sub>$1</sub>');
-    s = s.replace(/\^([A-Za-z0-9&;#]+)/g, '<sup>$1</sup>');
+    s = s.replace(/_(&[A-Za-z0-9#]+;|[A-Za-z0-9])/g, '<sub>$1</sub>');
+    s = s.replace(/\^(&[A-Za-z0-9#]+;|[A-Za-z0-9])/g, '<sup>$1</sup>');
 
     s = s.replace(/\{([^{}]+)\}/g, '$1');
     return s;
@@ -2253,10 +2351,11 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     // 3. Escape HTML on the prose
     let html = escapeHtml(text);
 
-    // 4. Convert Page Citations [p. 520] or `[p. 520, Def 7.2.2.2]`
+    // 4. Convert Page Citations [p. 520] or `[p. 520, Def 7.2.2.2]` and [CITE-0X] badges
     html = html.replace(/`?\[p\.\s*(\d+)([^\]]*)\]`?/g, (_, pNum, rest) => {
       return `<button class="cite-pill" onclick="window.__jumpToPage(${pNum}, '')">§ p.${pNum}${rest}</button>`;
     });
+    html = html.replace(/`?\[(CITE-\d+)\]`?/g, '<span class="stamp ratified" style="font-size:0.65rem;padding:1px 5px">✓ $1</span>');
 
     // 5. Convert inline code `...` (if it contains LaTeX backslashes or math tokens, render as math chip!)
     html = html.replace(/`([^`]+)`/g, (_, codeStr) => {
@@ -2270,7 +2369,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
 
-    // 7. Block-level Markdown structure (headings, lists, paragraphs)
+    // 7. Block-level Markdown structure (headings, blockquotes, lists, paragraphs)
     const lines = html.split('\n');
     const out = [];
     let inList = false;
@@ -2289,7 +2388,13 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         out.push(`<h3>${line.slice(4)}</h3>`);
       } else if (line.startsWith('## ')) {
         if (inList) { out.push('</ul>'); inList = false; }
-        out.push(`<h2>${line.slice(3)}</h2>`);
+        out.push(`<h3 style="margin-top:0.85rem;margin-bottom:0.35rem;color:var(--accent-text)">${line.slice(3)}</h3>`);
+      } else if (line.startsWith('# ')) {
+        if (inList) { out.push('</ul>'); inList = false; }
+        out.push(`<h2 style="font-size:1.15rem;margin-top:0.4rem;margin-bottom:0.45rem;border-bottom:1px solid var(--rule-hair);padding-bottom:0.3rem">${line.slice(2)}</h2>`);
+      } else if (line.startsWith('&gt; ')) {
+        if (inList) { out.push('</ul>'); inList = false; }
+        out.push(`<blockquote style="border-left:3px solid var(--accent);padding:0.35rem 0.85rem;margin:0.55rem 0;background:rgba(166,119,86,0.06);color:var(--ink-2)">${line.slice(5)}</blockquote>`);
       } else if (line.startsWith('- ') || line.startsWith('* ')) {
         if (!inList) { out.push('<ul>'); inList = true; }
         out.push(`<li>${line.slice(2)}</li>`);
@@ -2313,7 +2418,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     finalHtml = finalHtml.replace(/@@MATH_INLINE_(\d+)@@/g, (_, idx) => mathInlines[Number(idx)]);
 
     // Catch any remaining bare LaTeX sequences outside $...$
-    if (/\\(?:mathcal|mathbf|varprojlim|varinjlim|xrightarrow|dashv|simeq|cong|rho|Delta|Sigma|Pi)/.test(finalHtml)) {
+    if (/\\(?:mathcal|mathbf|varprojlim|varinjlim|xrightarrow|dashv|simeq|cong|rho|Delta|Sigma|Pi|mid)/.test(finalHtml)) {
       finalHtml = convertLatexTokensToHtml(finalHtml);
     }
     return finalHtml;
@@ -2423,7 +2528,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       num: 'STAGE 01',
       title: 'Verbatim PDF Extraction & SQLite FTS5 Index',
       stamp: '⚖ 377 pp · 279 declarations',
-      summary: 'Instead of lossy chunking, `build_sheaf_kb.py` extracts all 377 pages of Marinov’s corpus verbatim, preserving section hierarchy (96 sections) and 279 formal declarations (`Definition`, `Theorem`, `Proposition`, `Example`, `Application`, `Exercise`).',
+      summary: 'Instead of lossy chunking, `build_sheaf_kb.py` extracts all 377 pages of the monograph verbatim, preserving section hierarchy (96 sections) and 279 formal declarations (`Definition`, `Theorem`, `Proposition`, `Example`, `Application`, `Exercise`).',
       math: '\\text{Corpus} = \\{ (p, \\text{sec}(p), \\text{Items}(p)) \\mid p \\in \\{1, \\dots, 377\\} \\}',
       code: 'sqlite3 cattheory-sheaf-kb/data/cattheory_sheaf.db "SELECT id, kind, title, page FROM formal_items_fts WHERE formal_items_fts MATCH \'sheaf\' LIMIT 5;"',
       outputs: [
@@ -2468,7 +2573,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       outputs: [
         'Unified Commutative Olog SVG synthesized dynamically for any chosen open cover',
         'Aggregated formal Definitions, Theorems, and page citations across the cover',
-        'Guaranteed zero hallucinated theorems — every node traces to Marinov [p. N]'
+        'Guaranteed zero hallucinated theorems — every node traces to Spivak [p. N]'
       ]
     },
     {
@@ -2909,7 +3014,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       md += `#### 3. Verbatim PDF Page Evidence Across 377 Pages\n`;
       pageHits.slice(0, 5).forEach(h => {
         const snip = h.p.txt.slice(0, 220).replace(/\s+/g, ' ');
-        md += `- [p. ${h.p.p}] **${h.p.sec || 'Marinov Text'}**: "${snip}…"\n`;
+        md += `- [p. ${h.p.p}] **${h.p.sec || 'Monograph Text'}**: "${snip}…"\n`;
       });
       renderPageReader(pageHits[0].p.p, tokens[0] || '');
     }
@@ -2981,7 +3086,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   const SYMBOLIC_PRIMITIVES = {
     comp: {
       title: 'Morphism Composition & Commutative Triangles',
-      spivakRef: '✓ Marinov §2.1.2 · p.47, p.74',
+      spivakRef: '✓ Spivak §2.1.2 · p.47, p.74',
       formula: 'g \\circ f = h : X \\xrightarrow{f} Y \\xrightarrow{g} Z',
       explanation: 'Read right-to-left algebraically ("g after f"), or left-to-right geometrically along arrows. Two paths with the same start and end commute when they yield the exact same function.',
       derived: 'Law of Composition: Associativity h ∘ (g ∘ f) = (h ∘ g) ∘ f makes intermediate parentheses unnecessary — every path of arrows has a unique composite.',
@@ -3006,7 +3111,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <line x1="232" y1="60" x2="325" y2="135" stroke="${hl==='edge-g'?'#8C4A2E':'#1A1612'}" stroke-width="${hl==='edge-g'?3.2:1.8}" marker-end="url(#${hl==='edge-g'?'sa-hi':'sa'})"/>
           <text x="290" y="85" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#8C4A2E">g</text>
           <line x1="105" y1="155" x2="315" y2="155" stroke="${hl==='edge-h'?'#8C4A2E':'#3F5E39'}" stroke-width="${hl==='edge-h'?3.2:2}" stroke-dasharray="${hl==='edge-h'?'none':'5 3'}" marker-end="url(#sa)"/>
-          <text x="210" y="178" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#3F5E39">h = g &circ; f</text>
+          <text x="210" y="178" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#3F5E39">h = g &#8728; f</text>
           <circle cx="75" cy="155" r="22" fill="${hl==='node-X'?'#F2E6DC':'#F5EFE3'}" stroke="#1A1612" stroke-width="${hl==='node-X'?3:1.6}"/>
           <text x="75" y="160" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="15">X</text>
           <circle cx="210" cy="45" r="22" fill="${hl==='node-Y'?'#F2E6DC':'#F5EFE3'}" stroke="#1A1612" stroke-width="${hl==='node-Y'?3:1.6}"/>
@@ -3017,7 +3122,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     prod: {
       title: 'Universal Product & Pairing ⟨f, g⟩',
-      spivakRef: '✓ Marinov §2.4.1 · p.79',
+      spivakRef: '✓ Spivak §2.4.1 · p.79',
       formula: '\\forall (A \\xrightarrow{f} X, A \\xrightarrow{g} Y), \\; \\exists! \\langle f, g \\rangle : A \\to X \\times Y',
       explanation: 'The product X × Y is equipped with projection arrows π₁ : X × Y → X and π₂ : X × Y → Y. Any pair of arrows f : A → X and g : A → Y factors uniquely through a single pairing arrow ⟨f, g⟩.',
       derived: 'Universal Property of Product: Hom(A, X × Y) ≅ Hom(A, X) × Hom(A, Y). Two separate queries out of A pack losslessly into one tuple arrow.',
@@ -3053,7 +3158,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     coprod: {
       title: 'Universal Coproduct & Co-pairing [f, g]',
-      spivakRef: '✓ Marinov §2.4.2 · p.84',
+      spivakRef: '✓ Spivak §2.4.2 · p.84',
       formula: '\\forall (X \\xrightarrow{f} Z, Y \\xrightarrow{g} Z), \\; \\exists! [f, g] : X \\sqcup Y \\to Z',
       explanation: 'Dual to the product: we reverse every arrow! The coproduct X ⊔ Y receives canonical inclusions ι₁ : X → X ⊔ Y and ι₂ : Y → X ⊔ Y, and universal case-analysis [f, g] routes tagged elements into Z.',
       derived: 'Duality Principle: Reversing all arrows in the Product diagram turns projections π into inclusions ι and tuple-packing ⟨f,g⟩ into pattern-matching [f,g].',
@@ -3083,7 +3188,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     pullback: {
       title: 'Pullback / Fiber Product X ×_Z Y',
-      spivakRef: '✓ Marinov §2.5.1 · p.90, §6.1.3 p.418',
+      spivakRef: '✓ Spivak §2.5.1 · p.90, §6.1.3 p.418',
       formula: 'X \\times_Z Y = \\{ (x, y) \\in X \\times Y \\mid f(x) = g(y) \\in Z \\}',
       explanation: 'Given a cospan X →f Z ←g Y, the pullback X ×_Z Y selects only those pairs (x, y) whose images agree in the base object Z. The corner mark ⌟ signals a universal commuting square.',
       derived: 'Database & Sheaf Engine Core: Every SQL INNER JOIN on a foreign key Z and every Sheaf Gluing condition O(U) ×_{O(U∩V)} O(V) is literally a pullback square.',
@@ -3113,7 +3218,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     pushout: {
       title: 'Pushout / Amalgamated Gluing X ⊔_W Y',
-      spivakRef: '✓ Marinov §2.5.2 · p.98, §6.2.3 p.444',
+      spivakRef: '✓ Spivak §2.5.2 · p.98, §6.2.3 p.444',
       formula: 'X \\sqcup_W Y = (X \\sqcup Y) / \\bigl( f(w) \\sim g(w) \\; \\forall w \\in W \\bigr)',
       explanation: 'Given a span X ←f W →g Y from a shared interface W, the pushout X ⊔_W Y takes the disjoint union X ⊔ Y and quotients (glues) every point f(w) ∈ X to its partner g(w) ∈ Y.',
       derived: 'Topological & System Gluing: Connecting two wiring diagrams along an interface W or merging two Git branches with a common ancestor W is a pushout.',
@@ -3133,7 +3238,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <rect x="110" y="142" width="60" height="32" rx="4" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/>
           <text x="140" y="163" text-anchor="middle" font-family="Fraunces, serif" font-size="14">X</text>
           <rect x="245" y="142" width="95" height="32" rx="4" fill="${hl==='node-po'?'#F2E6DC':'#F5EFE3'}" stroke="#1A1612" stroke-width="${hl==='node-po'?3:1.8}"/>
-          <text x="292" y="163" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600">X &sqcup;<sub>W</sub> Y</text>
+          <text x="292" y="163" text-anchor="middle" font-family="Fraunces, serif" font-size="14" font-weight="600">X &sqcup;<tspan dy="3" font-size="10">W</tspan><tspan dy="-3"> Y</tspan></text>
           <polyline points="252,134 238,134 238,148" fill="none" stroke="#8C4A2E" stroke-width="2"/>
           <line x1="170" y1="48" x2="260" y2="48" stroke="#1A1612" stroke-width="1.6" marker-end="url(#poa)"/><text x="215" y="41" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="13">g</text>
           <line x1="140" y1="64" x2="140" y2="137" stroke="#1A1612" stroke-width="1.6" marker-end="url(#poa)"/><text x="125" y="105" font-family="Fraunces, serif" font-style="italic" font-size="13">f</text>
@@ -3143,7 +3248,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     nat: {
       title: 'Natural Transformation α : F ⇒ G & Naturality Square',
-      spivakRef: '✓ Marinov §4.3.1 · p.295',
+      spivakRef: '✓ Spivak §4.3.1 · p.295',
       formula: '\\forall (c \\xrightarrow{f} c\') \\in \\mathcal{C}, \\quad G(f) \\circ \\alpha_c = \\alpha_{c\'} \\circ F(f)',
       explanation: 'A natural transformation α : F ⇒ G between two functors F, G : C → D assigns a component arrow α_c : F(c) → G(c) to every object c so that translating along α before or after applying F(f)/G(f) yields the exact same result.',
       derived: 'Database Homomorphism: When F and G are two database states on schema C, a natural transformation α : F ⇒ G is a foreign-key-preserving homomorphism of table rows.',
@@ -3160,8 +3265,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <rect x="262" y="34" width="68" height="30" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/><text x="296" y="54" text-anchor="middle" font-family="Fraunces, serif" font-size="13">G(c)</text>
           <rect x="90" y="144" width="68" height="30" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/><text x="124" y="164" text-anchor="middle" font-family="Fraunces, serif" font-size="13">F(c&prime;)</text>
           <rect x="262" y="144" width="68" height="30" rx="3" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/><text x="296" y="164" text-anchor="middle" font-family="Fraunces, serif" font-size="13">G(c&prime;)</text>
-          <line x1="158" y1="49" x2="257" y2="49" stroke="#8C4A2E" stroke-width="${hl==='alpha-c'?3.2:2}" marker-end="url(#na)"/><text x="210" y="41" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<sub>c</sub></text>
-          <line x1="158" y1="159" x2="257" y2="159" stroke="#8C4A2E" stroke-width="2" marker-end="url(#na)"/><text x="210" y="176" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<sub>c&prime;</sub></text>
+          <line x1="158" y1="49" x2="257" y2="49" stroke="#8C4A2E" stroke-width="${hl==='alpha-c'?3.2:2}" marker-end="url(#na)"/><text x="210" y="41" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<tspan dy="3" font-size="10">c</tspan></text>
+          <line x1="158" y1="159" x2="257" y2="159" stroke="#8C4A2E" stroke-width="2" marker-end="url(#na)"/><text x="210" y="176" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="14" fill="#8C4A2E">&alpha;<tspan dy="3" font-size="10">c&prime;</tspan></text>
           <line x1="124" y1="64" x2="124" y2="139" stroke="#1A1612" stroke-width="${hl==='fg-f'?3:1.6}" marker-end="url(#na)"/><text x="98" y="106" font-family="Fraunces, serif" font-style="italic" font-size="13">F(f)</text>
           <line x1="296" y1="64" x2="296" y2="139" stroke="#1A1612" stroke-width="${hl==='fg-f'?3:1.6}" marker-end="url(#na)"/><text x="322" y="106" font-family="Fraunces, serif" font-style="italic" font-size="13">G(f)</text>
           <text x="210" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3F5E39">Naturality Square ◆</text>
@@ -3169,7 +3274,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     adj: {
       title: 'Adjunction L ⊣ R & Hom-Set Bijection',
-      spivakRef: '✓ Marinov §7.1.1 · p.467, §7.1.2 p.483',
+      spivakRef: '✓ Spivak §7.1.1 · p.467, §7.1.2 p.483',
       formula: 'L \\dashv R \\iff \\text{Hom}_{\\mathcal{D}}(L(c), d) \\cong \\text{Hom}_{\\mathcal{C}}(c, R(d))',
       explanation: 'A left adjoint L : C → D and right adjoint R : D → C stand in a natural two-way bijection between arrows out of L(c) in D and arrows into R(d) in C, mediated by the unit η_c : c → R(L(c)) and counit ε_d : L(R(d)) → d.',
       derived: 'Functorial Data Migration Trinity: For any schema functor F : C → D, pullback Δ_F has left adjoint Σ_F (disjoint union / left Kan extension) and right adjoint Π_F (join / right Kan extension): Σ_F ⊣ Δ_F ⊣ Π_F.',
@@ -3197,7 +3302,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     },
     sheaf: {
       title: 'Sheaf Gluing Equalizer O(U ∪ V)',
-      spivakRef: '✓ Marinov §7.2.2 · p.520',
+      spivakRef: '✓ Spivak §7.2.2 · p.520',
       formula: '\\mathcal{O}(U \\cup V) \\xrightarrow{\\sim} \\text{eq}\\Bigl( \\mathcal{O}(U) \\times \\mathcal{O}(V) \\rightrightarrows \\mathcal{O}(U \\cap V) \\Bigr)',
       explanation: 'A presheaf O : Open(X)^op → Set is a sheaf when local sections s_U ∈ O(U) and s_V ∈ O(V) that restrict to the same value on the overlap U ∩ V glue uniquely into a global section s ∈ O(U ∪ V).',
       derived: 'Why This Powers Our Knowledge Base: Every concept stalk is an open set U_i. Our query studio glues local sections across U_i only where restriction morphisms ρ agree on U_i ∩ U_j.',
@@ -3217,8 +3322,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <text x="216" y="107" text-anchor="middle" font-family="Fraunces, serif" font-size="13">O(U) &times; O(V)</text>
           <line x1="270" y1="95" x2="314" y2="95" stroke="#8C4A2E" stroke-width="1.8" marker-end="url(#sha)"/>
           <line x1="270" y1="111" x2="314" y2="111" stroke="#3B6E8F" stroke-width="1.8" marker-end="url(#sha)"/>
-          <text x="292" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8C4A2E">&rho;<sub>U</sub></text>
-          <text x="292" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#3B6E8F">&rho;<sub>V</sub></text>
+          <text x="292" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8C4A2E">&rho;<tspan dy="2" font-size="7.5">U</tspan></text>
+          <text x="292" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#3B6E8F">&rho;<tspan dy="2" font-size="7.5">V</tspan></text>
           <rect x="318" y="80" width="88" height="46" rx="4" fill="#F5EFE3" stroke="#1A1612" stroke-width="1.6"/>
           <text x="362" y="107" text-anchor="middle" font-family="Fraunces, serif" font-size="13">O(U &cap; V)</text>
         </svg>`
@@ -3230,7 +3335,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     document.querySelectorAll('#symSelector .sym-btn').forEach(b => {
       b.setAttribute('aria-selected', String(b.getAttribute('data-sym') === symKey));
     });
-    document.getElementById('symMarinovRef').textContent = item.spivakRef;
+    document.getElementById('symSpivakRef').textContent = item.spivakRef;
     document.getElementById('symTitle').textContent = item.title;
     document.getElementById('symFormulaDisplay').innerHTML = convertLatexTokensToHtml(item.formula);
     document.getElementById('symExplanation').textContent = item.explanation;
@@ -3307,7 +3412,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     });
 
     document.getElementById('declCountLabel').textContent =
-      `Showing ${Math.min(80, filtered.length)} of ${filtered.length} formal declarations (from 279 total in Marinov)`;
+      `Showing ${Math.min(80, filtered.length)} of ${filtered.length} formal declarations (from 279 total in the monograph)`;
 
     document.getElementById('declListContainer').innerHTML = filtered.slice(0, 80).map(it => `
       <div style="background:var(--paper);border:1px solid var(--rule);padding:0.75rem 0.9rem">
@@ -3635,10 +3740,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       ${sBadges ? `<div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">${sBadges}</div>` : ''}
     `;
 
-    let rawHtml = escapeHtml(pObj.txt || '(Diagram / Blank Page in PDF — click "Open PDF ↗" above to inspect vector graphic)');
+    let rawHtml = renderRichMarkdown(pObj.txt || '(Diagram / Blank Page in PDF — click "Open PDF ↗" above to inspect vector graphic)');
     if (state.highlightTerm && state.highlightTerm.length >= 2) {
       const safe = state.highlightTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      rawHtml = rawHtml.replace(new RegExp(`(${safe})`, 'gi'), '<mark class="hl">$1</mark>');
+      rawHtml = rawHtml.replace(new RegExp(`(<[^>]+>)|(${safe})`, 'gi'), (m, tag, hit) => tag ? tag : `<mark class="hl">${hit}</mark>`);
     }
     document.getElementById('readerPageText').innerHTML = rawHtml;
   }
@@ -3791,8 +3896,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     const actIdx = getTurnActIndex(turn, idx);
     actButtons.forEach((b, bIdx) => b.classList.toggle('active', bIdx === actIdx));
     if (visualCueText) {
-      const cue = turn.visual_cue || `Inspecting ${turn.act || 'diagram'} on page ${turn.cite_page || 1}`;
-      visualCueText.innerHTML = `👁️ <strong>${escapeHtml(turn.act || 'Visual Cue')}:</strong> ${escapeHtml(cue)}`;
+      const rawCue = turn.visual_cue || `Inspecting ${turn.act || 'diagram'} on page ${turn.cite_page || 1}`;
+      const cleanCue = rawCue.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F\s]+/u, '');
+      visualCueText.innerHTML = `👁️ <strong>${escapeHtml(turn.act || 'Visual Cue')}:</strong> ${escapeHtml(cleanCue)}`;
     }
     if (cuePageBtn) {
       const cp = turn.cite_page || 1;

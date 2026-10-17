@@ -1,0 +1,399 @@
+{
+  "phase": "r4_before",
+  "screenshots": [
+    "r4_before_01_desktop_hero_and_plate1.png",
+    "r4_before_02_desktop_plate1a_espresso_zoomout.png",
+    "r4_before_03_desktop_plate1a_type_polarity.png",
+    "r4_before_04_desktop_plate1b_monoid_loops.png",
+    "r4_before_05_desktop_plate1b_birkhoff_cube.png",
+    "r4_before_06_desktop_plate1b_heyting_lever.png",
+    "r4_before_07_desktop_plate1b_russell_vs_trees.png",
+    "r4_before_08_desktop_plate1b_naturality_prism.png",
+    "r4_before_09_desktop_plate2_rosetta_stone.png",
+    "r4_before_10_desktop_plate3_4act_podcast_and_script.png",
+    "r4_before_11_desktop_focus_mode_dark_reader.png",
+    "r4_before_12_mobile_hero_and_sticky_header.png",
+    "r4_before_13_mobile_visual_atlas_and_decoder.png",
+    "r4_before_14_mobile_podcast_and_collapsed_cover.png",
+    "r4_before_15_mobile_spivak_podcast_studio.png"
+  ],
+  "videos": [
+    "r4_before_desktop_walkthrough.webm",
+    "r4_before_desktop_walkthrough.webm",
+    "r4_before_desktop_walkthrough.webm",
+    "r4_before_mobile_walkthrough.webm"
+  ],
+  "telemetry": [
+    {
+      "label": "r4_before_marinov_desktop_initial",
+      "viewport": "1440x900",
+      "docScrollW": 1440,
+      "horizontalOverflowPx": 0,
+      "ribbonHeightPx": 112,
+      "ribbonViewportPct": 12.4,
+      "dockHeightPx": 0,
+      "freeReadingViewportPct": 87.6,
+      "visibleButtonCount": 165,
+      "undersizedButtonCount": 128,
+      "undersizedButtonsSample": [
+        {
+          "text": "All 5",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "1-Plate Focus",
+          "h": 21,
+          "w": 100,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Newcomer",
+          "h": 21,
+          "w": 67,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 21,
+          "w": 94,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 21,
+          "w": 54,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        }
+      ],
+      "visibleSvgCount": 6,
+      "clippedSvgCount": 0,
+      "rawLatexLeakCount": 0
+    },
+    {
+      "label": "r4_before_marinov_desktop_podcast_open",
+      "viewport": "1440x900",
+      "docScrollW": 1440,
+      "horizontalOverflowPx": 0,
+      "ribbonHeightPx": 112,
+      "ribbonViewportPct": 12.4,
+      "dockHeightPx": 0,
+      "freeReadingViewportPct": 87.6,
+      "visibleButtonCount": 165,
+      "undersizedButtonCount": 128,
+      "undersizedButtonsSample": [
+        {
+          "text": "All 5",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "1-Plate Focus",
+          "h": 21,
+          "w": 100,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Newcomer",
+          "h": 21,
+          "w": 67,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 21,
+          "w": 94,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 21,
+          "w": 54,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        }
+      ],
+      "visibleSvgCount": 6,
+      "clippedSvgCount": 0,
+      "rawLatexLeakCount": 0
+    },
+    {
+      "label": "r4_before_marinov_desktop_focus_dark_reader",
+      "viewport": "1440x900",
+      "docScrollW": 1440,
+      "horizontalOverflowPx": 0,
+      "ribbonHeightPx": 112,
+      "ribbonViewportPct": 12.4,
+      "dockHeightPx": 0,
+      "freeReadingViewportPct": 87.6,
+      "visibleButtonCount": 48,
+      "undersizedButtonCount": 29,
+      "undersizedButtonsSample": [
+        {
+          "text": "All 5",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "1-Plate Focus",
+          "h": 21,
+          "w": 100,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Newcomer",
+          "h": 21,
+          "w": 67,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 21,
+          "w": 94,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 21,
+          "w": 54,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        }
+      ],
+      "visibleSvgCount": 5,
+      "clippedSvgCount": 0,
+      "rawLatexLeakCount": 0
+    },
+    {
+      "label": "r4_before_marinov_mobile_initial",
+      "viewport": "390x844",
+      "docScrollW": 390,
+      "horizontalOverflowPx": 0,
+      "ribbonHeightPx": 184,
+      "ribbonViewportPct": 21.8,
+      "dockHeightPx": 48,
+      "freeReadingViewportPct": 72.5,
+      "visibleButtonCount": 163,
+      "undersizedButtonCount": 119,
+      "undersizedButtonsSample": [
+        {
+          "text": "Newcomer",
+          "h": 21,
+          "w": 67,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 21,
+          "w": 94,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 21,
+          "w": 54,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Ink",
+          "h": 21,
+          "w": 34,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "\u00a7 p.11",
+          "h": 19,
+          "w": 57,
+          "cls": "cite-pill"
+        }
+      ],
+      "visibleSvgCount": 6,
+      "clippedSvgCount": 5,
+      "rawLatexLeakCount": 0
+    },
+    {
+      "label": "r4_before_marinov_mobile_visual_atlas",
+      "viewport": "390x844",
+      "docScrollW": 390,
+      "horizontalOverflowPx": 0,
+      "ribbonHeightPx": 184,
+      "ribbonViewportPct": 21.8,
+      "dockHeightPx": 48,
+      "freeReadingViewportPct": 72.5,
+      "visibleButtonCount": 163,
+      "undersizedButtonCount": 119,
+      "undersizedButtonsSample": [
+        {
+          "text": "Newcomer",
+          "h": 21,
+          "w": 67,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 21,
+          "w": 94,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 21,
+          "w": 54,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Ink",
+          "h": 21,
+          "w": 34,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "\u00a7 p.11",
+          "h": 19,
+          "w": 57,
+          "cls": "cite-pill"
+        }
+      ],
+      "visibleSvgCount": 6,
+      "clippedSvgCount": 5,
+      "rawLatexLeakCount": 0
+    },
+    {
+      "label": "r4_before_marinov_mobile_podcast",
+      "viewport": "390x844",
+      "docScrollW": 390,
+      "horizontalOverflowPx": 0,
+      "ribbonHeightPx": 184,
+      "ribbonViewportPct": 21.8,
+      "dockHeightPx": 48,
+      "freeReadingViewportPct": 72.5,
+      "visibleButtonCount": 163,
+      "undersizedButtonCount": 119,
+      "undersizedButtonsSample": [
+        {
+          "text": "Newcomer",
+          "h": 21,
+          "w": 67,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 21,
+          "w": 94,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 21,
+          "w": 54,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 21,
+          "w": 47,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Ink",
+          "h": 21,
+          "w": 34,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "\u00a7 p.11",
+          "h": 19,
+          "w": 57,
+          "cls": "cite-pill"
+        }
+      ],
+      "visibleSvgCount": 6,
+      "clippedSvgCount": 5,
+      "rawLatexLeakCount": 0
+    },
+    {
+      "label": "r4_before_spivak_mobile_podcast",
+      "viewport": "1560x3376",
+      "docScrollW": 1815,
+      "horizontalOverflowPx": 255,
+      "ribbonHeightPx": 169,
+      "ribbonViewportPct": 5,
+      "dockHeightPx": 44,
+      "freeReadingViewportPct": 93.7,
+      "visibleButtonCount": 150,
+      "undersizedButtonCount": 101,
+      "undersizedButtonsSample": [
+        {
+          "text": "All 5",
+          "h": 24,
+          "w": 52,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "1-Plate Focus",
+          "h": 24,
+          "w": 109,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Newcomer",
+          "h": 24,
+          "w": 73,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Practitioner",
+          "h": 24,
+          "w": 102,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Expert",
+          "h": 24,
+          "w": 59,
+          "cls": "ctrl-btn"
+        },
+        {
+          "text": "Cream",
+          "h": 24,
+          "w": 52,
+          "cls": "ctrl-btn"
+        }
+      ],
+      "visibleSvgCount": 3,
+      "clippedSvgCount": 1,
+      "rawLatexLeakCount": 0
+    }
+  ]
+}
