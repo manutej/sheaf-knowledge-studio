@@ -25,9 +25,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-PIPELINE_AUDIT = ROOT / ".agents/skills/sheaf-knowledge-pipeline/scripts/run_sheaf_pipeline_audit.py"
-VALIDATE_CONTRACT = ROOT / ".agents/skills/sheaf-corpus-indexer/scripts/validate_sheaf_contract.py"
-AUDIT_HTML = ROOT / ".agents/skills/sheaf-field-manual-studio/scripts/audit_rendered_html.py"
+SKILLS_DIR = ROOT / "skills" if (ROOT / "skills").exists() else ROOT / ".agents/skills"
+PIPELINE_AUDIT = SKILLS_DIR / "sheaf-knowledge-pipeline/scripts/run_sheaf_pipeline_audit.py"
+VALIDATE_CONTRACT = SKILLS_DIR / "sheaf-corpus-indexer/scripts/validate_sheaf_contract.py"
+AUDIT_HTML = SKILLS_DIR / "sheaf-field-manual-studio/scripts/audit_rendered_html.py"
 
 
 def load_mod(name: str, path: Path):

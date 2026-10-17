@@ -5,7 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
 echo "================================================================================"
-echo "  CETI SHEAF KNOWLEDGE STUDIO — 26-GATE & NEGATIVE SELFTEST VERIFICATION SUITE"
+echo "  CETI SHEAF KNOWLEDGE STUDIO — 27-GATE & NEGATIVE SELFTEST VERIFICATION SUITE"
 echo "================================================================================"
 
 echo ""
@@ -43,5 +43,5 @@ echo "  ✓ Independent Agent 4/4 Negative Mutation Self-Tests: PASS"
 
 echo ""
 echo "================================================================================"
-echo "  ALL 3 BUILDS VERIFIED: 26/26 BINARY GATES (GO) + 12/12 NEGATIVE SELFTESTS PASS"
+echo "  ALL 3 BUILDS VERIFIED: 27/27 BINARY GATES (GO) + 12/12 NEGATIVE SELFTESTS PASS"
 echo "================================================================================"

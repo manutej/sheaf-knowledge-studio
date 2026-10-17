@@ -832,7 +832,8 @@ section.plate { padding: clamp(2.2rem, 4.5vw, 3.8rem) 0; border-bottom: 1px soli
 .subview-tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
 
 .canvas-frame { position: relative; background: #14161C; border: 1px solid var(--ink); height: 450px; overflow: hidden; }
-#sheaf3dCanvas { width: 100%; height: 100%; display: block; cursor: grab; }
+#sheaf3dCanvas { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+#sheaf3dCanvas:active { cursor: grabbing; }
 
 /* Slide-Over 377-Page Verbatim Reader Drawer */
 .reader-drawer {
@@ -863,7 +864,86 @@ section.plate { padding: clamp(2.2rem, 4.5vw, 3.8rem) 0; border-bottom: 1px soli
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+.verbatim-sheet .vb-formal-tag {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 1px 6px;
+  margin-right: 4px;
+  border-radius: 2px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  border: 1px solid var(--accent-text);
+}
+.reader-formal-callout {
+  margin-top: 0.55rem;
+  padding: 0.45rem 0.65rem;
+  background: var(--paper-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent-text);
+  font-size: 0.76rem;
+}
 mark.hl { background: rgba(184, 125, 36, 0.35); color: var(--ink); padding: 0 2px; }
+
+/* Atlas Interactive State Stepper Bar */
+.atlas-state-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0.45rem 0 0.55rem;
+}
+.atlas-state-pill {
+  flex: 1;
+  min-width: 110px;
+  min-height: 29px;
+  padding: 4px 8px;
+  font-family: var(--f-mono);
+  font-size: 0.67rem;
+  background: var(--paper-soft);
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  transition: all 0.14s;
+}
+.atlas-state-pill.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  font-weight: 600;
+}
+
+/* 10-Turn Interactive Progress Rail */
+.podcast-turn-rail {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  margin: 0.45rem 0 0.25rem;
+}
+.podcast-turn-dot {
+  appearance: none;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-3);
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  padding: 4px 2px;
+  min-height: 28px;
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  transition: all 0.14s;
+}
+.podcast-turn-dot.active {
+  background: var(--accent-text);
+  color: var(--paper);
+  border-color: var(--accent-text);
+  font-weight: 600;
+}
 
 /* ============================================================================
  * 7. SIMPLIFIED FOCUS MODE, VISUAL ATLAS & MOBILE-FIRST ERGONOMICS
@@ -1494,7 +1574,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
               <div id="podcastStudioCard" style="background:var(--paper-soft);border:1.5px solid var(--ink);padding:0.9rem 1.05rem;margin-bottom:1rem;box-shadow:3px 3px 0 rgba(26,22,18,0.08)">
                 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:0.5rem">
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                    <span class="stamp ratified" id="podcastEngineBadge">◆ 4-Act Deep Dive Audio Notebook (10 Turns)</span>
+                    <span class="stamp ratified" id="podcastEngineBadge">◆ 4-Act 10-Turn Deep Dive</span>
                     <span class="mono" id="hostBadgeKore" style="padding:2px 8px;border:1px solid var(--accent-text);background:var(--accent-soft);color:var(--accent-text);font-weight:600;border-radius:2px;transition:all 0.2s">🎙️ Kore (Lead Architect)</span>
                     <span class="mono" id="hostBadgePuck" style="padding:2px 8px;border:1px solid var(--good);background:var(--good-soft);color:var(--good);font-weight:600;border-radius:2px;transition:all 0.2s">🎧 Puck (Systems Co-Host)</span>
                   </div>
@@ -1545,9 +1625,14 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
                 <audio id="notebookPodcastAudio" preload="metadata" style="display:none"></audio>
 
+                <div class="podcast-turn-rail" id="podcastTurnRail" role="group" aria-label="10-Turn Deep-Dive Stepper"></div>
+
                 <div class="podcast-visual-cue" id="podcastVisualCueBar">
                   <span id="podcastVisualCueText">🎨 Visual Anchor: Colored Balls Inside Set G ↔ Point-Free Arrows 1 → G</span>
-                  <span class="mono" id="podcastTurnCounter" style="color:var(--accent-text);font-weight:600">Turn 1 / 10 · Act I</span>
+                  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+                    <button type="button" class="preset-btn" id="podcastJumpVisualBtn" style="padding:4px 8px;font-size:0.66rem;min-height:28px">🎨 Open Visual ↗</button>
+                    <span class="mono" id="podcastTurnCounter" style="color:var(--accent-text);font-weight:600">Turn 1 / 10 · Act I</span>
+                  </div>
                 </div>
 
                 <div id="podcastActiveSubtitle" style="margin-top:0.5rem;padding:0.55rem 0.75rem;background:var(--paper);border-left:3px solid var(--accent-text);font-size:0.86rem;line-height:1.45;color:var(--ink)">
@@ -1605,15 +1690,15 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     <div class="plate-head">
       <div class="plate-folio">
         <span class="num">Plate IV</span>
-        <div>CORPUS &amp; 90 TASKS</div>
+        <div>CORPUS &amp; 88 TASKS</div>
         <div style="margin-top:6px"><span class="w-badge w-orders">377 Pages Indexed</span></div>
         <div style="margin-top:6px"><span class="stamp measured">⚖ 291 Formal Blocks</span></div>
       </div>
       <div>
-        <div class="eyebrow">MEASURED CORPUS · 24 CONCEPT STALKS · 164 DEFINITIONS · 40 THEOREMS · 90 INTERACTIVE TASKS</div>
+        <div class="eyebrow">MEASURED CORPUS · 24 CONCEPT STALKS · 165 DEFINITIONS · 38 THEOREMS · 88 INTERACTIVE TASKS</div>
         <h2 class="plate-title">Every visual definition, theorem, and <em class="u-copper">task</em> indexed by page fiber.</h2>
         <p class="plate-sub">
-          Explore the <strong>24 Concept Stalks</strong>, search all <strong>291 extracted Definitions, Theorems, and Interactive Tasks</strong> (Marinov’s signature <code>Task 1..90</code> check-your-understanding prompts scattered through the book), or orbit the <strong>3D Alexandrov Poset Fiber Bundle</strong>.
+          Explore the <strong>24 Concept Stalks</strong>, search all <strong>291 extracted Definitions, Theorems, and Interactive Tasks</strong> (Marinov’s signature <code>Task 1..88</code> check-your-understanding prompts scattered through the book), or orbit the <strong>3D Alexandrov Poset Fiber Bundle</strong>.
         </p>
       </div>
     </div>
@@ -1659,12 +1744,12 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
           <div id="subview-declarations" style="display:none">
             <div style="display:flex;gap:8px;margin-bottom:0.8rem;flex-wrap:wrap">
-              <input type="text" id="declSearchInput" class="query-input" placeholder="Search 164 Definitions, 40 Theorems, and 90 Tasks (e.g., 'singleton', 'Birkhoff', 'Maybe', 'Task')…">
-              <select id="declKindSelect" class="query-input" style="max-width:190px">
+              <input type="text" id="declSearchInput" class="query-input" placeholder="Search 165 Definitions, 38 Theorems, and 88 Tasks (e.g., 'singleton', 'Birkhoff', 'Maybe', 'Task')…">
+              <select id="declKindSelect" class="query-input" style="max-width:210px">
                 <option value="all">All Kinds (291)</option>
-                <option value="Definition">Definitions (164)</option>
-                <option value="Theorem">Theorems (40)</option>
-                <option value="Exercise">Interactive Tasks (87)</option>
+                <option value="Definition">Definitions (165)</option>
+                <option value="Theorem">Theorems (38)</option>
+                <option value="Exercise">Interactive Tasks (88)</option>
               </select>
             </div>
             <div id="declCountLabel" class="mono" style="margin-bottom:0.55rem;color:var(--ink-3)"></div>
@@ -1673,7 +1758,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
           <div id="subview-atlas3d" style="display:none">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;flex-wrap:wrap;gap:8px">
-              <span class="mono" style="color:var(--ink-2)">Drag to orbit 24-Stalk Alexandrov Poset · Scroll to zoom · Click any node to inspect</span>
+              <span class="mono" style="color:var(--ink-2)">Drag or touch-orbit 24-Stalk Alexandrov Poset · Scroll to zoom · Click any node to inspect</span>
               <div style="display:flex;gap:6px">
                 <button class="preset-btn active" id="toggle2SimplicesBtn">2-Simplices: ON</button>
                 <button class="preset-btn" id="reset3dCamBtn">Reset Camera</button>
@@ -1729,7 +1814,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <div class="instrument">
           <div class="instrument-bar">
             <span>INSTRUMENT V · SIDE-BY-SIDE CROSS-CORPUS COMPARISON &amp; UNIFIED COURSE MODULES</span>
-            <span class="stamp ratified">◆ 24/24 Gates Cleared on Both Corpora</span>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <a href="../spivak-category-theory-for-the-sciences/index.html" class="preset-btn" style="text-decoration:none">⇄ Open Spivak 609-Page Studio ↗</a>
+              <span class="stamp ratified">◆ 27/27 Gates Cleared on Both Corpora</span>
+            </div>
           </div>
 
           <!-- Side-by-Side Comparison Table -->
@@ -1749,7 +1837,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
               <tbody>
                 <tr style="border-bottom:1px solid var(--rule-hair)">
                   <td style="padding:7px 8px;font-weight:600">Corpus Scale &amp; Density</td>
-                  <td style="padding:7px 8px">377 pp. · 8 Chapters · 24 Stalks · 291 Items (164 Defs, 40 Thms, 90 Tasks)</td>
+                  <td style="padding:7px 8px">377 pp. · 8 Chapters · 24 Stalks · 291 Items (165 Defs, 38 Thms, 88 Tasks)</td>
                   <td style="padding:7px 8px">609 pp. · 7 Chapters · 30 Stalks · 877 Numbered Declarations</td>
                   <td style="padding:7px 8px">Marinov provides fast visual onboarding; Spivak provides deep theorem/proof rigor.</td>
                 </tr>
@@ -1779,7 +1867,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
           <div class="derived">
             <div>
-              <strong>Cross-Corpus Verdict:</strong> <em>Both Studios Clear 24/24 Adversarial Gates (GO)</em> — While speaking in distinct visual voices tailored to their authors (Lawvere Visual Rosetta vs. MIT Press Olog Archive).
+              <strong>Cross-Corpus Verdict:</strong> <em>Both Studios Clear 27/27 Adversarial Gates (GO)</em> — While speaking in distinct visual voices tailored to their authors (Lawvere Visual Rosetta vs. MIT Press Olog Archive).
             </div>
           </div>
         </div>
@@ -1815,7 +1903,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       </div>
     </div>
 
-    <input type="text" class="query-input" id="fullBookSearchInput" placeholder="Search all 377 verbatim pages of Category Theory Illustrated…" style="width:100%;padding:6px 9px;font-size:0.81rem;margin-bottom:8px">
+    <input type="text" class="query-input" id="fullBookSearchInput" placeholder="Search all 377 verbatim pages &amp; 291 formal blocks…" style="width:100%;padding:6px 9px;font-size:0.81rem;margin-bottom:8px">
     <div id="bookSearchResults" style="max-height:170px;overflow-y:auto;display:none;background:var(--paper);border:1px solid var(--rule);margin-bottom:8px;padding:4px"></div>
 
     <div style="display:flex;align-items:center;gap:6px">
@@ -1866,8 +1954,15 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     }
     pageByNum = {};
     KB.pages.forEach(p => { pageByNum[p.p] = p; });
+    const kindSel = document.getElementById('declKindSelect');
+    if (kindSel && KB.formal_items.length) {
+      const counts = {};
+      KB.formal_items.forEach(it => { counts[it.kind] = (counts[it.kind] || 0) + 1; });
+      kindSel.innerHTML = `<option value="all">All Kinds (${KB.formal_items.length})</option>` +
+        Object.entries(counts).map(([k, c]) => `<option value="${escapeHtml(k)}">${k === 'Exercise' ? 'Interactive Tasks' : escapeHtml(k + 's')} (${c})</option>`).join('');
+    }
     renderPageReader(state.currentPage, state.highlightTerm);
-    if (state.activeSubview === 'declarations') renderDeclarationsList();
+    renderDeclarationsList();
   };
 
   function escapeHtml(str) {
@@ -1894,10 +1989,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/\\\{/g, '&#123;').replace(/\\\}/g, '&#125;');
     // Fix escaped ampersand \& (which became \&amp; after escapeHtml)
     s = s.replace(/\\&amp;/g, '&amp;');
-    // Handle degree symbol ^\circ or ^{\circ} before \circ replacement
-    s = s.replace(/\^\{?\\circ\}?/g, '&deg;');
+    // Handle degree symbol ^{\circ} or ^\circ without consuming outer closing brace
+    s = s.replace(/\^\{\\circ\}|\^\\circ(?![a-zA-Z])/g, '&deg;');
     // Support \pmod{...} and \bmod
-    s = s.replace(/\\pmod\{([^{}]+)\}/g, ' <span class="m-op">(mod $1)</span>');
+    s = s.replace(/\\pmod\{((?:[^{}]|\{[^{}]*\})+)\}/g, ' <span class="m-op">(mod $1)</span>');
     s = s.replace(/\\bmod\b/g, ' <span class="m-op">mod</span> ');
 
     s = s.replace(/\\(?:left|right|bigl|bigr|Bigl|Bigr|big|Big)\b/g, '');
@@ -1905,7 +2000,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/\\quad\b/g, ' &emsp; ');
     s = s.replace(/\\qquad\b/g, ' &emsp;&emsp; ');
 
-    // Expand font macros BEFORE \xrightarrow / \xleftarrow so nested braces like \xrightarrow{\mathrm{eval}} resolve cleanly
+    // Expand \xrightarrow / \xleftarrow BEFORE font macros (with 1-level balanced braces) so recursive convertLatexTokensToHtml(lbl) never double-escapes HTML tags
+    s = s.replace(/\\xrightarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
+    s = s.replace(/\\xleftarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
+
     for (let pass = 0; pass < 3; pass++) {
       s = s.replace(/\\mathcal\{([^{}]+)\}/g, '<span class="m-cal">$1</span>');
       s = s.replace(/\\mathbf\{([^{}]+)\}/g, '<span class="m-cat">$1</span>');
@@ -1917,9 +2015,6 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/\\varprojlim_\{([^}]+)\}/g, '<span class="m-lim"><span class="m-lim-top">lim&larr;</span><span class="m-lim-sub">$1</span></span>');
     s = s.replace(/\\varinjlim_\{([^}]+)\}/g, '<span class="m-lim"><span class="m-lim-top">colim&rarr;</span><span class="m-lim-sub">$1</span></span>');
     s = s.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '<span class="m-lim"><span class="m-lim-top" style="border-bottom:1px solid currentColor;padding:0 3px">$1</span><span class="m-lim-sub" style="padding:0 3px">$2</span></span>');
-
-    s = s.replace(/\\xrightarrow\{([^{}]+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
-    s = s.replace(/\\xleftarrow\{([^{}]+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
 
     const symMap = {
       '\\alpha': '&alpha;', '\\beta': '&beta;', '\\gamma': '&gamma;', '\\delta': '&delta;',
@@ -2339,23 +2434,43 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   // ==========================================================================
   const atlasState = { key: 'monoid_loop', modeIdx: 0 };
 
+  const ATLAS_STATES_MAP = {
+    monoid_loop: ['1. Rot 0° (id)', '2. Rot +120° (r₁)', '3. Rot +240° (r₂)', '4. CMYK Pigments (p.97)'],
+    hasse_cube: ['1. Divisors of 30', '2. CMYK Pigments', '3. Power Set P({a,b,c})'],
+    heyting_lever: ['1. Coloring Schema & BHK Path', '2. Contraposition Reversal (p.204)'],
+    russell_trees: ['1. Seed: Zero (1→Nat)', '2. Depth 1: Succ(0)', '3. Depth 2: Succ²(0)', '4. Depth 3: Succ³(0)'],
+    island_functor: ['1. List [r,y,b].map(f)', '2. Maybe (Just r).map(f)', '3. Maybe (Nothing).map(f)'],
+    naturality_prism: ['1. ✓ Parametric reverse (p.344)', '2. ⊘ Red-Ball Peek Trap (p.348)']
+  };
+
   function getAtlasData(key, modeIdx) {
-    const m = modeIdx % 3;
+    const states = ATLAS_STATES_MAP[key] || ATLAS_STATES_MAP.monoid_loop;
+    const m = ((modeIdx % states.length) + states.length) % states.length;
     const map = {
       monoid_loop: {
+        states,
+        activeStateIdx: m,
         pages: [95, 97, 104, 124],
         leftBadge: '🎨 Ch 3 Concrete Picture · CMYK Pigments & D₃ Triangle (pp. 95–114)',
-        leftTitle: m === 0 ? 'Rotating Equilateral Triangle (0°, 120°, 240°)' : (m === 1 ? 'Rotated +120° (r₁ ∘ r₁ = r₂ = 240°)' : 'CMYK Pigment Mixing with White Identity Ball (p. 97)'),
-        leftFormula: m === 2 ? '\\mathrm{Cyan} \\star \\mathrm{Yellow} = \\mathrm{Green}, \\quad \\mathrm{White} \\star c = c' : `(120^\\circ + 120^\\circ) \\equiv 240^\\circ \\pmod{360^\\circ}, \\quad r_0 = 0^\\circ`,
-        leftSvg: m === 2
+        leftTitle: m === 0
+          ? 'Identity Rotation r₀ = 0° (Triangle Unchanged)'
+          : (m === 1
+            ? 'Rotated +120° (Generator r₁ : A → B → C)'
+            : (m === 2
+              ? 'Rotated +240° (r₁ ∘ r₁ = r₂ = 240°)'
+              : 'CMYK Pigment Mixing with White Identity Ball (p. 97)')),
+        leftFormula: m === 3
+          ? '\\mathrm{Cyan} \\star \\mathrm{Yellow} = \\mathrm{Green}, \\quad \\mathrm{White} \\star c = c'
+          : `(${m * 120}^\\circ + 120^\\circ) \\equiv ${(m + 1) * 120 % 360}^\\circ \\pmod{360^\\circ}, \\quad r_${m} = ${m * 120}^\\circ`,
+        leftSvg: m === 3
           ? `<svg viewBox="0 0 360 175" width="100%"><circle cx="68" cy="60" r="20" fill="#FFFFFF" stroke="#17181C" stroke-width="1.8"/><text x="68" y="64" text-anchor="middle" font-family="JetBrains Mono" font-size="9">White e</text><circle cx="155" cy="60" r="20" fill="#00A6D6" stroke="#17181C" stroke-width="1.6"/><text x="155" y="64" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9">Cyan</text><circle cx="242" cy="60" r="20" fill="#E6B800" stroke="#17181C" stroke-width="1.6"/><text x="242" y="64" text-anchor="middle" font-family="JetBrains Mono" font-size="9">Yellow</text><circle cx="198" cy="132" r="22" fill="#2E8B57" stroke="#17181C" stroke-width="1.8"/><text x="198" y="136" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9.5">Green</text><line x1="168" y1="77" x2="188" y2="112" stroke="#17181C" stroke-width="1.6"/><line x1="230" y1="77" x2="210" y2="112" stroke="#17181C" stroke-width="1.6"/><text x="180" y="22" text-anchor="middle" font-family="Fraunces" font-size="12.5">Marinov’s Pigment Monoid: White = Identity e (p. 97)</text></svg>`
           : `<svg viewBox="0 0 360 175" width="100%"><g transform="translate(180,98) rotate(${m * 120})"><polygon points="0,-54 48,30 -48,30" fill="rgba(184,125,36,0.14)" stroke="#17181C" stroke-width="2"/><circle cx="0" cy="-54" r="11" fill="#B34434" stroke="#17181C"/><text x="0" y="-50" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">A</text><circle cx="48" cy="30" r="11" fill="#2B5B84" stroke="#17181C"/><text x="48" y="34" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">B</text><circle cx="-48" cy="30" r="11" fill="#2E6444" stroke="#17181C"/><text x="-48" y="34" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">C</text></g><path d="M 248 56 A 52 52 0 0 1 258 118" fill="none" stroke="#B34434" stroke-width="1.8" stroke-dasharray="4 2"/><text x="295" y="90" font-family="JetBrains Mono" font-size="10" fill="#B34434">Rot ${m*120}°</text><text x="180" y="22" text-anchor="middle" font-family="Fraunces" font-size="12.5">Marinov’s Symmetry Group D₃ (pp. 103–114)</text></svg>`,
         leftDesc: 'Marinov introduces Monoids and Groups visually via pigment mixing (p. 97, where White is the neutral identity ball) and triangle symmetries (pp. 103–114).',
-        btnLabel: '↻ Cycle Visual State: Rotate Triangle +120° / Mix CMYK Pigments',
+        btnLabel: `↻ Next State (${m + 1}/${states.length}): Rotate +120° / Mix CMYK Pigments`,
         rightBadge: '◆ Ch 3 Point-Free Instrument · 1-Object Looping Category BM (p. 124)',
         rightTitle: 'Every Monoid Is a Category With One Object •',
         rightFormula: '\\mathrm{Ob}(\\mathbf{B}M) = \\{\\bullet\\}, \\qquad \\mathrm{Hom}(\\bullet, \\bullet) = M',
-        rightSvg: `<svg viewBox="0 0 360 175" width="100%"><defs><marker id="ma1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#17181C"/></marker></defs><circle cx="180" cy="95" r="20" fill="#17181C"/><text x="180" y="100" text-anchor="middle" fill="#F6F1E7" font-family="Fraunces" font-size="16">&bull;</text><path d="M 164 80 C 110 18, 250 18, 196 80" fill="none" stroke="#2E6444" stroke-width="1.8" marker-end="url(#ma1)"/><text x="180" y="26" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#2E6444">id = 0° / White e</text><path d="M 160 95 C 82 42, 82 148, 160 103" fill="none" stroke="#B34434" stroke-width="1.8" marker-end="url(#ma1)"/><text x="48" y="98" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#B34434">r₁ (120°)</text><path d="M 200 95 C 278 42, 278 148, 200 103" fill="none" stroke="#2B5B84" stroke-width="1.8" marker-end="url(#ma1)"/><text x="312" y="98" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#2B5B84">r₂ (240°)</text><text x="180" y="162" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="11">Elements of M become self-loop arrows • &rarr; • (p. 124)</text></svg>`,
+        rightSvg: `<svg viewBox="0 0 360 175" width="100%"><defs><marker id="ma1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#17181C"/></marker></defs><circle cx="180" cy="95" r="20" fill="#17181C"/><text x="180" y="100" text-anchor="middle" fill="#F6F1E7" font-family="Fraunces" font-size="16">&bull;</text><path d="M 164 80 C 110 18, 250 18, 196 80" fill="none" stroke="#2E6444" stroke-width="${m===0||m===3?2.8:1.8}" marker-end="url(#ma1)"/><text x="180" y="26" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#2E6444">id = 0° / White e</text><path d="M 160 95 C 82 42, 82 148, 160 103" fill="none" stroke="#B34434" stroke-width="${m===1?2.8:1.8}" marker-end="url(#ma1)"/><text x="48" y="98" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#B34434">r₁ (120°)</text><path d="M 200 95 C 278 42, 278 148, 200 103" fill="none" stroke="#2B5B84" stroke-width="${m===2?2.8:1.8}" marker-end="url(#ma1)"/><text x="312" y="98" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#2B5B84">r₂ (240°)</text><text x="180" y="162" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="11">Elements of M become self-loop arrows • &rarr; • (p. 124)</text></svg>`,
         rightDesc: 'Instead of treating a monoid as a set of nouns with a multiplication table, Category Theory views it as a 1-object state machine where elements are action loops!',
         invariant: 'Delooping Principle (p. 124): A monoid is a 1-object category BM; a group is a 1-object category where every arrow has a two-sided inverse.',
         decoder: [
@@ -2365,6 +2480,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         ]
       },
       hasse_cube: {
+        states,
+        activeStateIdx: m,
         pages: [145, 147, 149, 151],
         leftBadge: '🎨 Ch 4 Visual Trinity · Switch the 8 Cube Vertices Across 3 Worlds',
         leftTitle: m === 0 ? 'World A: Divisors of 30 Cube (1 → 2,3,5 → 6,10,15 → 30)' : (m === 1 ? 'World B: Primary Pigment Cube (White → C,M,Y → R,G,B → Black)' : 'World C: Power Set Cube P({a,b,c}) Ordered by ⊆'),
@@ -2389,8 +2506,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
             ].map(([x,y,t,bg,fg]) => `<g transform="translate(${x-32},${y-11})"><rect width="64" height="22" rx="3" fill="${bg}" stroke="#17181C" stroke-width="1.3"/><text x="32" y="15" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="${fg}">${t}</text></g>`).join('')}
           </svg>`;
         })(),
-        leftDesc: 'Click the button below to relabel the 8 vertices between Divisors of 30 (p. 149), Pigment Mixing (p. 145), and Subsets (p. 147) — the 3D arrow skeleton never changes!',
-        btnLabel: '🔄 Switch Cube World: Divisors of 30 ↔ CMYK Pigments ↔ Subsets P({a,b,c})',
+        leftDesc: 'Click any state pill or button below to relabel the 8 vertices between Divisors of 30 (p. 149), Pigment Mixing (p. 145), and Subsets (p. 147) — the 3D arrow skeleton never changes!',
+        btnLabel: `🔄 Next Cube World (${m + 1}/${states.length}): Divisors ↔ Pigments ↔ Subsets`,
         rightBadge: '◆ Ch 4 Categorical Synthesis · Thin Poset Category & Birkhoff Theorem',
         rightTitle: 'Meet (∧) IS Categorical Product; Join (∨) IS Coproduct',
         rightFormula: 'c \\le a \\wedge b \\iff (c \\le a \\;\\&\\; c \\le b), \\qquad L \\cong \\mathcal{O}(\\mathrm{Irr}(L))',
@@ -2404,15 +2521,17 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         ]
       },
       heyting_lever: {
+        states,
+        activeStateIdx: m,
         pages: [171, 184, 198, 204],
         leftBadge: '🎨 Ch 5 Visual Logic · Coloring-Book Schemas & BHK Paths (pp. 171, 184)',
-        leftTitle: m % 2 === 0 ? 'Coloring-Book Axiom Schema & Constructive Proof Path' : 'Visual Contraposition: Reversing the Arrow Direction (p. 204)',
-        leftFormula: m % 2 === 0 ? '(A \\wedge (A \\Rightarrow B)) \\xrightarrow{\\mathrm{eval}} B \\quad (\\text{Modus Ponens, p. 201})' : '(A \\le B) \\implies (\\neg B = (B \\Rightarrow \\bot) \\le (A \\Rightarrow \\bot) = \\neg A)',
-        leftSvg: m % 2 === 0
+        leftTitle: m === 0 ? 'Coloring-Book Axiom Schema & Constructive Proof Path' : 'Visual Contraposition: Reversing the Arrow Direction (p. 204)',
+        leftFormula: m === 0 ? '(A \\wedge (A \\Rightarrow B)) \\xrightarrow{\\mathrm{eval}} B \\quad (\\text{Modus Ponens, p. 201})' : '(A \\le B) \\implies (\\neg B = (B \\Rightarrow \\bot) \\le (A \\Rightarrow \\bot) = \\neg A)',
+        leftSvg: m === 0
           ? `<svg viewBox="0 0 360 175" width="100%"><rect x="28" y="28" width="135" height="115" rx="6" fill="rgba(184,125,36,0.09)" stroke="#B87D24"/><text x="95" y="48" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#B87D24">COLORING SCHEMA (P.171)</text><circle cx="65" cy="85" r="16" fill="none" stroke="#17181C" stroke-width="1.8" stroke-dasharray="3 2"/><circle cx="122" cy="85" r="16" fill="none" stroke="#17181C" stroke-width="1.8"/><text x="95" y="125" text-anchor="middle" font-size="9.5" font-family="Fraunces">Fill any proposition P, Q</text><rect x="188" y="28" width="146" height="115" rx="6" fill="rgba(46,100,68,0.09)" stroke="#2E6444"/><text x="261" y="48" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#2E6444">BHK PROOF PATH (P.184)</text><circle cx="215" cy="90" r="14" fill="#B34434"/><text x="215" y="94" text-anchor="middle" fill="#fff" font-size="9">A</text><circle cx="305" cy="90" r="14" fill="#2E6444"/><text x="305" y="94" text-anchor="middle" fill="#fff" font-size="9">B</text><path d="M 232 90 Q 260 62 288 90" fill="none" stroke="#17181C" stroke-width="2"/><text x="261" y="125" text-anchor="middle" font-size="9.5" font-family="Fraunces">Constructive bridge A &rarr; B</text></svg>`
           : `<svg viewBox="0 0 360 175" width="100%"><circle cx="70" cy="52" r="16" fill="#F6F1E7" stroke="#17181C"/><text x="70" y="57" text-anchor="middle" font-family="Fraunces">A</text><circle cx="175" cy="52" r="16" fill="#F6F1E7" stroke="#17181C"/><text x="175" y="57" text-anchor="middle" font-family="Fraunces">B</text><circle cx="285" cy="92" r="18" fill="#B34434"/><text x="285" y="97" text-anchor="middle" fill="#fff" font-family="Fraunces">&bot;</text><line x1="88" y1="52" x2="155" y2="52" stroke="#2B5B84" stroke-width="2"/><text x="122" y="43" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#2B5B84">f : A &rarr; B</text><line x1="192" y1="60" x2="265" y2="85" stroke="#B34434" stroke-width="2"/><text x="236" y="65" font-family="JetBrains Mono" font-size="9" fill="#B34434">&not;B : B &rarr; &bot;</text><path d="M 75 70 Q 170 145 265 100" fill="none" stroke="#17181C" stroke-width="2" stroke-dasharray="4 2"/><text x="170" y="142" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5">&not;A = (&not;B) &#8728; f : A &rarr; &bot; (p. 204)</text></svg>`,
         leftDesc: 'In Chapter 5, Marinov draws axiom schemas as uncolored outlines you fill with any pigment (p. 171) and proves Contraposition (p. 204) by pre-composing B → ⊥ with A → B!',
-        btnLabel: '⇄ Toggle View: Coloring-Book & BHK Paths ↔ Contraposition Arrow Reversal',
+        btnLabel: `⇄ Toggle State (${m + 1}/${states.length}): Coloring-Book & BHK ↔ Contraposition`,
         rightBadge: '◆ Ch 5 Universal Lever · Heyting Implication Adjunction (pp. 198–202)',
         rightTitle: 'The Two-Pan Implication Seesaw: Conjunction ⊣ Implication',
         rightFormula: 'C \\wedge A \\le B \\quad \\Longleftrightarrow \\quad C \\le (A \\Rightarrow B)',
@@ -2426,21 +2545,23 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         ]
       },
       russell_trees: {
+        states,
+        activeStateIdx: m,
         pages: [215, 229, 242, 256],
         leftBadge: '⊘ Ch 6 Why Untyped Sets Explode · Russell’s Paradox Loop (pp. 215–221)',
         leftTitle: 'Russell’s Self-Swallowing Barber / Set Circle',
         leftFormula: 'R = \\{ x \\mid x \\notin x \\} \\implies (R \\in R \\iff R \\notin R)',
         leftSvg: `<svg viewBox="0 0 360 175" width="100%"><circle cx="150" cy="94" r="54" fill="rgba(179,68,52,0.10)" stroke="#B34434" stroke-width="2" stroke-dasharray="6 3"/><circle cx="118" cy="86" r="16" fill="#2B5B84"/><text x="118" y="90" text-anchor="middle" fill="#fff" font-size="8.5" font-family="JetBrains Mono">x&notin;x</text><path d="M 194 62 C 244 26, 248 150, 190 126" fill="none" stroke="#B34434" stroke-width="2.2"/><text x="252" y="96" text-anchor="start" font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#B34434">R &isin; R ? ⚡</text><text x="180" y="22" text-anchor="middle" font-family="Fraunces" font-size="12" fill="#B34434">Marinov’s Self-Swallowing Set Loop (pp. 215–221)</text></svg>`,
         leftDesc: 'When sets can swallow themselves without stratification, asking whether R contains itself creates a fatal logical short-circuit. Type Theory prevents this by stratifying values and types.',
-        btnLabel: `🌱 Sprout Inductive Tree Depth (${(m % 3) + 1} Succ Branches) & Church Loop`,
+        btnLabel: `🌱 Sprout Inductive Tree (${m + 1}/${states.length}: ${states[m]})`,
         rightBadge: '◆ Ch 6 Inductive Sprouting Trees · Nat = 1 + Nat & Church Loops (pp. 242–256)',
-        rightTitle: `Inductive Sprouting Tree: Zero, Succ(${m % 3 === 0 ? 'Zero' : (m % 3 === 1 ? 'Succ(Zero)' : 'Succ(Succ(Zero))')})`,
+        rightTitle: m === 0 ? 'Base Seed Only: Zero : 1 → Nat (0 Succ Branches)' : `Inductive Sprouting Tree: ${m === 1 ? 'Succ(Zero)' : (m === 2 ? 'Succ(Succ(Zero))' : 'Succ³(Zero)')}`,
         rightFormula: '\\mathrm{Nat} \\cong 1 + \\mathrm{Nat} \\quad (\\mathrm{Zero} : 1 \\to \\mathrm{Nat}, \\; \\mathrm{Succ} : \\mathrm{Nat} \\to \\mathrm{Nat})',
         rightSvg: `<svg viewBox="0 0 360 175" width="100%"><circle cx="52" cy="128" r="15" fill="#F6F1E7" stroke="#17181C" stroke-width="1.6"/><text x="52" y="132" text-anchor="middle" font-family="JetBrains Mono" font-size="10">1</text><line x1="68" y1="128" x2="105" y2="128" stroke="#2E6444" stroke-width="2"/><circle cx="122" cy="128" r="16" fill="#2E6444"/><text x="122" y="132" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9.5">0</text>
-          ${m >= 0 ? `<line x1="138" y1="120" x2="178" y2="96" stroke="#2E6444" stroke-width="2"/><circle cx="194" cy="88" r="16" fill="#2B5B84"/><text x="194" y="92" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9.5">S(0)</text>` : ''}
-          ${m >= 1 ? `<line x1="210" y1="80" x2="248" y2="58" stroke="#2B5B84" stroke-width="2"/><circle cx="264" cy="50" r="16" fill="#B87D24"/><text x="264" y="54" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9">S²(0)</text>` : ''}
-          ${m >= 2 ? `<line x1="280" y1="50" x2="312" y2="50" stroke="#B34434" stroke-width="2"/><circle cx="328" cy="50" r="16" fill="#B34434"/><text x="328" y="54" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9">S³(0)</text>` : ''}
-          <text x="180" y="162" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="9.6">Click button below to sprout the next Succ constructor (p. 242)</text></svg>`,
+          ${m >= 1 ? `<line x1="138" y1="120" x2="178" y2="96" stroke="#2E6444" stroke-width="2"/><circle cx="194" cy="88" r="16" fill="#2B5B84"/><text x="194" y="92" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9.5">S(0)</text>` : ''}
+          ${m >= 2 ? `<line x1="210" y1="80" x2="248" y2="58" stroke="#2B5B84" stroke-width="2"/><circle cx="264" cy="50" r="16" fill="#B87D24"/><text x="264" y="54" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9">S²(0)</text>` : ''}
+          ${m >= 3 ? `<line x1="280" y1="50" x2="312" y2="50" stroke="#B34434" stroke-width="2"/><circle cx="328" cy="50" r="16" fill="#B34434"/><text x="328" y="54" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9">S³(0)</text>` : ''}
+          <text x="180" y="162" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="9.6">State ${m + 1}/${states.length}: Click any pill or button below to sprout Succ constructors (p. 242)</text></svg>`,
         rightDesc: 'Instead of circular self-containment, Inductive Types (pp. 241–248) start from a base seed (Zero : 1 → Nat) and sprout upward step-by-step via Succ : Nat → Nat!',
         invariant: 'Initial Algebra Sprouting Law (p. 242, p. 256): Every natural number n is a finite tower of Succ arrows applied to Zero — or its Church encoding λs. λz. sⁿ(z).',
         decoder: [
@@ -2450,13 +2571,15 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         ]
       },
       island_functor: {
+        states,
+        activeStateIdx: m,
         pages: [289, 293, 305, 307],
         leftBadge: '🎨 Ch 7 Cartographic Metaphor · Island Map Functor F : C → D (pp. 293–295)',
         leftTitle: 'A Functor Is a Map That Never Tears Connected Roads',
         leftFormula: 'F(g \\circ f) = F(g) \\circ F(f), \\qquad F(\\mathrm{id}_A) = \\mathrm{id}_{F(A)}',
         leftSvg: `<svg viewBox="0 0 360 175" width="100%"><path d="M 24 95 Q 35 32 95 36 Q 152 40 148 102 Q 140 148 78 144 Q 20 140 24 95 Z" fill="rgba(46,100,68,0.12)" stroke="#2E6444" stroke-width="1.6"/><text x="88" y="24" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#2E6444">ISLAND C (REALITY, P.293)</text><circle cx="58" cy="70" r="8" fill="#17181C"/><circle cx="115" cy="65" r="8" fill="#17181C"/><circle cx="92" cy="120" r="8" fill="#17181C"/><line x1="58" y1="70" x2="115" y2="65" stroke="#17181C" stroke-width="1.5"/><line x1="115" y1="65" x2="92" y2="120" stroke="#17181C" stroke-width="1.5"/><line x1="58" y1="70" x2="92" y2="120" stroke="#B34434" stroke-width="1.5" stroke-dasharray="3 2"/><rect x="205" y="34" width="132" height="110" rx="4" fill="#F6F1E7" stroke="#1E4363" stroke-width="1.6"/><text x="271" y="24" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#1E4363">SUBWAY MAP F(C) (P.295)</text><circle cx="235" cy="68" r="7" fill="#1E4363"/><circle cx="305" cy="68" r="7" fill="#1E4363"/><circle cx="270" cy="122" r="7" fill="#1E4363"/><line x1="235" y1="68" x2="305" y2="68" stroke="#1E4363" stroke-width="1.5"/><line x1="305" y1="68" x2="270" y2="122" stroke="#1E4363" stroke-width="1.5"/><line x1="235" y1="68" x2="270" y2="122" stroke="#B34434" stroke-width="1.5" stroke-dasharray="3 2"/></svg>`,
         leftDesc: 'On pp. 293–295, Marinov compares a Functor to a cartographic island/subway map: it may bend distances or merge stations, but every connected path on the island stays connected on the map!',
-        btnLabel: '⚡ Switch Programming Container: List [r,y,b] ↔ Maybe (Just r) ↔ Maybe (Nothing)',
+        btnLabel: `⚡ Switch Container (${m + 1}/${states.length}): List [r,y,b] ↔ Just r ↔ Nothing`,
         rightBadge: '◆ Ch 7 Programming Functor · Container Box + .map(f) (pp. 305–307)',
         rightTitle: m === 0 ? 'List Functor: [r, y, b].map(f) = [f(r), f(y), f(b)]' : (m === 1 ? 'Maybe Functor (Just): (Just r).map(f) = Just f(r)' : 'Maybe Functor (Nothing): Nothing.map(f) = Nothing'),
         rightFormula: '\\mathrm{fmap} : (A \\to B) \\to (F\\;A \\to F\\;B)',
@@ -2473,6 +2596,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         ]
       },
       naturality_prism: {
+        states,
+        activeStateIdx: m,
         pages: [344, 348, 357, 362],
         leftBadge: '🎨 Ch 8 3D Geometry · The Naturality Prism C × 2 → D (pp. 357–362)',
         leftTitle: 'Natural Transformation as a 3D Prism Joining Two Functor Sheets',
@@ -2489,11 +2614,11 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <text x="324" y="95" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#B87D24">&alpha;<tspan dy="2.5" font-size="7.5">A</tspan><tspan dy="-2.5"> Pillars</tspan></text>
         </svg>`,
         leftDesc: 'On pp. 357–362, Marinov visualizes a Natural Transformation as a 3D prism: top functor F(C), bottom functor G(C), and vertical pillars α_A whose side walls all commute!',
-        btnLabel: '⚡ Toggle Square: Parametric reverse (Commutes ✓) ↔ Red-Ball Peek Trap (Breaks ⊘ p. 348)',
-        rightBadge: m % 2 === 0 ? '✓ Ch 8 Parametric Square · reverse / safeHead (p. 344)' : '⊘ Ch 8 Counterexample · The "Unnatural" Red-Ball Trap (pp. 348–351)',
-        rightTitle: m % 2 === 0 ? 'Parametric Function: Blind to Ball Colors → Square Commutes!' : 'Ad-Hoc Color Peek ("If Red, Drop/Swap") → Shatters the Square!',
-        rightFormula: m % 2 === 0 ? '\\mathrm{map}(f)(\\mathrm{reverse}([r,b])) = \\mathrm{reverse}(\\mathrm{map}(f)([r,b]))' : '\\mathrm{bad}([r]) = [] \\neq [\\mathrm{green}] = \\mathrm{map}(r \\mapsto g)(\\mathrm{bad}([r]))',
-        rightSvg: m % 2 === 0
+        btnLabel: `⚡ Toggle Square (${m + 1}/${states.length}): Parametric reverse (✓) ↔ Red-Ball Peek Trap (⊘)`,
+        rightBadge: m === 0 ? '✓ Ch 8 Parametric Square · reverse / safeHead (p. 344)' : '⊘ Ch 8 Counterexample · The "Unnatural" Red-Ball Trap (pp. 348–351)',
+        rightTitle: m === 0 ? 'Parametric Function: Blind to Ball Colors → Square Commutes!' : 'Ad-Hoc Color Peek ("If Red, Drop/Swap") → Shatters the Square!',
+        rightFormula: m === 0 ? '\\mathrm{map}(f)(\\mathrm{reverse}([r,b])) = \\mathrm{reverse}(\\mathrm{map}(f)([r,b]))' : '\\mathrm{bad}([r]) = [] \\neq [\\mathrm{green}] = \\mathrm{map}(r \\mapsto g)(\\mathrm{bad}([r]))',
+        rightSvg: m === 0
           ? `<svg viewBox="0 0 360 175" width="100%"><defs><marker id="mnat" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#17181C"/></marker></defs><rect x="28" y="24" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#17181C"/><circle cx="54" cy="41" r="9" fill="#B34434"/><circle cx="84" cy="41" r="9" fill="#2B5B84"/><rect x="248" y="24" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#17181C"/><rect x="266" y="32" width="18" height="18" fill="#B34434"/><rect x="296" y="32" width="18" height="18" fill="#2B5B84"/><rect x="28" y="116" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#17181C"/><circle cx="54" cy="133" r="9" fill="#2B5B84"/><circle cx="84" cy="133" r="9" fill="#B34434"/><rect x="248" y="116" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#2E6444" stroke-width="2"/><rect x="266" y="124" width="18" height="18" fill="#2B5B84"/><rect x="296" y="124" width="18" height="18" fill="#B34434"/><line x1="116" y1="41" x2="242" y2="41" stroke="#2B5B84" stroke-width="1.8" marker-end="url(#mnat)"/><text x="180" y="34" text-anchor="middle" font-family="JetBrains Mono" font-size="9">map(f)</text><line x1="116" y1="133" x2="242" y2="133" stroke="#2E6444" stroke-width="1.8" marker-end="url(#mnat)"/><text x="180" y="126" text-anchor="middle" font-family="JetBrains Mono" font-size="9">map(f)</text><line x1="70" y1="62" x2="70" y2="112" stroke="#B87D24" stroke-width="1.8" marker-end="url(#mnat)"/><text x="42" y="90" font-family="JetBrains Mono" font-size="9" fill="#B87D24">rev</text><line x1="290" y1="62" x2="290" y2="112" stroke="#B87D24" stroke-width="1.8" marker-end="url(#mnat)"/><text x="322" y="90" font-family="JetBrains Mono" font-size="9" fill="#B87D24">rev</text><text x="180" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="600" fill="#2E6444">✓ COMMUTES (P. 344)</text></svg>`
           : `<svg viewBox="0 0 360 175" width="100%"><defs><marker id="mnat2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#B34434"/></marker></defs><rect x="28" y="24" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#17181C"/><circle cx="70" cy="41" r="10" fill="#B34434"/><rect x="248" y="24" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#17181C"/><circle cx="290" cy="41" r="10" fill="#2E6444"/><rect x="28" y="116" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#B34434" stroke-dasharray="3 2"/><text x="70" y="137" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#B34434">[] (Dropped!)</text><rect x="248" y="116" width="84" height="34" rx="4" fill="#F6F1E7" stroke="#B34434" stroke-width="2"/><text x="290" y="137" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#B34434">[green] &ne; []</text><line x1="116" y1="41" x2="242" y2="41" stroke="#2B5B84" stroke-width="1.8" marker-end="url(#mnat2)"/><text x="180" y="34" text-anchor="middle" font-family="JetBrains Mono" font-size="9">f(red)=green</text><line x1="70" y1="62" x2="70" y2="112" stroke="#B34434" stroke-width="1.8" marker-end="url(#mnat2)"/><text x="42" y="90" font-family="JetBrains Mono" font-size="8.5" fill="#B34434">dropRed</text><line x1="290" y1="62" x2="290" y2="112" stroke="#B34434" stroke-width="1.8" marker-end="url(#mnat2)"/><text x="180" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="600" fill="#B34434">⊘ SQUARE SHATTERED (P. 348)</text></svg>`,
         rightDesc: 'On pp. 348–351, Marinov shows how a function that peeks at an element’s color ("if red ball, drop it") breaks naturality as soon as f recolors red to green!',
@@ -2516,6 +2641,11 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     });
     const refEl = document.getElementById('atlasPageRef');
     if (refEl) refEl.textContent = `◆ Marinov pp. ${d.pages.join(', ')}`;
+    const statePillsHtml = (d.states || []).map((lbl, idx) => `
+      <button type="button" class="atlas-state-pill ${idx === d.activeStateIdx ? 'active' : ''}" onclick="window.__atlasSetState(${idx})">
+        ${escapeHtml(lbl)}
+      </button>
+    `).join('');
     const stageEl = document.getElementById('atlasStage');
     if (stageEl) {
       stageEl.innerHTML = `
@@ -2527,7 +2657,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
           <h3 class="serif" style="font-size:1.12rem;margin-bottom:0.35rem">${escapeHtml(d.leftTitle)}</h3>
           ${renderMathChip(d.leftFormula, true)}
           <div style="background:var(--paper-soft);border:1px solid var(--rule-hair);margin:0.55rem 0">${d.leftSvg}</div>
-          <p style="font-size:0.84rem;color:var(--ink-2);margin:0 0 0.6rem">${formatInlineProse(d.leftDesc)}</p>
+          <p style="font-size:0.84rem;color:var(--ink-2);margin:0 0 0.45rem">${formatInlineProse(d.leftDesc)}</p>
+          <div class="atlas-state-bar" role="group" aria-label="Interactive Instrument States">${statePillsHtml}</div>
           <button type="button" class="btn-primary" style="width:100%;padding:6px 10px;font-size:0.72rem" onclick="window.__atlasCycleState()">${escapeHtml(d.btnLabel)}</button>
         </div>
         <div class="view-pane">
@@ -2553,8 +2684,15 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     }
   }
 
+  window.__atlasSetState = function(idx) {
+    const states = ATLAS_STATES_MAP[atlasState.key] || ATLAS_STATES_MAP.monoid_loop;
+    atlasState.modeIdx = ((Number(idx) || 0) % states.length + states.length) % states.length;
+    renderAtlas(atlasState.key);
+  };
+
   window.__atlasCycleState = function() {
-    atlasState.modeIdx = (atlasState.modeIdx + 1) % 6;
+    const states = ATLAS_STATES_MAP[atlasState.key] || ATLAS_STATES_MAP.monoid_loop;
+    atlasState.modeIdx = (atlasState.modeIdx + 1) % states.length;
     renderAtlas(atlasState.key);
   };
 
@@ -3085,27 +3223,87 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     `).join('');
   }
 
+  function cleanVerbatimReaderText(str) {
+    return String(str || '')
+      .replace(/10\/15\/26,\s*8:09\s*PM\s*Category Theory Illustrated[^\n]*/gi, '')
+      .replace(/https?:\/\/boris-marinov\.github\.io\/category-theory-illustrated\/[^\s\n]*/gi, '')
+      .replace(/\bthisproperty\b/g, 'this property')
+      .replace(/\bthesingleton\b/g, 'the singleton')
+      .replace(/\btheempty\b/g, 'the empty')
+      .replace(/\bfunctionsfrom\b/g, 'functions from')
+      .replace(/\bfunctionfrom\b/g, 'function from')
+      .replace(/\bmorphismfrom\b/g, 'morphism from')
+      .replace(/\bmorphismsfrom\b/g, 'morphisms from')
+      .replace(/\bandan\b/g, 'and an')
+      .replace(/\basits\b/g, 'as its')
+      .replace(/\baswell\b/g, 'as well')
+      .replace(/\bofthis\b/g, 'of this')
+      .replace(/\bofthe\b/g, 'of the')
+      .replace(/\binthe\b/g, 'in the')
+      .replace(/\btothe\b/g, 'to the')
+      .replace(/\bwitha\b/g, 'with a')
+      .replace(/\bthatis\b/g, 'that is')
+      .replace(/\bwecan\b/g, 'we can')
+      .replace(/\bifwe\b/g, 'if we')
+      .replace(/\binour\b/g, 'in our')
+      .replace(/\btobe\b/g, 'to be')
+      .replace(/\bonlyone\b/g, 'only one')
+      .replace(/\boneand\b/g, 'one and')
+      .replace(/\bsetof\b/g, 'set of')
+      .replace(/\bpairof\b/g, 'pair of')
+      .replace(/\borderof\b/g, 'order of')
+      .replace(/\blawsof\b/g, 'laws of');
+  }
+
+  function formatDeclarationText(str) {
+    const cleaned = cleanVerbatimReaderText((str || '').slice(0, 420));
+    let html = formatInlineProse(cleaned);
+    html = html
+      .replace(/\b(DEFINITION|THEOREM|PROPOSITION|LEMMA)\s*:/gi, '<span class="vb-formal-tag">$1</span>')
+      .replace(/\b(Task\s+\d+)\s*:/gi, '<span class="vb-formal-tag">$1</span>');
+    return html;
+  }
+
   function renderDeclarationsList() {
     const chFilter = document.getElementById('chapterFilterSelect').value;
     const kindFilter = document.getElementById('declKindSelect').value;
     const q = (document.getElementById('declSearchInput').value || '').trim().toLowerCase();
     const allItems = KB.formal_items.length ? KB.formal_items : KB.stalks.flatMap(s => s.formal_items || []);
+    const qTokens = q.split(/\s+/).filter(Boolean);
     const filtered = allItems.filter(it => {
       if (chFilter !== 'all' && String(it.chapter) !== chFilter) return false;
       if (kindFilter !== 'all' && it.kind !== kindFilter) return false;
-      if (q && !(it.id + ' ' + it.kind + ' ' + (it.title || '') + ' ' + (it.text || '')).toLowerCase().includes(q)) return false;
+      if (qTokens.length) {
+        const hay = (it.id + ' ' + it.kind + ' ' + (it.title || '') + ' ' + (it.text || '')).toLowerCase();
+        if (!qTokens.every(tok => hay.includes(tok))) return false;
+      }
       return true;
     });
-    document.getElementById('declCountLabel').textContent = `Showing ${Math.min(80, filtered.length)} of ${filtered.length} formal blocks (from 291 total in Marinov)`;
-    document.getElementById('declListContainer').innerHTML = filtered.slice(0, 80).map(it => `
-      <div style="background:var(--paper);border:1px solid var(--rule);padding:0.7rem 0.85rem">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-          <span class="mono" style="font-weight:600;color:var(--accent-text)">${escapeHtml(it.id)} · ${escapeHtml(it.title || '')}</span>
-          <button class="cite-pill" onclick="window.__jumpToPage(${it.page}, '')">§ p.${it.page}</button>
+    const totalCount = allItems.length || 291;
+    document.getElementById('declCountLabel').textContent = `Showing ${Math.min(80, filtered.length)} of ${filtered.length} formal blocks (from ${totalCount} total in Marinov)`;
+    document.getElementById('declListContainer').innerHTML = filtered.slice(0, 80).map(it => {
+      const kindBadge = it.kind === 'Theorem'
+        ? '<span class="stamp measured">⚖ Theorem</span>'
+        : (it.kind === 'Exercise'
+          ? '<span class="stamp accept">✓ Interactive Task</span>'
+          : '<span class="stamp ratified">◆ Definition</span>');
+      const st = it.stalk_id && stalkById[it.stalk_id];
+      return `
+        <div style="background:var(--paper);border:1px solid var(--rule);padding:0.75rem 0.9rem">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+              ${kindBadge}
+              <span class="mono" style="font-weight:600;color:var(--accent-text)">${escapeHtml(it.id)} · ${escapeHtml(it.title || '')}</span>
+            </div>
+            <div style="display:flex;gap:5px;align-items:center">
+              ${st ? `<button class="preset-btn" style="padding:2px 7px;font-size:0.64rem;min-height:24px" onclick="window.__addStalkToStudio('${st.id}')">+ ${escapeHtml(st.title.split(' ')[0])}</button>` : ''}
+              <button class="cite-pill" onclick="window.__jumpToPage(${it.page}, '${escapeHtml((it.title || '').split(':')[0].replace(/'/g, "\\'"))}')">§ p.${it.page}</button>
+            </div>
+          </div>
+          <div style="font-size:0.84rem;color:var(--ink-2);line-height:1.5">${formatDeclarationText(it.text)}</div>
         </div>
-        <div style="font-size:0.84rem;color:var(--ink-2)">${escapeHtml((it.text || '').slice(0, 380))}</div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   document.querySelectorAll('.subview-tab').forEach(tab => {
@@ -3125,7 +3323,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   document.getElementById('declKindSelect').addEventListener('change', renderDeclarationsList);
   renderStalkCards();
 
-  // On-demand 3D Poset Loop
+  // On-demand 3D Poset Loop (Desktop Mouse + Wheel Zoom + Click Pick + Mobile Touch Orbit)
   const canvas3d = document.getElementById('sheaf3dCanvas');
   const ctx3d = canvas3d.getContext('2d');
   let rafId = null, camYaw = 0.5, camPitch = 0.3, camDist = 370, show2Simplices = true, dragging3d = false, lastX = 0, lastY = 0;
@@ -3138,6 +3336,39 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     camYaw += (e.clientX - lastX) * 0.007;
     camPitch = Math.max(-1.1, Math.min(1.1, camPitch + (e.clientY - lastY) * 0.007));
     lastX = e.clientX; lastY = e.clientY;
+  });
+  canvas3d.addEventListener('wheel', e => {
+    e.preventDefault();
+    camDist = Math.max(180, Math.min(680, camDist + e.deltaY * 0.25));
+  }, { passive: false });
+  canvas3d.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) {
+      dragging3d = true;
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  canvas3d.addEventListener('touchmove', e => {
+    if (!dragging3d || e.touches.length !== 1) return;
+    e.preventDefault();
+    const tx = e.touches[0].clientX, ty = e.touches[0].clientY;
+    camYaw += (tx - lastX) * 0.008;
+    camPitch = Math.max(-1.1, Math.min(1.1, camPitch + (ty - lastY) * 0.008));
+    lastX = tx; lastY = ty;
+  }, { passive: false });
+  canvas3d.addEventListener('touchend', () => { dragging3d = false; });
+  canvas3d.addEventListener('click', e => {
+    const rect = canvas3d.getBoundingClientRect();
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    for (let i = projectedNodes.length - 1; i >= 0; i--) {
+      const n = projectedNodes[i];
+      if (Math.hypot(mx - n.sx, my - n.sy) <= (n.r || 6) + 6) {
+        state.openCover.add(n.stalk.id);
+        updateCoverAndOlog();
+        update3dHud(n.stalk);
+        break;
+      }
+    }
   });
   document.getElementById('toggle2SimplicesBtn').addEventListener('click', e => {
     show2Simplices = !show2Simplices;
@@ -3154,7 +3385,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <span class="mono" style="margin-left:8px;opacity:0.8">Ch ${s.chapter} · §${s.section} · pp.${s.start_page}–${s.end_page}</span>
         <div style="font-size:0.78rem;opacity:0.88;margin-top:2px">${escapeHtml(s.summary)}</div>
       </div>
-      <button class="cite-pill" onclick="window.__jumpToPage(${s.start_page}, '')">Open p.${s.start_page}</button>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="preset-btn" style="background:#2A2E37;color:#F6F1E7;border-color:#C88A2B" onclick="window.__addStalkToStudio('${s.id}')">+ Open Cover</button>
+        <button class="cite-pill" onclick="window.__jumpToPage(${s.start_page}, '')">Open p.${s.start_page}</button>
+      </div>
     `;
   }
   update3dHud(KB.stalks[5]);
@@ -3226,7 +3460,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       keyConcept: 'Erasing internal set elements (Marinov Ch 1–2) and writing domain models as commuting noun/verb Ologs (Spivak Ch 1–2) are two sides of the same point-free coin.',
       lab: 'Dual Perspective Sandbox: Convert an internal set-ball diagram into an external point-free Olog and verify path commutativity.',
       whyItMatters: 'Bridges visual beginner intuition directly into rigorous categorical specification without hand-waving.',
-      pages: [13, 83]
+      pages: [13, 83],
+      preset: 'pointfree',
+      atlasKey: 'monoid_loop'
     },
     {
       vol: 'ARC II · UNIVERSAL CONES',
@@ -3236,7 +3472,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       keyConcept: 'Reversing arrows in the universal Product cone (π₁, π₂, ⟨f,g⟩) yields the Coproduct cocone (ι₁, ι₂, [f,g]); adding a base object Z/W yields Pullbacks and Pushouts.',
       lab: 'Universal Factorizer Lab: Toggle arrow directions between Product/Coproduct and execute SQL INNER JOIN pullbacks.',
       whyItMatters: 'Unifies data tuples, tagged sum types, and relational joins under one universal existence-and-uniqueness pattern.',
-      pages: [62, 69]
+      pages: [62, 69],
+      preset: 'pointfree',
+      atlasKey: 'hasse_cube'
     },
     {
       vol: 'ARC III · SYMMETRY & ORDER',
@@ -3246,7 +3484,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       keyConcept: 'A monoid is a category with one object; a preorder is a thin category with at most one arrow between objects; finite distributive lattices form 3D Birkhoff cubes.',
       lab: 'Interactive Triangle Rotation (C₃/D₃) & Birkhoff 3D Cube Explorer (Color Mixing ↔ Divisibility ↔ Subsets).',
       whyItMatters: 'Reveals state machines, symmetry groups, and permission/type hierarchies as special cases of categories.',
-      pages: [115, 148]
+      pages: [115, 148],
+      preset: 'rosetta',
+      atlasKey: 'hasse_cube'
     },
     {
       vol: 'ARC IV · CURRY-HOWARD-LAMBEK',
@@ -3256,7 +3496,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       keyConcept: 'Marinov’s Chapters 5–6 crown jewel: Propositions are Types, Proofs are Lambda Programs, and Implication/Currying is the Exponential Object in a Bicartesian Closed Category.',
       lab: 'Live Curry-Howard-Lambek Compiler: Write a natural deduction proof and watch it compile into a typed lambda term and CCC morphism.',
       whyItMatters: 'Gives software engineers a concrete, executable understanding of universal properties through TypeScript/Haskell types.',
-      pages: [180, 260]
+      pages: [180, 260],
+      preset: 'types',
+      atlasKey: 'heyting_lever'
     },
     {
       vol: 'ARC V · FUNCTORIAL BRIDGES',
@@ -3266,7 +3508,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       keyConcept: 'Functors preserve commuting diagrams: acting as homomorphisms on monoids, monotone maps on posets, `.map` on programming containers (Marinov Ch 7), and database states on schemas (Spivak Ch 4).',
       lab: 'Functorial Container & Schema Studio: Verify functor laws on List/Maybe containers and relational database tables.',
       whyItMatters: 'Connects everyday functional programming `.map` directly to functorial database modeling.',
-      pages: [289, 306]
+      pages: [289, 306],
+      preset: 'functors',
+      atlasKey: 'island_functor'
     },
     {
       vol: 'ARC VI · HIGHER NATURALITY',
@@ -3276,9 +3520,24 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       keyConcept: 'Polymorphic functions ∀a. F a → G a (`reverse`, `safeHead`) are natural transformations in Type (Marinov Ch 8), while adjoint functors and sheaves glue local sections globally (Spivak Ch 7).',
       lab: 'Naturality Square & Sheaf Equalizer Verifier: Test polymorphic free theorems and glue multi-stalk open covers.',
       whyItMatters: 'Completes the journey from colored balls in a set to 2-categories, parametricity, and sheaf cohomology.',
-      pages: [319, 350]
+      pages: [319, 350],
+      preset: 'functors',
+      atlasKey: 'naturality_prism'
     }
   ];
+
+  window.__launchCourseModuleLab = function(presetKey, pageNum, atlasKey) {
+    state.openCover = new Set(PRESETS[presetKey] || PRESETS.pointfree);
+    updateCoverAndOlog();
+    if (atlasKey) {
+      atlasState.modeIdx = 0;
+      renderAtlas(atlasKey);
+    }
+    if (pageNum) {
+      renderPageReader(pageNum, '');
+    }
+    window.__focusPlate('plate-3', document.documentElement.getAttribute('data-view-mode') === 'focus');
+  };
 
   document.getElementById('courseModulesGrid').innerHTML = COURSE_MODULES.map(m => `
     <article class="module-card">
@@ -3294,8 +3553,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       </div>
       <div style="font-size:0.79rem;color:var(--ink-2);padding:0.45rem 0;border-top:1px dotted var(--rule);border-bottom:1px dotted var(--rule)">
         <strong class="mono" style="font-size:0.68rem;text-transform:uppercase;color:var(--accent-text)">Walkable Lab:</strong> ${escapeHtml(m.lab)}
-        <div style="margin-top:5px">
-          ${m.pages.map(p => `<button class="cite-pill" onclick="window.__jumpToPage(${p}, '')">§ Marinov p.${p}</button>`).join(' ')}
+        <div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+          <div>${m.pages.map(p => `<button class="cite-pill" onclick="window.__jumpToPage(${p}, '')">§ Marinov p.${p}</button>`).join(' ')}</div>
+          <button type="button" class="preset-btn" onclick="window.__launchCourseModuleLab('${m.preset || 'pointfree'}', ${m.pages[0] || 83}, '${m.atlasKey || 'monoid_loop'}')">🧪 Launch Walkable Lab ↗</button>
         </div>
       </div>
       <div class="callout-box" style="border-left-color:var(--ochre);margin-top:auto">
@@ -3331,6 +3591,23 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       return st ? `<span class="stamp ratified">◆ ${escapeHtml(st.title)}</span>` : '';
     }).join(' ');
 
+    const pageFormalItems = (KB.formal_items || []).filter(it => Number(it.page) === p);
+    const formalCalloutHtml = pageFormalItems.length ? `
+      <div class="reader-formal-callout">
+        <div class="mono" style="font-size:0.66rem;font-weight:600;text-transform:uppercase;color:var(--accent-text);margin-bottom:3px">
+          ◆ ${pageFormalItems.length} Anchored Formal Block${pageFormalItems.length > 1 ? 's' : ''} on Page ${p}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          ${pageFormalItems.map(it => `
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+              <span><strong>${it.kind === 'Exercise' ? '✍️ Task' : (it.kind === 'Theorem' ? '📐 Theorem' : '📘 Definition')}:</strong> ${escapeHtml(it.title || it.id)}</span>
+              <span class="mono" style="font-size:0.65rem;color:var(--ink-3)">${escapeHtml(it.id)}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : '';
+
     document.getElementById('readerPageMeta').innerHTML = `
       <div style="display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:0.74rem;color:var(--accent-text);font-weight:600">
         <span>PDF Page ${pObj.p} of 377 · Chapter ${pObj.ch}</span>
@@ -3338,17 +3615,16 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       </div>
       <div style="font-size:0.83rem;color:var(--ink-2);margin-top:2px">${escapeHtml(pObj.sec || 'Category Theory Illustrated')}</div>
       ${sBadges ? `<div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">${sBadges}</div>` : ''}
+      ${formalCalloutHtml}
     `;
 
-    let rawTxt = pObj.txt || '(Full-Page Vector Diagram in PDF — click "Open PDF ↗" above to view illustration)';
-    rawTxt = rawTxt
-      .replace(/\bthisproperty\b/g, 'this property')
-      .replace(/\bthesingleton\b/g, 'the singleton')
-      .replace(/\bfunctionsfrom\b/g, 'functions from');
-    let rawHtml = escapeHtml(rawTxt);
+    let rawTxt = cleanVerbatimReaderText(pObj.txt || '(Full-Page Vector Diagram in PDF — click "Open PDF ↗" above to view illustration)');
+    let rawHtml = escapeHtml(rawTxt)
+      .replace(/\b(DEFINITION|THEOREM|PROPOSITION|LEMMA)\s*:/g, '<span class="vb-formal-tag">$1</span>')
+      .replace(/\b(Task\s+\d+)\s*:/g, '<span class="vb-formal-tag">$1</span>');
     if (state.highlightTerm && state.highlightTerm.length >= 2) {
       const safe = state.highlightTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      rawHtml = rawHtml.replace(new RegExp(`(${safe})`, 'gi'), '<mark class="hl">$1</mark>');
+      rawHtml = rawHtml.replace(new RegExp(`(<[^>]+>)|(${safe})`, 'gi'), (m, tag, hit) => tag ? tag : `<mark class="hl">${hit}</mark>`);
     }
     document.getElementById('readerPageText').innerHTML = rawHtml;
   }
@@ -3366,19 +3642,33 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     searchTimer = setTimeout(() => {
       const q = searchInput.value.trim().toLowerCase();
       if (q.length < 2) { searchResults.style.display = 'none'; return; }
+      const tokens = q.split(/\s+/).filter(t => t.length >= 2);
       const hits = [];
+      (KB.formal_items || []).forEach(it => {
+        const hay = (it.id + ' ' + it.kind + ' ' + (it.title || '') + ' ' + (it.text || '')).toLowerCase();
+        if (tokens.every(t => hay.includes(t)) && hits.length < 8) {
+          hits.push({
+            p: it.page,
+            sec: `${it.kind === 'Exercise' ? 'Interactive Task' : it.kind} · ${it.title || it.id}`,
+            snip: cleanVerbatimReaderText((it.text || '').slice(0, 110)).replace(/\s+/g, ' '),
+            term: tokens[0] || q
+          });
+        }
+      });
       for (let i = 0; i < KB.pages.length; i++) {
         const pg = KB.pages[i];
-        const idx = (pg.txt || '').toLowerCase().indexOf(q);
-        if (idx !== -1) {
-          const snip = pg.txt.slice(Math.max(0, idx - 30), Math.min(pg.txt.length, idx + 90)).replace(/\s+/g, ' ');
-          hits.push({ p: pg.p, sec: pg.sec, snip });
+        const txtClean = cleanVerbatimReaderText(pg.txt || '');
+        const txtL = txtClean.toLowerCase();
+        if (tokens.every(t => txtL.includes(t))) {
+          const idx = txtL.indexOf(tokens[0] || q);
+          const snip = txtClean.slice(Math.max(0, idx - 30), Math.min(txtClean.length, idx + 90)).replace(/\s+/g, ' ');
+          hits.push({ p: pg.p, sec: pg.sec, snip, term: tokens[0] || q });
           if (hits.length >= 20) break;
         }
       }
       searchResults.style.display = 'block';
       searchResults.innerHTML = hits.length
-        ? hits.map(h => `<div style="padding:5px 7px;border-bottom:1px dotted var(--rule);cursor:pointer;font-size:0.78rem" onclick="window.__jumpToPage(${h.p}, '${escapeHtml(q.replace(/'/g, "\\'"))}')"><div class="mono" style="color:var(--accent-text);font-weight:600">p.${h.p} · ${escapeHtml(h.sec)}</div><div style="color:var(--ink-2)">…${escapeHtml(h.snip)}…</div></div>`).join('')
+        ? hits.map(h => `<div style="padding:5px 7px;border-bottom:1px dotted var(--rule);cursor:pointer;font-size:0.78rem" onclick="window.__jumpToPage(${h.p}, '${escapeHtml((h.term || q).replace(/'/g, "\\'"))}')"><div class="mono" style="color:var(--accent-text);font-weight:600">p.${h.p} · ${escapeHtml(h.sec)}</div><div style="color:var(--ink-2)">…${escapeHtml(h.snip)}…</div></div>`).join('')
         : `<div style="padding:6px;font-size:0.78rem;color:var(--ink-3)">No matches in 377 pages</div>`;
     }, 100);
   });
@@ -3398,6 +3688,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   const activeSubtitle = document.getElementById('podcastActiveSubtitle');
   const visualCueTextEl = document.getElementById('podcastVisualCueText');
   const turnCounterEl = document.getElementById('podcastTurnCounter');
+  const turnRailEl = document.getElementById('podcastTurnRail');
+  const jumpVisualBtn = document.getElementById('podcastJumpVisualBtn');
   const actPills = Array.from(document.querySelectorAll('#podcastActBar .podcast-act-pill'));
   const hostBadgeKore = document.getElementById('hostBadgeKore');
   const hostBadgePuck = document.getElementById('hostBadgePuck');
@@ -3416,6 +3708,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     : 'data';
 
   let currentTurns = [];
+  let activeTurnIdx = 0;
   let waveTimer = null;
   const speedSteps = [1.0, 1.15, 1.25, 1.5];
   let speedIdx = 0;
@@ -3439,9 +3732,60 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     return 3;
   }
 
+  function mapPageToVisualInstrument(pageNum) {
+    const p = Number(pageNum) || 83;
+    if (p <= 94) {
+      let shiftKey = 'element';
+      if (p >= 22 && p <= 28) shiftKey = 'terminal';
+      else if (p >= 60 && p <= 66) shiftKey = 'product';
+      else if (p >= 67 && p <= 73) shiftKey = 'coproduct';
+      return { plate: 'plate-1', type: 'shifter', key: shiftKey };
+    }
+    if (p <= 130) return { plate: 'plate-1', type: 'atlas', key: 'monoid_loop' };
+    if (p <= 161) return { plate: 'plate-1', type: 'atlas', key: 'hasse_cube' };
+    if (p <= 211) return { plate: 'plate-1', type: 'atlas', key: 'heyting_lever' };
+    if (p <= 277) return { plate: 'plate-1', type: 'atlas', key: 'russell_trees' };
+    if (p <= 318) return { plate: 'plate-1', type: 'atlas', key: 'island_functor' };
+    return { plate: 'plate-1', type: 'atlas', key: 'naturality_prism' };
+  }
+
+  function renderTurnRail() {
+    if (!turnRailEl) return;
+    turnRailEl.innerHTML = currentTurns.map((t, idx) => `
+      <button type="button" class="podcast-turn-dot ${idx === activeTurnIdx ? 'active' : ''}"
+              title="Turn ${idx + 1} (${t.speaker}) · § p.${t.cite_page || 1}"
+              onclick="window.__selectPodcastTurn(${idx})">
+        T${idx + 1}
+      </button>
+    `).join('');
+  }
+
+  window.__selectPodcastTurn = function(idx) {
+    const t = currentTurns[idx];
+    if (!t) return;
+    activeTurnIdx = idx;
+    updateActAndCueUI(idx, t);
+    window.__seekPodcastTo(t.start_sec || 0, t.cite_page || 1);
+  };
+
+  if (jumpVisualBtn) {
+    jumpVisualBtn.addEventListener('click', () => {
+      const t = currentTurns[activeTurnIdx] || currentTurns[0] || { cite_page: 83 };
+      const target = mapPageToVisualInstrument(t.cite_page || 83);
+      if (target.type === 'shifter') renderShifter(target.key);
+      else if (target.type === 'atlas') renderAtlas(target.key);
+      renderPageReader(t.cite_page || 83, '');
+      window.__focusPlate(target.plate, document.documentElement.getAttribute('data-view-mode') === 'focus');
+    });
+  }
+
   function updateActAndCueUI(turnIdx, turnObj) {
+    activeTurnIdx = turnIdx;
     const actIdx = turnIdxToActIdx(turnIdx);
     actPills.forEach((pill, idx) => pill.classList.toggle('active', idx === actIdx));
+    if (turnRailEl) {
+      turnRailEl.querySelectorAll('.podcast-turn-dot').forEach((d, idx) => d.classList.toggle('active', idx === turnIdx));
+    }
     if (visualCueTextEl && turnObj) {
       visualCueTextEl.innerHTML = `${escapeHtml(turnObj.visual_cue || ('🎨 Verbatim Page Fiber [p. ' + (turnObj.cite_page || 1) + ']'))} <button class="cite-pill" style="margin-left:6px" onclick="window.__jumpToPage(${turnObj.cite_page || 1}, '')">§ p.${turnObj.cite_page || 1}</button>`;
     }
@@ -3515,11 +3859,15 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     const dur = baseInv.audio_duration_sec || 180;
 
     if (relAudio && audioEl) {
-      audioEl.src = (bundleBaseDir ? bundleBaseDir + '/' : '') + relAudio;
+      const primarySrc = (bundleBaseDir ? bundleBaseDir + '/' : '') + relAudio;
+      audioEl.dataset.fallbackSrc = 'data/' + relAudio.replace(/^data\//, '');
+      audioEl.src = primarySrc;
       audioEl.playbackRate = speedSteps[speedIdx];
     }
     if (timeLabel) timeLabel.textContent = `0:00 / ${fmtSec(dur)}`;
     if (scrubSlider) scrubSlider.value = 0;
+
+    renderTurnRail();
 
     if (currentTurns.length && activeSubtitle) {
       const t0 = currentTurns[0];
@@ -3534,7 +3882,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         const col = isKore ? 'var(--accent-text)' : 'var(--good)';
         return `
           <div class="podcast-turn-row" data-turn-idx="${idx}" style="padding:7px 8px;border-bottom:1px dotted var(--rule);cursor:pointer;transition:background 0.15s"
-               onclick="window.__seekPodcastTo(${t.start_sec || 0}, ${t.cite_page || 1})">
+               onclick="window.__selectPodcastTurn(${idx})">
             <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px">
               <div>
                 <span class="mono" style="color:${col};font-weight:600">${isKore ? '🎙️' : '🎧'} ${escapeHtml(t.speaker)}</span>
@@ -3552,6 +3900,15 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       }).join('');
     }
   };
+
+  if (audioEl) {
+    audioEl.addEventListener('error', () => {
+      const fb = audioEl.dataset.fallbackSrc;
+      if (fb && !audioEl.src.endsWith(fb)) {
+        audioEl.src = fb;
+      }
+    });
+  }
 
   function togglePodcastPlayback() {
     if (!audioEl || !audioEl.src) {
@@ -3766,14 +4123,15 @@ def main():
     bundle_js = "window.__onSheafBundleLoaded && window.__onSheafBundleLoaded(" + json.dumps(bundle_obj, ensure_ascii=False, separators=(",", ":")) + ");\n"
     BUNDLE_PATH.write_text(bundle_js, encoding="utf-8")
 
-    seed_page_nums = {11, 62, 83, 148}
+    seed_page_nums = set()
     slim_stalks = []
     total_stalks = len(kb_obj["stalks"])
     for idx, s in enumerate(kb_obj["stalks"]):
         sc = dict(s)
         sc["formal_items"] = []
-        if len(sc.get("verbatim_excerpt", "")) > 280:
-            sc["verbatim_excerpt"] = sc["verbatim_excerpt"][:280] + "…"
+        sc.pop("verbatim_excerpt", None)
+        sc.pop("keywords", None)
+        sc.pop("tfidf_signature", None)
         ang = (2.0 * math.pi * idx) / max(1, total_stalks) * 2.0
         radius = 105.0 + (idx % 3) * 26.0
         y_pos = (s.get("chapter", 1) - 4.5) * 32.0
@@ -3816,9 +4174,21 @@ def main():
     if OUT_ARTIFACT.parent.exists():
         OUT_ARTIFACT.write_text(html_artifact, encoding="utf-8")
 
+    # Sync directly into sheaf-knowledge-studio/studios/marinov-category-theory-illustrated/ with local data/ paths
+    studio_repo_dir = ROOT.parent / "sheaf-knowledge-studio" / "studios" / "marinov-category-theory-illustrated"
+    if studio_repo_dir.exists():
+        (studio_repo_dir / "index.html").write_text(html_local, encoding="utf-8")
+        (studio_repo_dir / "sheaf_pages_bundle.js").write_text(bundle_js, encoding="utf-8")
+        (studio_repo_dir / "data").mkdir(parents=True, exist_ok=True)
+        (studio_repo_dir / "data" / "sheaf_pages_bundle.js").write_text(bundle_js, encoding="utf-8")
+    corpus_repo_dir = ROOT.parent / "sheaf-knowledge-studio" / "corpora" / "marinov-377pp" / "data"
+    if corpus_repo_dir.exists():
+        (corpus_repo_dir / "sheaf_pages_bundle.js").write_text(bundle_js, encoding="utf-8")
+
     print(f"Category Theory Illustrated Studio HTML compiled: {OUT_MAIN.stat().st_size / 1024:.1f} KB")
     print(f"Deferred 377-Page Bundle:                         {BUNDLE_PATH.stat().st_size / 1e6:.2f} MB")
 
 
 if __name__ == "__main__":
     main()
+

@@ -22,3 +22,15 @@
 | `2026-10-17T00:23:03Z` | **R3** | `Spivak-609pp-LockIn-R3-Final` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=609, items=877, fidelity=0.678, ||δ⁰||=0.322 |
 | `2026-10-17T00:23:03Z` | **R3** | `Marinov-377pp-LockIn-R3-Final` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=377, items=291, fidelity=0.71, ||δ⁰||=0.29 |
 | `2026-10-17T00:23:03Z` | **R3** | `Independent-Agent-377pp-LockIn-R3-Final` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=377, items=279, fidelity=0.78, ||δ⁰||=0.22 |
+| `2026-10-17T00:55:44Z` | **R1** | `ontology-frontier-agents-transpiler-r1` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.579, ||δ⁰||=0.421 |
+| `2026-10-17T00:58:15Z` | **R1** | `corpus-eval` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.579, ||δ⁰||=0.421 |
+| `2026-10-17T01:13:28Z` | **R2** | `R2 Ontology-Agents-Transpiler` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.578, ||δ⁰||=0.422 |
+| `2026-10-17T01:14:34Z` | **R3** | `R3 Ontology-Agents-Transpiler Lock` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.586, ||δ⁰||=0.414 |
+| `2026-10-17T01:15:33Z` | **R2** | `A1-A2-lock-verify` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.586, ||δ⁰||=0.414 |
+| `2026-10-17T02:27:09Z` | **R4** | `R4 VBM UX-Locked Studio` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.586, ||δ⁰||=0.414 |
+| `2026-10-17T14:33:55Z` | **R5** | `R5 Adversarial Simulation & Domain Lock` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.586, ||δ⁰||=0.414 |
+| `2026-10-17T14:41:09Z` | **R5** | `R5 Adversarial Simulation & Domain Lock` | **GO** | `24/24` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.586, ||δ⁰||=0.414 |
+| `2026-10-17T14:54:57Z` | **R5** | `R5 Adversarial Simulation & Domain Lock` | **GO** | `25/25` | `NONE (ALL CLEARED)` | pages=36, items=57, fidelity=0.586, ||δ⁰||=0.414 |
+| `2026-10-17T14:56:11Z` | **R6** | `Spivak 609pp Studio (R6 Adversarial Hardening)` | **GO** | `25/25` | `NONE (ALL CLEARED)` | pages=609, items=877, fidelity=0.678, ||δ⁰||=0.322 |
+| `2026-10-17T14:56:11Z` | **R6** | `Marinov 377pp Studio (R6 Adversarial Hardening)` | **GO** | `25/25` | `NONE (ALL CLEARED)` | pages=377, items=291, fidelity=0.71, ||δ⁰||=0.29 |
+| `2026-10-17T14:56:11Z` | **R6** | `Independent Zero-Shot 377pp (R6 Adversarial Hardening)` | **GO** | `25/25` | `NONE (ALL CLEARED)` | pages=377, items=279, fidelity=0.78, ||δ⁰||=0.22 |

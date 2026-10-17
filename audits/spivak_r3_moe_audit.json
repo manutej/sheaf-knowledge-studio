@@ -1,7 +1,7 @@
 {
   "overall_ship_vote": "GO",
-  "total_gates_cleared": 26,
-  "total_gates": 26,
+  "total_gates_cleared": 27,
+  "total_gates": 27,
   "evaluators": {
     "A1_Depth_Olog_Cohomology": {
       "vote": "GO",
@@ -51,7 +51,7 @@
       "gates": {
         "HF-SHEAF-10": {
           "status": "CLEARED",
-          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (1510.7 KB)"
+          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (1572.1 KB)"
         },
         "HF-SHEAF-11": {
           "status": "CLEARED",
@@ -59,7 +59,7 @@
         },
         "HF-STUDIO-02": {
           "status": "CLEARED",
-          "detail": "Core HTML size 415.5 KB (< 450 KB limit); deferred bundle tag present=True"
+          "detail": "Core HTML size 424.5 KB (< 450 KB limit); deferred bundle 'data/sheaf_pages_bundle.js' exists=True (1572.1 KB)"
         },
         "HF-STUDIO-09": {
           "status": "CLEARED",
@@ -77,8 +77,8 @@
     },
     "A3_FieldManual_Math_SymbolicCraft": {
       "vote": "GO",
-      "cleared_count": 7,
-      "total_count": 7,
+      "cleared_count": 8,
+      "total_count": 8,
       "open_gates": [],
       "gates": {
         "HF-STUDIO-01": {
@@ -99,7 +99,7 @@
         },
         "HF-STUDIO-06": {
           "status": "CLEARED",
-          "detail": "Verdict stamps checked: 19; glyph-less stamps: 0"
+          "detail": "Verdict stamps checked: 22; glyph-less stamps: 0"
         },
         "HF-STUDIO-08": {
           "status": "CLEARED",
@@ -108,6 +108,10 @@
         "HF-STUDIO-11": {
           "status": "CLEARED",
           "detail": "Dual-Host Podcast Deck=True; Transcript/Gemini Drawers=True; Gemini 2.5 TTS=True; Dynamic Custom Dialogue=True"
+        },
+        "HF-STUDIO-12": {
+          "status": "CLEARED",
+          "detail": "Viewport=True; MobileDock+FocusMode=True; 10TurnRail+VisualJump=True; 3DTouch+Wheel=True; ReaderCallout=True; WalkableLab=True; ZeroDeadMod3=True"
         }
       }
     },
@@ -119,7 +123,7 @@
       "gates": {
         "HF-SHEAF-08": {
           "status": "CLEARED",
-          "detail": "877 formal declarations indexed with 89 distinct contextual titles & valid page bounds (bad: 0)"
+          "detail": "877 formal declarations indexed with 824 distinct contextual titles & valid page bounds (bad: 0)"
         },
         "HF-SHEAF-09": {
           "status": "CLEARED",
@@ -156,10 +160,11 @@
     "connected_component_ratio": 1.0
   },
   "studio_metrics": {
-    "core_html_size_kb": 415.5,
+    "core_html_size_kb": 424.5,
+    "bundle_size_kb": 1572.1,
     "plates_count": 5,
     "marginalia_count": 5,
     "counterpoint_count": 5,
-    "stamps_count": 19
+    "stamps_count": 22
   }
 }

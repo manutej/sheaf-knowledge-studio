@@ -1,16 +1,16 @@
 # CETI Alexandrov Sheaf Knowledge Base, 4-Act Neural Audio Notebook & Field-Manual Studio
 
-**Contract Version:** `CETI-SHEAF-PIPELINE-V4.0` ([`SPECIFICATION.md`](./SPECIFICATION.md) · [`contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md`](./contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md))  
-**Audit Status:** **GO (`◆ 26/26 Binary Gates Cleared Across All 3 Builds + 12/12 Negative Mutation Self-Tests PASS`)**
+**Contract Version:** `CETI-SHEAF-PIPELINE-V6.0` ([`SPECIFICATION.md`](./SPECIFICATION.md) · [`contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md`](./contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md))  
+**Audit Status:** **GO (`◆ 27/27 Binary Gates Cleared Across All 3 Builds + 12/12 Negative Mutation Self-Tests PASS + 19-State VBM Desktop/Mobile Audit PASS`)**
 
 This repository contains the complete, end-to-end **Alexandrov Sheaf Knowledge Pipeline**:
 - **Master Specification & Typed Contract:** [`SPECIFICATION.md`](./SPECIFICATION.md) and [`contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md`](./contracts/TYPED-CONTRACT-SHEAF-META-PROMPT.md) (`sheaf-schema-contract.json`).
 - **3 Composable Agent Skills (`skills/`)** and a **Standalone 3-Tool Portable Corpus Kit (`portable-toolkit/`)**.
 - **3 Verified Reference Builds (`studios/` & `corpora/`):**
-  1. **David I. Spivak — *Category Theory for the Sciences* (`609 pp.`, `30` stalks, `877` declarations, `5` × 10-turn 4-Act neural podcasts)**
-  2. **Boris Marinov — *Category Theory Illustrated* (`377 pp.`, `24` stalks, `291` declarations, `14` interactive Inkscape-style visual instruments + symbol decoders, `6` × 10-turn 4-Act neural podcasts)**
+  1. **David I. Spivak — *Category Theory for the Sciences* (`609 pp.`, `30` stalks, `877` contextualized declarations, `5` × 10-turn 4-Act neural podcasts with `T1..T10` Turn Rail & `🎨 Open Visual ↗` sync)**
+  2. **Boris Marinov — *Category Theory Illustrated* (`377 pp.`, `24` stalks, `291` declarations (`165` Definitions, `38` Theorems, `88` Tasks), `14` multi-state visual instruments with state pills, `6` × 10-turn 4-Act neural podcasts)**
   3. **Independent Zero-Shot Agent Run (`377 pp.`, `18` auto-induced stalks, `279` declarations, `4` × 10-turn 4-Act neural podcasts)**
-- **Mobile-First & `1-Plate Focus` UI:** Responsive single-plate focus mode (`All 5 | 1-Plate Focus`), collapsible mobile Open Cover $\mathcal{U}$ drawer, swipeable horizontal tab strips, and floating mobile bottom navigation bar.
+- **Mobile-First, Touch-3D & `1-Plate Focus` UI:** Responsive single-plate focus mode (`All 5 | 1-Plate Focus`), 1-finger mobile touch-orbit on the 3D Alexandrov Poset canvas, Anchored Formal Block Callout Banner in the Slide-Over Page Reader, Interactive Walkable Lab Launchers in Plate V, collapsible mobile Open Cover $\mathcal{U}$ drawer, and floating mobile bottom navigation bar.
 - **Self-Contained Release Packages (`releases/`):** Ready-to-download `.zip` and `.skill` archives.
 
 ---
@@ -20,11 +20,11 @@ This repository contains the complete, end-to-end **Alexandrov Sheaf Knowledge P
 ```text
 sheaf-knowledge-studio/
 ├── README.md                                  # Architecture, quickstart, CLI reference & directory map
-├── SPECIFICATION.md                           # Master V4.0 specification, 26 gates, 14 visual instruments
-├── HANDOFF.md                                 # Cold-resume guide & Phase 2 engineering roadmap
-├── STATUS.md                                  # 26/26 Binary Gate Ship Board & R1–R4 Lock-In Status
-├── Makefile                                   # One-command build, audio synthesis & 26-gate verification
-├── verify_all.sh                              # Automated 26-gate + negative-mutation selftest suite
+├── SPECIFICATION.md                           # Master V6.0 specification, 27 gates, 14 visual instruments
+├── HANDOFF.md                                 # Cold-resume guide & Round 7 engineering roadmap
+├── STATUS.md                                  # 27/27 Binary Gate Ship Board & R1–R6 Lock-In Status
+├── Makefile                                   # One-command build, audio synthesis & 27-gate verification
+├── verify_all.sh                              # Automated 27-gate + 12/12 negative-mutation selftest suite
 ├── .gitignore                                 # Clean Python / OS ignore rules
 │
 ├── contracts/                                 # Formal Typed Specifications

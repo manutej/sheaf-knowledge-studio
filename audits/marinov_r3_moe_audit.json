@@ -1,7 +1,7 @@
 {
   "overall_ship_vote": "GO",
-  "total_gates_cleared": 26,
-  "total_gates": 26,
+  "total_gates_cleared": 27,
+  "total_gates": 27,
   "evaluators": {
     "A1_Depth_Olog_Cohomology": {
       "vote": "GO",
@@ -35,7 +35,7 @@
         },
         "HF-SHEAF-07": {
           "status": "CLEARED",
-          "detail": "10 commutative 2-simplices verified with content-computed holonomy (mean ||δ¹||=0.136, bad=0)"
+          "detail": "10 commutative 2-simplices verified with content-computed holonomy (mean ||δ¹||=0.181, bad=0)"
         },
         "HF-STUDIO-07": {
           "status": "CLEARED",
@@ -51,7 +51,7 @@
       "gates": {
         "HF-SHEAF-10": {
           "status": "CLEARED",
-          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (662.8 KB)"
+          "detail": "Deferred browser bundle sheaf_pages_bundle.js: EXISTS (657.8 KB)"
         },
         "HF-SHEAF-11": {
           "status": "CLEARED",
@@ -59,7 +59,7 @@
         },
         "HF-STUDIO-02": {
           "status": "CLEARED",
-          "detail": "Core HTML size 447.0 KB (< 450 KB limit); deferred bundle tag present=True"
+          "detail": "Core HTML size 442.3 KB (< 450 KB limit); deferred bundle 'data/sheaf_pages_bundle.js' exists=True (657.8 KB)"
         },
         "HF-STUDIO-09": {
           "status": "CLEARED",
@@ -77,8 +77,8 @@
     },
     "A3_FieldManual_Math_SymbolicCraft": {
       "vote": "GO",
-      "cleared_count": 7,
-      "total_count": 7,
+      "cleared_count": 8,
+      "total_count": 8,
       "open_gates": [],
       "gates": {
         "HF-STUDIO-01": {
@@ -99,7 +99,7 @@
         },
         "HF-STUDIO-06": {
           "status": "CLEARED",
-          "detail": "Verdict stamps checked: 18; glyph-less stamps: 0"
+          "detail": "Verdict stamps checked: 21; glyph-less stamps: 0"
         },
         "HF-STUDIO-08": {
           "status": "CLEARED",
@@ -108,6 +108,10 @@
         "HF-STUDIO-11": {
           "status": "CLEARED",
           "detail": "Dual-Host Podcast Deck=True; Transcript/Gemini Drawers=True; Gemini 2.5 TTS=True; Dynamic Custom Dialogue=True"
+        },
+        "HF-STUDIO-12": {
+          "status": "CLEARED",
+          "detail": "Viewport=True; MobileDock+FocusMode=True; 10TurnRail+VisualJump=True; 3DTouch+Wheel=True; ReaderCallout=True; WalkableLab=True; ZeroDeadMod3=True"
         }
       }
     },
@@ -119,7 +123,7 @@
       "gates": {
         "HF-SHEAF-08": {
           "status": "CLEARED",
-          "detail": "291 formal declarations indexed with 283 distinct contextual titles & valid page bounds (bad: 0)"
+          "detail": "291 formal declarations indexed with 270 distinct contextual titles & valid page bounds (bad: 0)"
         },
         "HF-SHEAF-09": {
           "status": "CLEARED",
@@ -151,15 +155,16 @@
     "empirical_h1_obstructions": 12,
     "mean_restriction_fidelity": 0.71,
     "mean_coboundary_defect_d0": 0.29,
-    "mean_holonomy_defect_d1": 0.136,
+    "mean_holonomy_defect_d1": 0.181,
     "body_page_coverage_pct": 100.0,
     "connected_component_ratio": 1.0
   },
   "studio_metrics": {
-    "core_html_size_kb": 447.0,
+    "core_html_size_kb": 442.3,
+    "bundle_size_kb": 657.8,
     "plates_count": 5,
     "marginalia_count": 5,
     "counterpoint_count": 5,
-    "stamps_count": 18
+    "stamps_count": 21
   }
 }

@@ -1153,6 +1153,7 @@ section.plate {
   height: 100%;
   display: block;
   cursor: grab;
+  touch-action: none;
 }
 #sheaf3dCanvas:active { cursor: grabbing; }
 
@@ -1232,6 +1233,14 @@ section.plate {
   max-width: 100%;
   line-height: 1.3;
 }
+.reader-formal-callout {
+  margin-top: 0.55rem;
+  padding: 0.45rem 0.65rem;
+  background: var(--paper-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent-text);
+  font-size: 0.76rem;
+}
 .verbatim-sheet {
   background: var(--paper-soft);
   border: 1px solid var(--rule);
@@ -1242,6 +1251,20 @@ section.plate {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   color: var(--ink);
+}
+.verbatim-sheet .vb-formal-tag {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 1px 6px;
+  margin-right: 4px;
+  border-radius: 2px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  border: 1px solid var(--accent-text);
 }
 mark.hl {
   background: rgba(166, 119, 86, 0.32);
@@ -1294,6 +1317,32 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
+  font-weight: 600;
+}
+.podcast-turn-rail {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  margin: 0.45rem 0 0.25rem;
+}
+.podcast-turn-dot {
+  appearance: none;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-3);
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  padding: 4px 2px;
+  min-height: 28px;
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: center;
+  transition: all 0.14s;
+}
+.podcast-turn-dot.active {
+  background: var(--accent-text);
+  color: var(--paper);
+  border-color: var(--accent-text);
   font-weight: 600;
 }
 .podcast-visual-cue {
@@ -1744,10 +1793,16 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
 
                 <audio id="notebookPodcastAudio" preload="metadata" style="display:none"></audio>
 
+                <!-- 10-Turn Interactive Progress Rail -->
+                <div class="podcast-turn-rail" id="podcastTurnRail" role="group" aria-label="10-Turn Deep-Dive Stepper"></div>
+
                 <!-- Live Visual Diagram Cue Banner -->
                 <div class="podcast-visual-cue" id="podcastVisualCueBar">
                   <span id="podcastVisualCueText">👁️ <strong>Visual Cue:</strong> Select an investigation or press Play to walk the diagram step by step.</span>
-                  <button type="button" class="cite-pill" id="podcastCuePageBtn" onclick="window.__jumpToPage(321, '')">§ p.321</button>
+                  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+                    <button type="button" class="preset-btn" id="podcastJumpVisualBtn" style="padding:4px 8px;font-size:0.66rem;min-height:28px" title="Jump to Interactive Symbolic Sandbox in Plate III">🎨 Open Visual ↗</button>
+                    <button type="button" class="cite-pill" id="podcastCuePageBtn" onclick="window.__jumpToPage(321, '')">§ p.321</button>
+                  </div>
                 </div>
 
                 <!-- Active Turn Subtitle Bar -->
@@ -2056,7 +2111,10 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         <div class="instrument">
           <div class="instrument-bar">
             <span>INSTRUMENT V · INTERACTIVE CURRICULUM ARCHITECT &amp; SYMBOLIC GRAMMAR MAP</span>
-            <span class="stamp ratified">◆ 7 Visual Modules · 5 Meta-Notebook Volumes</span>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <button type="button" class="preset-btn" onclick="window.__jumpToPage(1)">📖 Open Verbatim Monograph Reader (§ p.1) ↗</button>
+              <span class="stamp ratified">◆ 7 Visual Modules · 5 Meta-Notebook Volumes</span>
+            </div>
           </div>
 
           <!-- Symbolic Grammar Table -->
@@ -2145,9 +2203,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       <span class="mono" style="font-weight:600;text-transform:uppercase;color:var(--accent-text)">
         Verbatim 377-Page Book Reader · Boris Marinov (2026)
       </span>
-      <div style="display:flex;gap:6px">
-        <a id="openRawPdfLink" href="document.pdf#page=43" target="_blank" class="preset-btn" style="text-decoration:none">Open PDF ↗</a>
-        <button class="preset-btn" id="closeReaderBtn">✕ Close</button>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <a id="openRawPdfLink" href="document.pdf#page=43" target="_blank" class="preset-btn" style="text-decoration:none;white-space:nowrap">Open PDF ↗</a>
+        <button class="preset-btn" id="closeReaderBtn" style="white-space:nowrap">✕ Close</button>
       </div>
     </div>
 
@@ -2206,8 +2264,20 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     }
     pageByNum = {};
     KB.pages.forEach(p => { pageByNum[p.p] = p; });
+    const kindSel = document.getElementById('declKindSelect');
+    if (kindSel && KB.formal_items.length) {
+      const counts = {};
+      KB.formal_items.forEach(it => { counts[it.kind] = (counts[it.kind] || 0) + 1; });
+      const kindsOrder = ['Definition', 'Theorem', 'Proposition', 'Lemma', 'Example', 'Application', 'Remark', 'Exercise', 'Task'];
+      const extraKinds = Object.keys(counts).filter(k => !kindsOrder.includes(k));
+      const allKinds = kindsOrder.concat(extraKinds).filter(k => counts[k]);
+      kindSel.innerHTML = `<option value="all">All Kinds (${KB.formal_items.length})</option>` +
+        allKinds.map(k => `<option value="${k}">${k} (${counts[k]})</option>`).join('');
+      const declTab = document.querySelector('[data-subview="declarations"]');
+      if (declTab) declTab.textContent = `${KB.formal_items.length} Formal Declarations`;
+    }
     renderPageReader(state.currentPage, state.highlightTerm);
-    if (state.activeSubview === 'declarations') renderDeclarationsList();
+    renderDeclarationsList();
   };
 
   // ==========================================================================
@@ -2225,8 +2295,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   function convertLatexTokensToHtml(mathStr) {
     let s = escapeHtml(mathStr.trim());
 
-    // Protect escaped set braces \{ and \} and escaped \& before brace stripping
-    s = s.replace(/\\\{/g, '&#123;').replace(/\\\}/g, '&#125;');
+    // Protect escaped set braces \{ and \}, escaped \_, and escaped \& before brace stripping
+    s = s.replace(/\\\{/g, '&#123;').replace(/\\\}/g, '&#125;').replace(/\\_/g, '@@ESCUS@@');
     s = s.replace(/\\&amp;/g, '&amp;');
 
     // Remove sizing commands
@@ -2244,12 +2314,16 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/\\xleftarrow\{((?:[^{}]|\{[^{}]*\})+)\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&larr;</span></span>`);
     s = s.replace(/\\overset\{((?:[^{}]|\{[^{}]*\})+)\}\{\\to\}/g, (_, lbl) => `<span class="m-arrow"><span class="m-arrow-label">${convertLatexTokensToHtml(lbl)}</span><span class="m-arrow-body">&rarr;</span></span>`);
 
-    // Font macros
+    // Font & accent macros
     for (let pass = 0; pass < 3; pass++) {
       s = s.replace(/\\mathcal\{([^{}]+)\}/g, '<span class="m-cal">$1</span>');
       s = s.replace(/\\mathbf\{([^{}]+)\}/g, '<span class="m-cat">$1</span>');
       s = s.replace(/\\(?:mathrm|text|operatorname)\{([^{}]+)\}/g, '<span class="m-op">$1</span>');
       s = s.replace(/\\emph\{([^{}]+)\}/g, '<em>$1</em>');
+      s = s.replace(/\\check\{([^{}]+)\}/g, '$1&#780;');
+      s = s.replace(/\\hat\{([^{}]+)\}/g, '$1&#770;');
+      s = s.replace(/\\tilde\{([^{}]+)\}/g, '$1&#771;');
+      s = s.replace(/\\bar\{([^{}]+)\}/g, '$1&#772;');
     }
 
     // Limits & Colimits with subscripts
@@ -2270,18 +2344,19 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       '\\psi': '&psi;', '\\omega': '&omega;',
       '\\Gamma': '&Gamma;', '\\Delta': '&Delta;', '\\Theta': '&Theta;', '\\Lambda': '&Lambda;',
       '\\Pi': '&Pi;', '\\Sigma': '&Sigma;', '\\Phi': '&Phi;', '\\Psi': '&Psi;', '\\Omega': '&Omega;',
-      '\\to': '&rarr;', '\\rightarrow': '&rarr;', '\\leftarrow': '&larr;',
-      '\\leftrightarrow': '&harr;', '\\longleftrightarrow': '&harr;',
+      '\\to': '&rarr;', '\\rightarrow': '&rarr;', '\\leftarrow': '&larr;', '\\longrightarrow': '&rarr;',
+      '\\downarrow': '&darr;', '\\uparrow': '&uarr;',
+      '\\leftrightarrow': '&harr;', '\\longleftrightarrow': '&harr;', '\\leftrightarrows': '&#8646;',
       '\\mapsto': '&#8614;', '\\longmapsto': '&#8614;',
       '\\hookrightarrow': '&#8618;', '\\twoheadrightarrow': '&#8608;',
       '\\Rightarrow': '&rArr;', '\\Leftarrow': '&lArr;', '\\Leftrightarrow': '&hArr;',
-      '\\iff': '&hArr;', '\\implies': '&rArr;',
+      '\\iff': '&hArr;', '\\implies': '&rArr;', '\\models': '&#8872;',
       '\\rightrightarrows': '&#8649;',
       '\\dashv': '&#8867;', '\\vdash': '&#8866;',
       '\\cong': '&cong;', '\\simeq': '&simeq;', '\\sim': '&sim;', '\\equiv': '&equiv;',
       '\\approx': '&approx;', '\\neq': '&ne;', '\\leq': '&le;', '\\geq': '&ge;',
-      '\\leqslant': '&le;', '\\geqslant': '&ge;',
-      '\\subset': '&sub;', '\\subseteq': '&sube;', '\\supset': '&sup;', '\\supseteq': '&supe;',
+      '\\leqslant': '&le;', '\\geqslant': '&ge;', '\\gg': '&#8811;', '\\ll': '&#8810;',
+      '\\subset': '&sub;', '\\subseteq': '&sube;', '\\supset': '&sup;', '\\supseteq': '&supe;', '\\not\\subseteq': '&#8840;',
       '\\in': '&isin;', '\\notin': '&notin;', '\\ni': '&ni;',
       '\\cup': '&cup;', '\\cap': '&cap;', '\\bigcup': '&#8899;', '\\bigcap': '&#8898;',
       '\\sqcup': '&#8852;', '\\bigsqcup': '&#10758;', '\\sqcap': '&#8851;',
@@ -2290,8 +2365,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       '\\circ': '&#8728;', '\\bullet': '&bull;', '\\cdot': '&middot;',
       '\\forall': '&forall;', '\\exists': '&exist;', '\\nexists': '&#8708;',
       '\\emptyset': '&empty;', '\\varnothing': '&empty;', '\\infty': '&infin;',
-      '\\partial': '&part;', '\\nabla': '&nabla;',
-      '\\langle': '&lang;', '\\rangle': '&rang;',
+      '\\partial': '&part;', '\\nabla': '&nabla;', '\\ker': '<span class="m-op">ker</span>',
+      '\\langle': '&lang;', '\\rangle': '&rang;', '\\llbracket': '&#10214;', '\\rrbracket': '&#10215;',
       '\\lrcorner': '&#8991;',
       '\\ldots': '&hellip;', '\\cdots': '&ctdot;', '\\dots': '&hellip;',
       '\\mathbb{N}': '&#8469;', '\\mathbb{Z}': '&#8484;', '\\mathbb{Q}': '&#8474;',
@@ -2316,7 +2391,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     s = s.replace(/_(&[A-Za-z0-9#]+;|[A-Za-z0-9])/g, '<sub>$1</sub>');
     s = s.replace(/\^(&[A-Za-z0-9#]+;|[A-Za-z0-9])/g, '<sup>$1</sup>');
 
-    s = s.replace(/\{([^{}]+)\}/g, '$1');
+    s = s.replace(/\{([^{}]+)\}/g, '$1').replace(/@@ESCUS@@/g, '_');
     return s;
   }
 
@@ -3029,22 +3104,6 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     });
   }
 
-  function buildCustomPodcastTurns(q, topStalks, coh) {
-    const s0 = topStalks[0] || KB.stalks[0] || { title: 'Foundations', start_page: 1, summary: '' };
-    const s1 = topStalks[1] || topStalks[0] || s0;
-    const s2 = topStalks[2] || s1;
-    const h0 = coh && coh.h0_coherence ? coh.h0_coherence : 0.78;
-    const d0 = coh && coh.mean_d0 ? coh.mean_d0 : 0.22;
-    return [
-      { speaker: 'Kore', role: 'Lead Architect', cite_page: s0.start_page, start_sec: 0, end_sec: 11, text: `Welcome to our custom Deep Dive on "${q}". We've assembled an open cover starting with ${s0.title} on page ${s0.start_page}.` },
-      { speaker: 'Puck', role: 'Systems Co-Host', cite_page: s0.start_page, start_sec: 11, end_sec: 23, text: `Let's look at how ${s0.title} frames this question on page ${s0.start_page}: ${s0.summary}` },
-      { speaker: 'Kore', role: 'Lead Architect', cite_page: s1.start_page, start_sec: 23, end_sec: 36, text: `And when we follow the restriction morphisms to ${s1.title} on page ${s1.start_page}, we see how the local Olog types connect: ${s1.summary}` },
-      { speaker: 'Puck', role: 'Systems Co-Host', cite_page: s2.start_page, start_sec: 36, end_sec: 48, text: `Then on page ${s2.start_page}, ${s2.title} provides the structural bridge across our overlap.` },
-      { speaker: 'Kore', role: 'Lead Architect', cite_page: s1.start_page, start_sec: 48, end_sec: 60, text: `Our empirical Cech cohomology audit measures an H-zero coherence of ${h0} with coboundary defect ${d0} across this custom open cover.` },
-      { speaker: 'Puck', role: 'Systems Co-Host', cite_page: s2.start_page, start_sec: 60, end_sec: 72, text: `Click any page citation pill in the synthesis below—or paste a Gemini API key above to synthesize this custom dialogue with live Gemini 2.5 voices.` }
-    ];
-  }
-
   document.getElementById('runGlueQueryBtn').addEventListener('click', () => {
     runCustomSheafQuery(document.getElementById('notebookQueryInput').value);
   });
@@ -3089,7 +3148,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       spivakRef: '✓ Spivak §2.1.2 · p.47, p.74',
       formula: 'g \\circ f = h : X \\xrightarrow{f} Y \\xrightarrow{g} Z',
       explanation: 'Read right-to-left algebraically ("g after f"), or left-to-right geometrically along arrows. Two paths with the same start and end commute when they yield the exact same function.',
-      derived: 'Law of Composition: Associativity h ∘ (g ∘ f) = (h ∘ g) ∘ f makes intermediate parentheses unnecessary — every path of arrows has a unique composite.',
+      derived: 'Law of Composition: Associativity h ∘ (g ∘ f) = (h ∘ g ∘ f) makes intermediate parentheses unnecessary — every path of arrows has a unique composite.',
       concrete: 'X = {Alice, Bob}, Y = {Dept_Eng, Dept_Math}, Z = {Bldg_4, Bldg_9}\nf(Alice) = Dept_Eng, g(Dept_Eng) = Bldg_4  ⇒  (g ∘ f)(Alice) = Bldg_4 = h(Alice).',
       tokens: [
         { sym: 'X', role: 'Domain Object (Source Set / Type)', highlight: 'node-X' },
@@ -3398,31 +3457,50 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   function renderDeclarationsList() {
     const chFilter = document.getElementById('chapterFilterSelect').value;
     const kindFilter = document.getElementById('declKindSelect').value;
-    const q = (document.getElementById('declSearchInput').value || '').trim().toLowerCase();
+    const qRaw = (document.getElementById('declSearchInput').value || '').trim().toLowerCase();
+    const qTokens = qRaw.split(/\s+/).filter(Boolean);
 
     const allItems = KB.formal_items.length
       ? KB.formal_items
-      : KB.stalks.flatMap(s => s.formal_items || []);
+      : KB.stalks.flatMap(s => (s.formal_items || []).map(it => ({ ...it, stalk_id: it.stalk_id || s.id })));
 
     const filtered = allItems.filter(it => {
       if (chFilter !== 'all' && String(it.chapter) !== chFilter) return false;
       if (kindFilter !== 'all' && it.kind !== kindFilter) return false;
-      if (q && !(it.id + ' ' + it.kind + ' ' + (it.title || '') + ' ' + (it.text || '')).toLowerCase().includes(q)) return false;
+      if (qTokens.length) {
+        const hay = (it.id + ' ' + it.kind + ' ' + (it.number || '') + ' ' + (it.title || '') + ' ' + (it.text || '') + ' ' + (it.stalk_id || '')).toLowerCase();
+        if (!qTokens.every(tok => hay.includes(tok))) return false;
+      }
       return true;
     });
 
     document.getElementById('declCountLabel').textContent =
-      `Showing ${Math.min(80, filtered.length)} of ${filtered.length} formal declarations (from 279 total in the monograph)`;
+      `Showing ${Math.min(80, filtered.length)} of ${filtered.length} formal declarations (from ${allItems.length} total in monograph)`;
 
-    document.getElementById('declListContainer').innerHTML = filtered.slice(0, 80).map(it => `
+    document.getElementById('declListContainer').innerHTML = filtered.slice(0, 80).map(it => {
+      const kindStamp = it.kind === 'Definition'
+        ? '<span class="stamp ratified" style="font-size:0.65rem">◆ Definition</span>'
+        : (it.kind === 'Theorem' || it.kind === 'Proposition' || it.kind === 'Lemma')
+          ? `<span class="stamp measured" style="font-size:0.65rem">⚖ ${escapeHtml(it.kind)}</span>`
+          : `<span class="stamp accept" style="font-size:0.65rem">✓ ${escapeHtml(it.kind || 'Item')}</span>`;
+      const st = it.stalk_id && stalkById[it.stalk_id];
+      return `
       <div style="background:var(--paper);border:1px solid var(--rule);padding:0.75rem 0.9rem">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-          <span class="mono" style="font-weight:600;color:var(--accent-text)">${escapeHtml(it.id)} ${it.title ? '· ' + escapeHtml(it.title) : ''}</span>
-          <button class="cite-pill" onclick="window.__jumpToPage(${it.page}, '${escapeHtml(it.number || '')}')">§ p.${it.page}</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            ${kindStamp}
+            <span class="mono" style="font-weight:600;color:var(--ink)">${escapeHtml(it.id)}${it.title ? ' · ' + escapeHtml(it.title) : ''}</span>
+            ${st ? `<span class="mono" style="font-size:0.66rem;color:var(--ink-3)">(${escapeHtml(st.title)})</span>` : ''}
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            ${st ? `<button class="preset-btn" style="padding:2px 7px;font-size:0.64rem;min-height:22px" onclick="window.__addStalkToStudio('${st.id}')">+ Open Cover</button>` : ''}
+            <button class="cite-pill" onclick="window.__jumpToPage(${it.page}, '${escapeHtml((it.number || it.title || '').slice(0, 24).replace(/'/g, "\\'"))}')">§ p.${it.page}</button>
+          </div>
         </div>
-        <div style="font-size:0.85rem;color:var(--ink-2)">${convertLatexTokensToHtml((it.text || '').slice(0, 420))}</div>
+        <div style="font-size:0.85rem;color:var(--ink-2);line-height:1.5">${convertLatexTokensToHtml((it.text || '').slice(0, 420))}</div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   document.querySelectorAll('.subview-tab').forEach(tab => {
@@ -3470,6 +3548,22 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     camPitch = Math.max(-1.1, Math.min(1.1, camPitch + (e.clientY - lastY) * 0.007));
     lastX = e.clientX; lastY = e.clientY;
   });
+  canvas3d.addEventListener('touchstart', e => {
+    if (e.touches && e.touches.length === 1) {
+      dragging3d = true;
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  canvas3d.addEventListener('touchmove', e => {
+    if (!dragging3d || !e.touches || e.touches.length !== 1) return;
+    e.preventDefault();
+    const tx = e.touches[0].clientX, ty = e.touches[0].clientY;
+    camYaw += (tx - lastX) * 0.008;
+    camPitch = Math.max(-1.1, Math.min(1.1, camPitch + (ty - lastY) * 0.008));
+    lastX = tx; lastY = ty;
+  }, { passive: false });
+  canvas3d.addEventListener('touchend', () => { dragging3d = false; });
   canvas3d.addEventListener('wheel', e => {
     e.preventDefault();
     camDist = Math.max(190, Math.min(680, camDist + e.deltaY * 0.25));
@@ -3509,7 +3603,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       <button class="cite-pill" onclick="window.__jumpToPage(${s.start_page}, '')">Open p.${s.start_page}</button>
     `;
   }
-  update3dHud(stalkById['sheaf-of-ologged-concepts-descent']);
+  update3dHud(stalkById['sheaf-of-ologged-concepts-descent'] || KB.stalks[0]);
 
   function project3d(pt, W, H) {
     const [x, y, z] = pt || [0, 0, 0];
@@ -3678,7 +3772,18 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         pages: (m.pages || [1]).map(p => Math.max(1, Math.min(maxCorpusPages, Math.round((p * maxCorpusPages) / 609))))
       }));
 
-  document.getElementById('courseModulesGrid').innerHTML = COURSE_MODULES.map(m => `
+  window.__launchCourseModuleLab = function(modIdx) {
+    const mod = COURSE_MODULES[modIdx] || COURSE_MODULES[0];
+    const primKeys = ['comp', 'pullback', 'comp', 'nat', 'comp', 'prod', 'sheaf'];
+    const symKey = primKeys[modIdx % primKeys.length] || 'comp';
+    renderSymbolicSandbox(symKey, 0);
+    window.__focusPlate('plate-3', true);
+    if (mod && mod.pages && mod.pages[0]) {
+      renderPageReader(mod.pages[0], '');
+    }
+  };
+
+  document.getElementById('courseModulesGrid').innerHTML = COURSE_MODULES.map((m, idx) => `
     <article class="module-card">
       <div class="m-head">
         <span class="mono" style="font-size:0.69rem;color:var(--ink-3)">${escapeHtml(m.vol)}</span>
@@ -3694,8 +3799,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       </div>
       <div style="font-size:0.79rem;color:var(--ink-2);padding:0.45rem 0;border-top:1px dotted var(--rule);border-bottom:1px dotted var(--rule)">
         <strong class="mono" style="font-size:0.68rem;text-transform:uppercase;color:var(--accent-text)">Walkable Lab:</strong> ${escapeHtml(m.lab)}
-        <div style="margin-top:5px">
-          ${m.pages.map(p => `<button class="cite-pill" onclick="window.__jumpToPage(${p}, '')">§ p.${p}</button>`).join(' ')}
+        <div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+          <div>${m.pages.map(p => `<button class="cite-pill" onclick="window.__jumpToPage(${p}, '')">§ p.${p}</button>`).join(' ')}</div>
+          <button type="button" class="preset-btn" onclick="window.__launchCourseModuleLab(${idx})">🧪 Launch Walkable Lab ↗</button>
         </div>
       </div>
       <div class="callout-box" style="border-left-color:var(--ax-science);margin-top:auto">
@@ -3731,16 +3837,35 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       return st ? `<span class="stamp ratified">◆ ${escapeHtml(st.title)}</span>` : '';
     }).join(' ');
 
+    const pageFormalItems = (KB.formal_items && KB.formal_items.length)
+      ? KB.formal_items.filter(it => Number(it.page) === p)
+      : KB.stalks.flatMap(s => s.formal_items || []).filter(it => Number(it.page) === p);
+
+    const formalBannerHtml = pageFormalItems.length
+      ? `<div class="reader-formal-callout">
+          <div class="mono" style="font-size:0.66rem;text-transform:uppercase;color:var(--accent-text);font-weight:600;margin-bottom:2px">
+            Anchored Formal Declarations on Page ${p} (${pageFormalItems.length})
+          </div>
+          ${pageFormalItems.slice(0, 5).map(it => {
+            const sym = it.kind === 'Definition' ? '◆' : (it.kind === 'Theorem' || it.kind === 'Proposition' || it.kind === 'Lemma') ? '⚖' : '✓';
+            return `<div class="rf-item"><strong>${sym} ${escapeHtml(it.kind)} ${escapeHtml(it.number || '')}${it.title ? ' (' + escapeHtml(it.title) + ')' : ''}:</strong> ${convertLatexTokensToHtml((it.text || '').slice(0, 175))}${(it.text || '').length > 175 ? '…' : ''}</div>`;
+          }).join('')}
+        </div>`
+      : '';
+
     document.getElementById('readerPageMeta').innerHTML = `
       <div style="display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:0.75rem;color:var(--accent-text);font-weight:600">
         <span>Corpus Page ${pObj.p} of ${maxCorpusPages} · Chapter ${pObj.ch}</span>
-        <span>${pObj.wc || 0} words</span>
+        <span>${pObj.wc || 0} words · ${pageFormalItems.length} formal items</span>
       </div>
       <div style="font-size:0.84rem;color:var(--ink-2);margin-top:2px">${escapeHtml(pObj.sec || 'Frontmatter / Index')}</div>
       ${sBadges ? `<div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">${sBadges}</div>` : ''}
+      ${formalBannerHtml}
     `;
 
     let rawHtml = renderRichMarkdown(pObj.txt || '(Diagram / Blank Page in PDF — click "Open PDF ↗" above to inspect vector graphic)');
+    rawHtml = rawHtml.replace(/\b(Definition|Theorem|Proposition|Lemma|Example|Application|Exercise|Remark)\s+(\d+(?:\.\d+)+)/g,
+      '<span class="vb-formal-tag">◆ $1 $2</span>');
     if (state.highlightTerm && state.highlightTerm.length >= 2) {
       const safe = state.highlightTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       rawHtml = rawHtml.replace(new RegExp(`(<[^>]+>)|(${safe})`, 'gi'), (m, tag, hit) => tag ? tag : `<mark class="hl">${hit}</mark>`);
@@ -3753,7 +3878,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   document.getElementById('pageNumInput').addEventListener('change', e => renderPageReader(e.target.value));
   document.getElementById('pageSlider').addEventListener('input', e => renderPageReader(e.target.value));
 
-  // Debounced full-corpus search
+  // Debounced full-corpus multi-token & formal-item search
   let searchTimer = null;
   const searchInput = document.getElementById('fullBookSearchInput');
   const searchResults = document.getElementById('bookSearchResults');
@@ -3762,21 +3887,43 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     searchTimer = setTimeout(() => {
       const q = searchInput.value.trim().toLowerCase();
       if (q.length < 2) { searchResults.style.display = 'none'; return; }
+      const tokens = q.split(/\s+/).filter(t => t.length >= 2);
       const hits = [];
+
+      const allDecls = (KB.formal_items && KB.formal_items.length)
+        ? KB.formal_items
+        : KB.stalks.flatMap(s => s.formal_items || []);
+      for (let i = 0; i < allDecls.length; i++) {
+        const it = allDecls[i];
+        const hay = `${it.id} ${it.kind} ${it.number || ''} ${it.title || ''} ${it.text || ''}`.toLowerCase();
+        if (tokens.every(tok => hay.includes(tok))) {
+          hits.push({
+            p: it.page,
+            sec: `${it.kind} ${it.number || ''} · ${it.title || ''}`,
+            snip: (it.text || '').slice(0, 120).replace(/\s+/g, ' '),
+            hl: tokens[0] || q
+          });
+          if (hits.length >= 6) break;
+        }
+      }
+
       for (let i = 0; i < KB.pages.length; i++) {
         const pg = KB.pages[i];
-        const idx = (pg.txt || '').toLowerCase().indexOf(q);
-        if (idx !== -1) {
-          const snip = pg.txt.slice(Math.max(0, idx - 35), Math.min(pg.txt.length, idx + 95)).replace(/\s+/g, ' ');
-          hits.push({ p: pg.p, sec: pg.sec, snip });
-          if (hits.length >= 20) break;
+        const txtLower = (pg.txt || '').toLowerCase();
+        const hay = `${pg.sec || ''} ${txtLower}`.toLowerCase();
+        if (tokens.every(tok => hay.includes(tok))) {
+          const firstTok = tokens[0] || q;
+          const idx = Math.max(0, txtLower.indexOf(firstTok));
+          const snip = (pg.txt || '').slice(Math.max(0, idx - 35), Math.min((pg.txt || '').length, idx + 95)).replace(/\s+/g, ' ');
+          hits.push({ p: pg.p, sec: pg.sec, snip, hl: firstTok });
+          if (hits.length >= 22) break;
         }
       }
       searchResults.style.display = 'block';
       searchResults.innerHTML = hits.length
         ? hits.map(h => `
             <div style="padding:5px 7px;border-bottom:1px dotted var(--rule);cursor:pointer;font-size:0.78rem"
-                 onclick="window.__jumpToPage(${h.p}, '${escapeHtml(q.replace(/'/g, "\\'"))}')">
+                 onclick="window.__jumpToPage(${h.p}, '${escapeHtml((h.hl || q).replace(/'/g, "\\'"))}')">
               <div class="mono" style="color:var(--accent-text);font-weight:600">p.${h.p} · ${escapeHtml(h.sec)}</div>
               <div style="color:var(--ink-2)">…${escapeHtml(h.snip)}…</div>
             </div>
@@ -3799,6 +3946,8 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
   const activeSubtitle = document.getElementById('podcastActiveSubtitle');
   const visualCueText = document.getElementById('podcastVisualCueText');
   const cuePageBtn = document.getElementById('podcastCuePageBtn');
+  const jumpVisualBtn = document.getElementById('podcastJumpVisualBtn');
+  const turnRailEl = document.getElementById('podcastTurnRail');
   const actButtons = Array.from(document.querySelectorAll('#podcastActBar .podcast-act-step'));
   const hostBadgeKore = document.getElementById('hostBadgeKore');
   const hostBadgePuck = document.getElementById('hostBadgePuck');
@@ -3888,6 +4037,18 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     return 0;
   }
 
+  function inferSymbolicPrimitiveForTurn(turn) {
+    const s = `${turn && turn.visual_cue || ''} ${turn && turn.text || ''}`.toLowerCase();
+    if (/sheaf|gluing|cover|equalizer|cech|cohomol/.test(s)) return 'sheaf';
+    if (/adjoin|kan|migration|unit|counit/.test(s)) return 'adj';
+    if (/natural|functor|homomorphism/.test(s)) return 'nat';
+    if (/pushout|colimit|amalgam/.test(s)) return 'pushout';
+    if (/pullback|fiber|join/.test(s)) return 'pullback';
+    if (/coproduct|disjoint|sum/.test(s)) return 'coprod';
+    if (/product|pairing|tuple/.test(s)) return 'prod';
+    return 'comp';
+  }
+
   function syncActiveTurnUi(turn, idx) {
     if (!turn) return;
     highlightActiveSpeaker(turn.speaker);
@@ -3895,6 +4056,9 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     const col = isKore ? 'var(--accent-text)' : 'var(--good)';
     const actIdx = getTurnActIndex(turn, idx);
     actButtons.forEach((b, bIdx) => b.classList.toggle('active', bIdx === actIdx));
+    if (turnRailEl) {
+      turnRailEl.querySelectorAll('.podcast-turn-dot').forEach((d, dIdx) => d.classList.toggle('active', dIdx === idx));
+    }
     if (visualCueText) {
       const rawCue = turn.visual_cue || `Inspecting ${turn.act || 'diagram'} on page ${turn.cite_page || 1}`;
       const cleanCue = rawCue.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F\s]+/u, '');
@@ -3904,6 +4068,13 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       const cp = turn.cite_page || 1;
       cuePageBtn.textContent = `§ p.${cp}`;
       cuePageBtn.setAttribute('onclick', `window.__jumpToPage(${cp}, '')`);
+    }
+    if (jumpVisualBtn) {
+      const primKey = inferSymbolicPrimitiveForTurn(turn);
+      jumpVisualBtn.onclick = () => {
+        renderSymbolicSandbox(primKey, 0);
+        window.__focusPlate('plate-3', true);
+      };
     }
     if (activeSubtitle) {
       activeSubtitle.style.borderLeftColor = col;
@@ -3927,13 +4098,17 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     });
   });
 
-  function buildCustomPodcastTurns(inv) {
-    const covStalks = (inv.open_cover || []).map(id => stalkById[id]).filter(Boolean);
+  function buildCustomPodcastTurns(arg1, topStalks, coh) {
+    const isInvObj = arg1 && typeof arg1 === 'object';
+    const qText = isInvObj ? (arg1.question || 'Custom Sheaf Investigation') : String(arg1 || 'Custom Sheaf Investigation');
+    const covStalks = isInvObj
+      ? (arg1.open_cover || []).map(id => stalkById[id]).filter(Boolean)
+      : (Array.isArray(topStalks) && topStalks.length ? topStalks : Array.from(state.openCover).map(id => stalkById[id]).filter(Boolean));
     const sA = covStalks[0] || KB.stalks[0] || { title: 'Opening Stalk', start_page: 1, summary: '', formal_core: '' };
     const sM = covStalks[Math.floor(covStalks.length / 2)] || sA;
     const sB = covStalks[covStalks.length - 1] || sA;
     return [
-      { speaker: 'Kore', role: 'Lead Architect', act: 'Act I · Visual Hook & Notation', visual_cue: `Page ${sA.start_page}: ${sA.title}`, start_sec: 0, end_sec: 16, cite_page: sA.start_page, text: `Welcome to the 4-Act Deep Dive for "${inv.question}". We are gluing ${covStalks.length} stalks starting from ${sA.title} on page ${sA.start_page}.` },
+      { speaker: 'Kore', role: 'Lead Architect', act: 'Act I · Visual Hook & Notation', visual_cue: `Page ${sA.start_page}: ${sA.title}`, start_sec: 0, end_sec: 16, cite_page: sA.start_page, text: `Welcome to the 4-Act Deep Dive for "${qText}". We are gluing ${covStalks.length} stalks starting from ${sA.title} on page ${sA.start_page}.` },
       { speaker: 'Puck', role: 'Systems Co-Host', act: 'Act I · Visual Hook & Notation', visual_cue: `Page ${sA.start_page}: Local Olog Schema`, start_sec: 16, end_sec: 32, cite_page: sA.start_page, text: `On page ${sA.start_page}, ${sA.title} establishes our opening schema: ${sA.summary}` },
       { speaker: 'Kore', role: 'Lead Architect', act: 'Act II · Walking the Diagram', visual_cue: `Page ${sA.start_page}: Formal Categorical Core`, start_sec: 32, end_sec: 50, cite_page: sA.start_page, text: `Let's walk the arrows in ${sA.title}. Every object in the local Olog carries typed aspect morphisms that must commute across overlaps.` },
       { speaker: 'Puck', role: 'Systems Co-Host', act: 'Act II · Walking the Diagram', visual_cue: `Page ${sM.start_page}: Intermediate Stalk ${sM.title}`, start_sec: 50, end_sec: 68, cite_page: sM.start_page, text: `Bridging through ${sM.title} on page ${sM.start_page}, we see how the restriction arrows preserve the invariant: ${sM.summary}` },
@@ -3961,11 +4136,21 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
     const dur = baseInv.audio_duration_sec || 175;
 
     if (relAudio && audioEl) {
-      audioEl.src = (bundleBaseDir ? bundleBaseDir + '/' : '') + relAudio;
+      const candidateSrc = (bundleBaseDir ? bundleBaseDir + '/' : '') + relAudio;
+      audioEl.dataset.fallbackSrc = 'data/' + relAudio;
+      audioEl.src = candidateSrc;
       audioEl.playbackRate = speedSteps[speedIdx];
     }
     if (timeLabel) timeLabel.textContent = `0:00 / ${fmtSec(dur)}`;
     if (scrubSlider) scrubSlider.value = 0;
+
+    if (turnRailEl) {
+      turnRailEl.innerHTML = currentTurns.map((t, idx) => `
+        <button type="button" class="podcast-turn-dot ${idx === 0 ? 'active' : ''}" data-speaker="${escapeHtml(t.speaker)}"
+                title="Turn ${idx + 1} (${escapeHtml(t.speaker)} · p.${t.cite_page || 1}): ${escapeHtml((t.visual_cue || t.text || '').slice(0, 65))}"
+                onclick="window.__selectPodcastTurn(${idx})">T${idx + 1}</button>
+      `).join('');
+    }
 
     if (currentTurns.length) {
       syncActiveTurnUi(currentTurns[0], 0);
@@ -3977,7 +4162,7 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
         const col = isKore ? 'var(--accent-text)' : 'var(--good)';
         return `
           <div class="podcast-turn-row" data-turn-idx="${idx}" style="padding:7px 8px;border-bottom:1px dotted var(--rule);cursor:pointer;transition:background 0.15s"
-               onclick="window.__seekPodcastTo(${t.start_sec || 0}, ${t.cite_page || 1})">
+               onclick="window.__selectPodcastTurn(${idx})">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;flex-wrap:wrap;gap:4px">
               <span class="mono" style="color:${col};font-weight:600">${isKore ? '🎙️' : '🎧'} Turn ${idx + 1} · ${escapeHtml(t.speaker)} (${escapeHtml(t.role || 'Host')})</span>
               <div style="display:flex;gap:5px;align-items:center">
@@ -3993,6 +4178,22 @@ html[data-view-mode="focus"] .plate-focus-bar { display: flex; }
       }).join('');
     }
   };
+
+  window.__selectPodcastTurn = function(idx) {
+    const t = currentTurns[idx];
+    if (!t) return;
+    syncActiveTurnUi(t, idx);
+    window.__seekPodcastTo(t.start_sec || 0, t.cite_page || 1);
+  };
+
+  if (audioEl) {
+    audioEl.addEventListener('error', () => {
+      const fb = audioEl.dataset.fallbackSrc;
+      if (fb && !audioEl.src.endsWith(fb)) {
+        audioEl.src = fb;
+      }
+    });
+  }
 
   function togglePodcastPlayback() {
     if (!audioEl || !audioEl.src) {

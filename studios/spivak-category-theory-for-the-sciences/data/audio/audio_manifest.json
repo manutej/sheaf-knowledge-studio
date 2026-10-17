@@ -1,0 +1,35 @@
+{
+  "book_title": "Category Theory for the Sciences",
+  "episodes": {
+    "q-sheaf-olog-worldview": {
+      "audio_file": "audio/podcast_q-sheaf-olog-worldview.mp3",
+      "duration_sec": 103.94,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 7
+    },
+    "q-cat-sch-data-migration": {
+      "audio_file": "audio/podcast_q-cat-sch-data-migration.mp3",
+      "duration_sec": 91.55,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-limits-vs-colimits": {
+      "audio_file": "audio/podcast_q-limits-vs-colimits.mp3",
+      "duration_sec": 74.22,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-monads-scientific-method": {
+      "audio_file": "audio/podcast_q-monads-scientific-method.mp3",
+      "duration_sec": 81.85,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-yoneda-grothendieck-operads": {
+      "audio_file": "audio/podcast_q-yoneda-grothendieck-operads.mp3",
+      "duration_sec": 85.91,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    }
+  }
+}

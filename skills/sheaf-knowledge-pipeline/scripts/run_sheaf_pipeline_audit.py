@@ -17,9 +17,20 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[4]
-VALIDATE_SCRIPT = ROOT / ".agents/skills/sheaf-corpus-indexer/scripts/validate_sheaf_contract.py"
-AUDIT_HTML_SCRIPT = ROOT / ".agents/skills/sheaf-field-manual-studio/scripts/audit_rendered_html.py"
+THIS_DIR = Path(__file__).resolve().parent
+SKILLS_ROOT = THIS_DIR.parents[1]
+ROOT = THIS_DIR.parents[3] if (THIS_DIR.parents[3] / ".agents").exists() else THIS_DIR.parents[2]
+
+VALIDATE_SCRIPT = (
+    SKILLS_ROOT / "sheaf-corpus-indexer/scripts/validate_sheaf_contract.py"
+    if (SKILLS_ROOT / "sheaf-corpus-indexer/scripts/validate_sheaf_contract.py").exists()
+    else ROOT / ".agents/skills/sheaf-corpus-indexer/scripts/validate_sheaf_contract.py"
+)
+AUDIT_HTML_SCRIPT = (
+    SKILLS_ROOT / "sheaf-field-manual-studio/scripts/audit_rendered_html.py"
+    if (SKILLS_ROOT / "sheaf-field-manual-studio/scripts/audit_rendered_html.py").exists()
+    else ROOT / ".agents/skills/sheaf-field-manual-studio/scripts/audit_rendered_html.py"
+)
 
 
 def load_module(name: str, path: Path):
@@ -80,7 +91,7 @@ def main():
 
     a1_ids = ["HF-SHEAF-01", "HF-SHEAF-02", "HF-SHEAF-03", "HF-SHEAF-04", "HF-SHEAF-05", "HF-SHEAF-06", "HF-SHEAF-07", "HF-STUDIO-07"]
     a2_ids = ["HF-SHEAF-10", "HF-SHEAF-11", "HF-STUDIO-02", "HF-STUDIO-09", "HF-MCP-01", "HF-CONTRACT-01"]
-    a3_ids = ["HF-STUDIO-01", "HF-STUDIO-03", "HF-STUDIO-04", "HF-STUDIO-05", "HF-STUDIO-06", "HF-STUDIO-08", "HF-STUDIO-11"]
+    a3_ids = ["HF-STUDIO-01", "HF-STUDIO-03", "HF-STUDIO-04", "HF-STUDIO-05", "HF-STUDIO-06", "HF-STUDIO-08", "HF-STUDIO-11", "HF-STUDIO-12"]
     a4_ids = ["HF-SHEAF-08", "HF-SHEAF-09", "HF-SHEAF-12", "HF-SHEAF-13", "HF-STUDIO-10"]
 
     def lens_summary(ids):

@@ -98,10 +98,19 @@ def audit_html(html_path: Path, kb_path: Path) -> dict:
     missing_tok = [t for t in req_tokens if t not in html]
     gate("HF-STUDIO-01", len(missing_tok) == 0, f"Field-Manual paper/ink & 3-voice typography tokens present ({len(req_tokens)-len(missing_tok)}/{len(req_tokens)})")
 
-    # HF-STUDIO-02: Fast-Load Split-Bundle Architecture
+    # HF-STUDIO-02: Fast-Load Split-Bundle Architecture & Verified Bundle Path on Disk
     size_kb = html_path.stat().st_size / 1024.0
-    has_defer = '<script defer src="' in html and "sheaf_pages_bundle.js" in html
-    gate("HF-STUDIO-02", size_kb < 450.0 and has_defer, f"Core HTML size {size_kb:.1f} KB (< 450 KB limit); deferred bundle tag present={has_defer}")
+    bundle_m = re.search(r'<script\s+defer\s+src="([^"]*sheaf_pages_bundle\.js[^"]*)"', html)
+    has_defer = bool(bundle_m)
+    bundle_rel = bundle_m.group(1) if bundle_m else ""
+    bundle_resolved = (html_path.parent / bundle_rel).resolve() if bundle_rel else None
+    bundle_exists = bool(bundle_resolved and bundle_resolved.exists() and bundle_resolved.stat().st_size > 10000)
+    bundle_kb = (bundle_resolved.stat().st_size / 1024.0) if bundle_exists else 0.0
+    gate(
+        "HF-STUDIO-02",
+        size_kb < 450.0 and has_defer and bundle_exists,
+        f"Core HTML size {size_kb:.1f} KB (< 450 KB limit); deferred bundle '{bundle_rel}' exists={bundle_exists} ({bundle_kb:.1f} KB)"
+    )
 
     # HF-STUDIO-03: Zero Raw LaTeX Leakage in static HTML + all KB strings after convertLatexTokensToHtml
     # Strip <script> blocks from HTML to inspect static visible markup
@@ -206,8 +215,23 @@ def audit_html(html_path: Path, kb_path: Path) -> dict:
         f"Dual-Host Podcast Deck={has_podcast_card}; Transcript/Gemini Drawers={has_podcast_drawers}; Gemini 2.5 TTS={has_gemini_tts}; Dynamic Custom Dialogue={has_custom_podcast}"
     )
 
+    # HF-STUDIO-12: Visual Browser, Mobile Touch, 10-Turn Sync, Reader Callout & Interactive Ergonomics Gate
+    has_viewport = '<meta name="viewport"' in html
+    has_mobile_dock = 'id="mobileBottomDock"' in html and ('data-set-view="focus"' in html or "window.__focusPlate" in html)
+    has_turn_rail = 'id="podcastTurnRail"' in html and 'id="podcastActBar"' in html and 'id="podcastJumpVisualBtn"' in html and "window.__selectPodcastTurn" in html
+    has_3d_touch = "touch-action: none" in html and "addEventListener('touchstart'" in html and "addEventListener('touchmove'" in html and "addEventListener('wheel'" in html
+    has_reader_callout = "reader-formal-callout" in html
+    has_walkable_lab = "window.__launchCourseModuleLab" in html
+    has_no_dead_mod3 = "modeIdx % 3" not in html
+    gate(
+        "HF-STUDIO-12",
+        has_viewport and has_mobile_dock and has_turn_rail and has_3d_touch and has_reader_callout and has_walkable_lab and has_no_dead_mod3,
+        f"Viewport={has_viewport}; MobileDock+FocusMode={has_mobile_dock}; 10TurnRail+VisualJump={has_turn_rail}; 3DTouch+Wheel={has_3d_touch}; ReaderCallout={has_reader_callout}; WalkableLab={has_walkable_lab}; ZeroDeadMod3={has_no_dead_mod3}"
+    )
+
     report["metrics"] = {
         "core_html_size_kb": round(size_kb, 1),
+        "bundle_size_kb": round(bundle_kb, 1),
         "plates_count": len(plates_found),
         "marginalia_count": marginalia_cnt,
         "counterpoint_count": cp_cnt,

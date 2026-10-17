@@ -1,0 +1,41 @@
+{
+  "book_title": "Category Theory Illustrated",
+  "episodes": {
+    "q-internal-vs-external-lawvere": {
+      "audio_file": "audio/podcast_q-internal-vs-external-lawvere.mp3",
+      "duration_sec": 76.5,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-six-worlds-rosetta-stone": {
+      "audio_file": "audio/podcast_q-six-worlds-rosetta-stone.mp3",
+      "duration_sec": 88.4,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-birkhoff-cube-trinity": {
+      "audio_file": "audio/podcast_q-birkhoff-cube-trinity.mp3",
+      "duration_sec": 75.13,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-type-intro-elim-universal": {
+      "audio_file": "audio/podcast_q-type-intro-elim-universal.mp3",
+      "duration_sec": 79.16,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-functors-natural-polymorphism": {
+      "audio_file": "audio/podcast_q-functors-natural-polymorphism.mp3",
+      "duration_sec": 82.21,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    },
+    "q-marinov-vs-spivak-bridge": {
+      "audio_file": "audio/podcast_q-marinov-vs-spivak-bridge.mp3",
+      "duration_sec": 82.28,
+      "engine": "edge-neural-multilingual (AvaMultilingualNeural + AndrewMultilingualNeural)",
+      "turns_count": 6
+    }
+  }
+}

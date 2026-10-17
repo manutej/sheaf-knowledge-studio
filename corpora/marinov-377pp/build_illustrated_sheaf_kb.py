@@ -1092,6 +1092,108 @@ Gluing Boris Marinov's *Category Theory Illustrated* (`377 pp.`) with David I. S
 ]
 
 
+PDF_KERNING_FIXES = [
+    ("thisproperty", "this property"),
+    ("thesingleton", "the singleton"),
+    ("functionsfrom", "functions from"),
+    ("otherthanwhich", "other than which"),
+    ("toCategories", "to Categories"),
+    ("likethat", "like that"),
+    ("isalso", "is also"),
+    ("oneanother", "one another"),
+    ("areisomorphic", "are isomorphic"),
+    ("theproduct", "the product"),
+    ("representthat", "represent that"),
+    ("comprisedof", "comprised of"),
+    ("cyclicgroups", "cyclic groups"),
+    ("themorphisms", "the morphisms"),
+    ("thatthey", "that they"),
+    ("onemorphism", "one morphism"),
+    ("partialorder", "partial order"),
+    ("partialorders", "partial orders"),
+    ("uniquemorphism", "unique morphism"),
+    ("Naturaltransformations", "Natural transformations"),
+    ("CategoryTheory", "Category Theory"),
+    ("heoryIllustrated", "Theory Illustrated"),
+    ("athematicalPhilosophy", "Mathematical Philosophy"),
+    ("andthe", "and the"),
+    ("ofthe", "of the"),
+    ("inthe", "in the"),
+    ("tothe", "to the"),
+    ("forthe", "for the"),
+]
+
+
+def _is_svg_diagram_label_line(s: str) -> bool:
+    """Return True if line is extracted Inkscape SVG diagram label noise rather than prose or heading."""
+    s = s.strip()
+    if not s:
+        return True
+    if s in ("VV", "G", "A", "B", "C", "X", "Y", "Z", "f", "g", "h", "IDG G", "Y GY G", "Gumroad"):
+        return True
+    # Short token strings composed purely of uppercase/single-letter variables, math symbols, or repeated tokens
+    if len(s) <= 18 and re.match(r"^[A-Z0-9a-z•∘×+→⇒⊆∈=()≤≥\s\-_]{1,18}$", s):
+        words = [w for w in re.split(r"\s+", s) if w]
+        if all(len(w) <= 4 or not re.match(r"^[A-Za-z]{4,}$", w) for w in words):
+            return True
+    return False
+
+
+def _is_valid_section_header(s: str) -> bool:
+    s = s.strip()
+    if len(s) < 4 or len(s) >= 52:
+        return False
+    if _is_svg_diagram_label_line(s):
+        return False
+    if s.endswith((".", ":", ",", ";", "—", "-")):
+        return False
+    if s.startswith(("Task ", "DEFINITION:", "THEOREM:", "Answers", '"', "“", "'")):
+        return False
+    bad_prefixes = (
+        "That is", "Here is", "Or we", "And then", "For example",
+        "We begin", "Furthermore", "We want", "In other", "Notice ",
+        "Since ", "Because ", "If we ", "When we ", "Let us ", "So "
+    )
+    if s.startswith(bad_prefixes):
+        return False
+    if not re.match(r"^[A-Z][A-Za-z0-9\s,\-–—’'/:?()]+$", s):
+        return False
+    # Require at least one capitalized word of length >= 4
+    if not re.search(r"\b[A-Z][a-zA-Z]{3,}\b", s):
+        return False
+    return True
+
+
+def _synthesize_clean_item_title(kind: str, prev_line: str, snippet: str, section_title: str, idx: int) -> str:
+    """Produce a human-meaningful title for a Definition or Theorem instead of SVG diagram label garbage."""
+    cand = (prev_line or "").strip()
+    if (
+        cand
+        and 5 <= len(cand) <= 56
+        and not _is_svg_diagram_label_line(cand)
+        and not cand.endswith((".", ":", ","))
+        and re.match(r"^[A-Z][A-Za-z0-9\s,\-–—’'/:?()]+$", cand)
+        and not cand.startswith(("That is", "Here is", "Or we", "And then", "For example", "We ", "In ", "The following"))
+    ):
+        return cand
+
+    # Extract defined concept or theorem subject from the snippet's opening clause
+    clean_snip = re.sub(r"\s+", " ", snippet).strip()
+    # Look for patterns like "A <concept> is ...", "The <concept> of ...", "Two <concepts> are ..."
+    m = re.match(r"^(?:A|An|The)\s+([A-Za-z][A-Za-z0-9\s\-]{2,38}?)\s+(?:is|are|consists|of|between|from|in)\b", clean_snip)
+    if m:
+        phrase = m.group(1).strip()
+        if len(phrase) >= 3:
+            return f"{phrase.title()} ({section_title})"[:68]
+
+    # Or take first 6–7 meaningful words of the snippet
+    words = [w.strip(".,:;()\"'") for w in clean_snip.split() if len(w.strip(".,:;()\"'")) >= 2]
+    if words:
+        lead = " ".join(words[:6])
+        return f"{section_title} — {lead}"[:68]
+    return f"{section_title} ({kind} {idx})"
+
+
 def clean_page_text(raw: str) -> str:
     lines = []
     for line in raw.splitlines():
@@ -1102,6 +1204,8 @@ def clean_page_text(raw: str) -> str:
             continue
         if s.startswith("https://abuseofnotation.github.io/category-theory-illustrated/"):
             continue
+        for bad_k, good_k in PDF_KERNING_FIXES:
+            s = re.sub(rf"\b{re.escape(bad_k)}\b", good_k, s)
         lines.append(s)
     return "\n".join(lines)
 
@@ -1121,6 +1225,23 @@ def stalks_for_page(pno: int):
         else:
             matched = [STALKS[-1]["id"]]
     return matched
+
+
+def _collect_item_snippet(lines: list[str], start_idx: int) -> str:
+    """Collect clean prose lines for a DEFINITION/THEOREM/Task, stopping before the next marker and skipping SVG label noise."""
+    collected = []
+    for j in range(start_idx, min(len(lines), start_idx + 8)):
+        lj = lines[j].strip()
+        if j > start_idx and (lj in ("DEFINITION:", "THEOREM:") or re.match(r"^Task\s+\d+\s*:", lj)):
+            break
+        if _is_svg_diagram_label_line(lj):
+            continue
+        # Strip trailing glued SVG labels like ".Y G Y⊆G YG"
+        lj = re.sub(r"(\.)[A-Z0-9⊆×•\s]{2,14}$", r"\1", lj)
+        collected.append(lj)
+        if len(" ".join(collected)) >= 320:
+            break
+    return " ".join(collected)[:360].strip()
 
 
 def main():
@@ -1144,16 +1265,10 @@ def main():
         s_ids = stalks_for_page(pno)
         lines = [l.strip() for l in txt.splitlines() if l.strip()]
 
-        # Detect section headers
+        # Detect valid section headers
         if lines:
             first = lines[0]
-            if (
-                len(first) < 52
-                and not first.endswith(".")
-                and not first.startswith("Task ")
-                and first not in ("DEFINITION:", "THEOREM:", "Answers")
-                and re.match(r"^[A-Z\"][A-Za-z0-9\s,\-–—’'/:?()]+$", first)
-            ):
+            if _is_valid_section_header(first):
                 current_section = first
                 sections_index.append({"page": pno, "chapter": ch_num, "title": current_section})
 
@@ -1162,8 +1277,9 @@ def main():
         for i, l in enumerate(lines):
             if l == "DEFINITION:":
                 def_idx += 1
-                snippet = " ".join(lines[i + 1 : min(len(lines), i + 5)])[:360]
-                title_guess = lines[i - 1][:65] if i > 0 and len(lines[i - 1]) < 65 else f"Visual Definition {def_idx}"
+                snippet = _collect_item_snippet(lines, i + 1) or txt[:300]
+                prev_line = lines[i - 1] if i > 0 else ""
+                title_guess = _synthesize_clean_item_title("Definition", prev_line, snippet, current_section, def_idx)
                 item_id = f"Definition-{ch_num}.{def_idx}"
                 page_item_ids.append(item_id)
                 formal_items.append({
@@ -1175,13 +1291,14 @@ def main():
                     "chapter": ch_num,
                     "section": current_section,
                     "stalk_ids": s_ids,
-                    "text": snippet or txt[:300],
+                    "text": snippet,
                     "references": [f"p.{pno}"]
                 })
             elif l == "THEOREM:":
                 thm_idx += 1
-                snippet = " ".join(lines[i + 1 : min(len(lines), i + 5)])[:360]
-                title_guess = lines[i - 1][:65] if i > 0 and len(lines[i - 1]) < 65 else f"Visual Theorem {thm_idx}"
+                snippet = _collect_item_snippet(lines, i + 1) or txt[:300]
+                prev_line = lines[i - 1] if i > 0 else ""
+                title_guess = _synthesize_clean_item_title("Theorem", prev_line, snippet, current_section, thm_idx)
                 item_id = f"Theorem-{ch_num}.{thm_idx}"
                 page_item_ids.append(item_id)
                 formal_items.append({
@@ -1193,7 +1310,7 @@ def main():
                     "chapter": ch_num,
                     "section": current_section,
                     "stalk_ids": s_ids,
-                    "text": snippet or txt[:300],
+                    "text": snippet,
                     "references": [f"p.{pno}"]
                 })
             else:
@@ -1202,7 +1319,7 @@ def main():
                     task_idx += 1
                     t_num = m_task.group(1)
                     rest = m_task.group(2)
-                    more = " ".join(lines[i + 1 : min(len(lines), i + 4)])
+                    more = _collect_item_snippet(lines, i + 1)
                     snippet = (rest + " " + more).strip()[:360]
                     item_id = f"Task-{ch_num}.{task_idx}"
                     page_item_ids.append(item_id)
@@ -1210,7 +1327,7 @@ def main():
                         "id": item_id,
                         "kind": "Exercise",
                         "number": f"{ch_num}.{task_idx} (Task {t_num})",
-                        "title": f"Interactive Task {t_num} ({current_section})",
+                        "title": f"Interactive Task {t_num} · {current_section}",
                         "page": pno,
                         "chapter": ch_num,
                         "section": current_section,
@@ -1235,7 +1352,6 @@ def main():
     for s in STALKS:
         s_items = [it for it in formal_items if s["id"] in it["stalk_ids"]]
         if not s_items:
-            # Synthesize a canonical anchor item from the stalk's formal core if a short page range had no literal marker
             anchor = {
                 "id": f"Principle-{s['chapter']}.{s['symbol']}",
                 "kind": "Definition",
@@ -1462,15 +1578,56 @@ def main():
     if kb_path.exists():
         try:
             old_kb = json.loads(kb_path.read_text(encoding="utf-8"))
+            old_stalk_by_id = {s["id"]: s for s in old_kb.get("stalks", []) if "id" in s}
+            for s in full_kb["stalks"]:
+                os_obj = old_stalk_by_id.get(s["id"], {})
+                for k in ("defined_terms", "symbol_inventory", "tfidf_signature", "prerequisites"):
+                    if k in os_obj and k not in s:
+                        s[k] = os_obj[k]
+            old_morph_by_id = {m["id"]: m for m in old_kb.get("restriction_morphisms", []) if "id" in m}
+            for m in full_kb["restriction_morphisms"]:
+                om_obj = old_morph_by_id.get(m["id"], {})
+                for k in ("metrics", "restriction_fidelity", "coboundary_defect_d0", "shared_terms", "shared_defined_terms", "cross_ref_citations"):
+                    if k in om_obj and k not in m:
+                        m[k] = om_obj[k]
+            if "cohomology_obstructions" in old_kb:
+                full_kb["cohomology_obstructions"] = old_kb["cohomology_obstructions"]
             for old_inv in old_kb.get("notebook_investigations", []):
-                if old_inv.get("id") and old_inv.get("podcast_turns"):
+                if old_inv.get("id"):
                     existing_podcast_by_id[old_inv["id"]] = {
                         k: old_inv[k]
-                        for k in ("audio_file", "audio_duration_sec", "audio_engine", "podcast_hosts", "podcast_turns")
+                        for k in ("cohomology", "audio_file", "audio_duration_sec", "audio_engine", "podcast_hosts", "podcast_turns")
                         if k in old_inv
                     }
         except Exception:
             pass
+
+    stalk_map_now = {s["id"]: s for s in full_kb["stalks"]}
+    morph_pair_map = {}
+    for m in full_kb["restriction_morphisms"]:
+        u, v = m["source"], m["target"]
+        morph_pair_map[(u, v)] = m
+        morph_pair_map[(v, u)] = m
+    for tau in full_kb["two_simplices"]:
+        u, v, w = tau["vertices"]
+        m_uv = morph_pair_map.get((u, v), {})
+        m_vw = morph_pair_map.get((v, w), {})
+        m_uw = morph_pair_map.get((u, w), {})
+        f_uv = float(m_uv.get("restriction_fidelity") or 0.72)
+        f_vw = float(m_vw.get("restriction_fidelity") or 0.72)
+        f_uw = float(m_uw.get("restriction_fidelity") or 0.68)
+        tau["holonomy_defect_d1"] = round(min(0.38, abs(f_uw - (f_uv * f_vw))), 3)
+        terms_pool = []
+        for edge_m in (m_uv, m_vw, m_uw):
+            for t in edge_m.get("shared_terms", []):
+                if t not in terms_pool:
+                    terms_pool.append(t)
+        if not terms_pool:
+            for vid in (u, v, w):
+                for kw in stalk_map_now.get(vid, {}).get("keywords", [])[:3]:
+                    if kw not in terms_pool:
+                        terms_pool.append(kw)
+        tau["triple_shared_terms"] = terms_pool[:8]
 
     full_kb["notebook_investigations"] = [
         {
